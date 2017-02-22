@@ -1,4 +1,6 @@
-package com.heqmentor.po.entity;
+package com.heqmentor.dto.entity;
+
+import com.heqmentor.po.entity.Image;
 
 import java.util.Date;
 
@@ -17,12 +19,12 @@ import java.util.Date;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Certificate {
+public class CertificateDto {
     private String id;
     private String name;
     private Integer type;
     private String no;
-    private Image cert;
+    private ImageDto cert;
     private Date start;
     private Date end;
     private String reserve1;
@@ -119,11 +121,11 @@ public class Certificate {
         this.reserve5 = reserve5;
     }
 
-    public Image getCert() {
+    public ImageDto getCert() {
         return cert;
     }
 
-    public void setCert(Image cert) {
+    public void setCert(ImageDto cert) {
         this.cert = cert;
     }
 }

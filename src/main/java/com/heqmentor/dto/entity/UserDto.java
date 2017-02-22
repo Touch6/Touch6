@@ -1,5 +1,7 @@
 package com.heqmentor.dto.entity;
 
+import com.heqmentor.po.entity.Certificate;
+
 import java.util.Date;
 
 /*
@@ -31,7 +33,8 @@ public class UserDto {
     private String districtCode;
     private String address;
     private String mobile;
-    private String idcard;
+    private String email;
+    private CertificateDto idcard;
 
     public String getUid() {
         return uid;
@@ -137,11 +140,11 @@ public class UserDto {
         this.mobile = mobile;
     }
 
-    public String getIdcard() {
+    public CertificateDto getIdcard() {
         return idcard;
     }
 
-    public void setIdcard(String idcard) {
+    public void setIdcard(CertificateDto idcard) {
         this.idcard = idcard;
     }
 }

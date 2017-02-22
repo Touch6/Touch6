@@ -1,7 +1,8 @@
 package com.heqmentor.po.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
-
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -19,6 +20,8 @@ import java.util.Date;
  */
 public class User {
     private String uid;
+    @NotNull
+    @Size(max = 32,message = "姓名长度最大为32位")
     private String name;
     private String nickname;
     private Integer gender;
@@ -31,7 +34,8 @@ public class User {
     private String districtCode;
     private String address;
     private String mobile;
-    private String idcard;
+    private String email;
+    private Certificate idcard;
     private String reserve1;
     private String reserve2;
     private String reserve3;
@@ -142,11 +146,11 @@ public class User {
         this.mobile = mobile;
     }
 
-    public String getIdcard() {
+    public Certificate getIdcard() {
         return idcard;
     }
 
-    public void setIdcard(String idcard) {
+    public void setIdcard(Certificate idcard) {
         this.idcard = idcard;
     }
 
@@ -188,5 +192,13 @@ public class User {
 
     public void setReserve5(String reserve5) {
         this.reserve5 = reserve5;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

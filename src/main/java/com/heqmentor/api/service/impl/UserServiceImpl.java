@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 import org.springside.modules.mapper.BeanMapper;
 
 /**
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMybatisDao userMybatisDao;
+    @Autowired
+    private Validator validator;
 
     @Override
     @Transactional

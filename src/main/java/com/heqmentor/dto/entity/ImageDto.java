@@ -1,8 +1,6 @@
-package com.heqmentor.po.entity;
+package com.heqmentor.dto.entity;
 
-import java.util.Date;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -17,66 +15,56 @@ import java.util.Date;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Certificate {
-    private String id;
-    private String name;
-    private Integer type;
-    private String no;
-    private Image cert;
-    private Date start;
-    private Date end;
+public class ImageDto {
+    private String imageId;
+    private String imageName;
+    private String imageType;
+    private String imageUrl;
+    private String imageBase64;
     private String reserve1;
     private String reserve2;
     private String reserve3;
     private String reserve4;
     private String reserve5;
 
-    public String getId() {
-        return id;
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
-    public String getName() {
-        return name;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
-    public Integer getType() {
-        return type;
+    public String getImageType() {
+        return imageType;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
 
-    public String getNo() {
-        return no;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public Date getStart() {
-        return start;
+    public String getImageBase64() {
+        return imageBase64;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     public String getReserve1() {
@@ -117,13 +105,5 @@ public class Certificate {
 
     public void setReserve5(String reserve5) {
         this.reserve5 = reserve5;
-    }
-
-    public Image getCert() {
-        return cert;
-    }
-
-    public void setCert(Image cert) {
-        this.cert = cert;
     }
 }
