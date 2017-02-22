@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.heqmentor.dao.repository.mybatis.CertificateMybatisDao">
+    <insert id="addCert" parameterType="com.heqmentor.po.entity.Certificate">
+        INSERT  INTO
+        t_b_certificate(
+        id,name,type,no,cert,
+        start,end,
+        reserve1,reserve2,reserve3,reserve4,reserve5
+        )
+        VALUES(
+        #{id},#{name},#{type},#{no},#{cert.imageId},
+        #{start},#{end},
+        #{reserve1},#{reserve2},#{reserve3},#{reserve4},#{reserve5}
+        )
+    </insert>
+</mapper>
