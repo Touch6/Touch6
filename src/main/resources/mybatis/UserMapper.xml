@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.heqmentor.dao.repository.mybatis.UserMybatisDao">
+    <insert id="addUser" parameterType="com.heqmentor.po.entity.User">
+        INSERT  INTO
+        t_b_user(
+        uid,name,nickname,gender,birth,
+        age,nation,profession,province_code,city_code,
+        district_code,address,mobile,idcard,reserve1,
+        reserve2,reserve3,reserve4,reserve5
+        )
+        VALUES(
+        #{uid},#{name},#{nickname},#{gender},#{birth},
+        #{age},#{nation},#{profession},#{provinceCode},#{cityCode},
+        #{districtCode},#{address},#{mobile},#{idcard},#{reserve1},
+        #{reserve2},#{reserve3},#{reserve4},#{reserve5}
+        )
+    </insert>
+</mapper>
