@@ -147,4 +147,12 @@ public class UserDto {
     public void setIdcard(CertificateDto idcard) {
         this.idcard = idcard;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

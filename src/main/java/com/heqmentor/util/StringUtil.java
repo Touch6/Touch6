@@ -17,7 +17,7 @@ import java.util.UUID;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class StringUtils {
+public class StringUtil {
     public static final String generate32uuid() {
         UUID uuid = UUID.randomUUID();
         String str = uuid.toString();
