@@ -2,6 +2,7 @@ package com.heqmentor.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.heqmentor.api.service.UserService;
+import com.heqmentor.dto.entity.RegisterDto;
 import com.heqmentor.dto.entity.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +18,20 @@ import org.springframework.web.bind.annotation.*;
  */
 @SuppressWarnings("ALL")
 @Controller
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/api/v1/user")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "user", method = RequestMethod.POST,
+    @RequestMapping(value = "register", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity addUser(@RequestBody UserDto userDto) {
+    public ResponseEntity register(@RequestBody RegisterDto registerDto) {
         try {
-            userService.addUser(userDto);
+            userService.register(registerDto);
             JSONObject ok = new JSONObject();
             ok.put("success", true);
             ok.put("msg", "新增用户成功");

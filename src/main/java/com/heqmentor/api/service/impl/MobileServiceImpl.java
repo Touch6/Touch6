@@ -80,7 +80,7 @@ public class MobileServiceImpl implements MobileService {
         if (mobileCode == null) {
             throw new Exception("手机号码错误");
         }
-        if (mobileCode.getPrevCode().equals(code)) {
+        if (mobileCode.getPresCode().equals(code)) {
             //equals
             mobileCode.setVerifyResult(MobileVerifyResult.SUCCESS);
             //update mobileCode

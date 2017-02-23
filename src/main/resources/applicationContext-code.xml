@@ -6,11 +6,11 @@
 
 
     <!-- 模块异常码配置 -->
-    <import resource="classpath:exception/code/applicationContext-code-common.xml"/>
+    <import resource="classpath:code/applicationContext-code-common.xml"/>
 
     <!-- 注入工具类 -->
     <bean id="eCodeUtil" class="com.heqmentor.core.exception.ECodeUtil">
         <property name="eCode_comm" ref="eCode_comm"/>
-        <property name="eCode_interface" ref="eCode_interface"/>
+        <!--<property name="eCode_interface" ref="eCode_interface"/>-->
     </bean>
 </beans>
