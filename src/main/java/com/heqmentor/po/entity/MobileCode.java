@@ -1,6 +1,8 @@
 package com.heqmentor.po.entity;
 
-/*		
+import com.heqmentor.enums.MobileVerifyResult;
+
+/*
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -20,6 +22,7 @@ public class MobileCode {
     private String mobile;
     private String prevCode;
     private String presCode;
+    private MobileVerifyResult verifyResult;
     private String reserve1;
     private String reserve2;
     private String reserve3;
@@ -96,5 +99,13 @@ public class MobileCode {
 
     public void setReserve5(String reserve5) {
         this.reserve5 = reserve5;
+    }
+
+    public MobileVerifyResult getVerifyResult() {
+        return verifyResult;
+    }
+
+    public void setVerifyResult(MobileVerifyResult verifyResult) {
+        this.verifyResult = verifyResult;
     }
 }

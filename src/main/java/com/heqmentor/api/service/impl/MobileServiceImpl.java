@@ -3,6 +3,7 @@ package com.heqmentor.api.service.impl;
 import com.heqmentor.api.service.MobileService;
 import com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao;
 import com.heqmentor.dao.repository.mybatis.UserMybatisDao;
+import com.heqmentor.enums.MobileVerifyResult;
 import com.heqmentor.po.entity.MobileCode;
 import com.heqmentor.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -70,5 +71,25 @@ public class MobileServiceImpl implements MobileService {
             }
         }
         return code;
+    }
+
+    @Override
+    @Transactional
+    public void verifyMobileCode(String mobile, String code) throws Exception {
+        MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
+        if (mobileCode == null) {
+            throw new Exception("手机号码错误");
+        }
+        if (mobileCode.getPrevCode().equals(code)) {
+            //equals
+            mobileCode.setVerifyResult(MobileVerifyResult.SUCCESS);
+            //update mobileCode
+            int res1 = mobileCodeMybatisDao.updateMobileCode(mobileCode);
+            if (res1 != 1) {
+                throw new Exception("修改验证结果失败");
+            }
+        } else {
+            throw new Exception("手机验证码不正确");
+        }
     }
 }

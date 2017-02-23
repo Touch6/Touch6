@@ -1,5 +1,7 @@
 package com.heqmentor.util;
 
+import com.heqmentor.enums.MobileVerifyResult;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -36,6 +38,9 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(generate6MobileCode());
+        System.out.println(MobileVerifyResult.SUCCESS);
+        System.out.println(MobileVerifyResult.SUCCESS.name());
+        System.out.println(MobileVerifyResult.SUCCESS.toString());
+        System.out.println(MobileVerifyResult.SUCCESS.ordinal());
     }
 }

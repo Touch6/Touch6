@@ -1,4 +1,4 @@
-package com.heqmentor.api.service;
+package com.heqmentor.enums;
 
 /*		
  * ============================================================================		
@@ -15,28 +15,7 @@ package com.heqmentor.api.service;
  * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public interface MobileService {
-
-    /**
-     * 检测手机号码是否被注册
-     *
-     * @param mobile
-     */
-    void checkMobile(String mobile) throws Exception;
-
-    /**
-     * 生成手机验证码
-     *
-     * @param mobile 手机号
-     * @return
-     */
-    String generateMobileCode(String mobile) throws Exception;
-
-    /**
-     * 验证手机验证码是否正确
-     *
-     * @param mobile
-     * @param code
-     */
-    void verifyMobileCode(String mobile, String code) throws Exception;
+public enum MobileVerifyResult {
+    SUCCESS,
+    FAILED
 }

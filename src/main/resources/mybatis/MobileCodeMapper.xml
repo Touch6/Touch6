@@ -6,7 +6,7 @@
 <mapper namespace="com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao">
     <insert id="insertMobileCode" parameterType="com.heqmentor.po.entity.MobileCode">
         insert into t_b_mobile_code(
-        id,mobile,prev_code,pres_code,
+        id,mobile,prev_code,pres_code,verify_result
         reserve1,reserve2,reserve3,reserve4,reserve5
         )
         values(
@@ -18,7 +18,8 @@
         update t_b_mobile_code
         <set>
             prev_code=#{prevCode},
-            pres_code=#{presCode}
+            pres_code=#{presCode},
+            verify_result=#{verifyResult}
         </set>
         where id=#{id}
     </update>

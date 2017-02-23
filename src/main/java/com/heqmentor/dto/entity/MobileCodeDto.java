@@ -20,6 +20,7 @@ public class MobileCodeDto {
     private String mobile;
     private String prevCode;
     private String presCode;
+    private String verifyResult;
 
     public String getId() {
         return id;
@@ -51,5 +52,13 @@ public class MobileCodeDto {
 
     public void setPresCode(String presCode) {
         this.presCode = presCode;
+    }
+
+    public String getVerifyResult() {
+        return verifyResult;
+    }
+
+    public void setVerifyResult(String verifyResult) {
+        this.verifyResult = verifyResult;
     }
 }
