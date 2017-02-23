@@ -19,7 +19,8 @@
         <set>
             prev_code=#{prevCode},
             pres_code=#{presCode},
-            verify_result=#{verifyResult}
+            prev_verify_result=#{prevVerifyResult},
+            pres_verify_result=#{presVerifyResult}
         </set>
         where id=#{id}
     </update>

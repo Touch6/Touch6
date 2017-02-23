@@ -23,6 +23,13 @@
                     <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
                 </entry>
                 <!--200100 手机验证异常end-->
+
+
+                <!--500100 系统异常start-->
+                <entry key="system.exception">
+                    <error:error code="500100" info="系统异常" des="系统异常，请联系管理员"/>
+                </entry>
+                <!--500100 系统异常end-->
             </map>
         </property>
     </bean>

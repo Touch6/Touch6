@@ -64,6 +64,8 @@ public class MobileServiceImpl implements MobileService {
         } else {
             mobileCode.setPrevCode(mobileCode.getPresCode());
             mobileCode.setPresCode(code);
+            mobileCode.setPrevVerifyResult(mobileCode.getPresVerifyResult());
+            mobileCode.setPresVerifyResult(null);
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
         }
@@ -79,7 +81,8 @@ public class MobileServiceImpl implements MobileService {
         }
         if (mobileCode.getPresCode().equals(code)) {
             //equals
-            mobileCode.setVerifyResult(MobileVerifyResult.SUCCESS);
+            mobileCode.setPrevVerifyResult(mobileCode.getPresVerifyResult());
+            mobileCode.setPresVerifyResult(MobileVerifyResult.SUCCESS);
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
         } else {

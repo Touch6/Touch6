@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void register(RegisterDto registerDto) throws Exception {
+    public void register(RegisterDto registerDto) throws CoreException {
         BeanValidators.validateWithException(validator, registerDto);
 
         User user = new User();

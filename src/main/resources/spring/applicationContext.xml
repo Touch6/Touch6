@@ -42,23 +42,28 @@
     </bean>
 
     <!-- 使用annotation定义事务 -->
-    <tx:annotation-driven  proxy-target-class="true" />
+    <!--<tx:annotation-driven  proxy-target-class="true" />-->
     <bean id="transactionManager" name="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource">
             <ref bean="dataSource"/>
         </property>
     </bean>
-    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
-        </tx:attributes>
-    </tx:advice>
+    <!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="*" propagation="REQUIRED" rollback-for="CoreException"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--<aop:config proxy-target-class="true">-->
+        <!--<aop:pointcut id="transactionPointcut"-->
+                      <!--expression="execution(* com.heqmentor.api.service.impl.*.*(..))"/>-->
+        <!--<aop:advisor pointcut-ref="transactionPointcut"-->
+                     <!--advice-ref="transactionAdvice"/>-->
+    <!--</aop:config>-->
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <aop:config proxy-target-class="true">
-        <aop:pointcut id="transactionPointcut"
-                      expression="execution(* com.heqmentor.api.service.impl.*.*(..))"/>
-        <aop:advisor pointcut-ref="transactionPointcut"
-                     advice-ref="transactionAdvice"/>
+            <aop:pointcut id="transactionPointcut" expression="execution(* com.heqmentor.api.service.impl.*.*(..))"/>
     </aop:config>
 
     <!-- JSR303 Validator定义 -->

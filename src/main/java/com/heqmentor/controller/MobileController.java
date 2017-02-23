@@ -41,9 +41,10 @@ public class MobileController {
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             logger.info("异常:", e);
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            logger.info("系统异常:",e);
+            Error error=new Error(500,"系统异常",e.getMessage());
             return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -58,9 +59,10 @@ public class MobileController {
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             logger.info("异常:", e);
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            logger.info("系统异常:",e);
+            Error error=new Error(500,"系统异常",e.getMessage());
             return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,9 +78,10 @@ public class MobileController {
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             logger.info("异常:", e);
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            logger.info("系统异常:",e);
+            Error error=new Error(500,"系统异常",e.getMessage());
             return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -1,6 +1,8 @@
 package com.heqmentor.dto.entity;
 
-/*		
+import com.heqmentor.enums.MobileVerifyResult;
+
+/*
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -20,7 +22,8 @@ public class MobileCodeDto {
     private String mobile;
     private String prevCode;
     private String presCode;
-    private String verifyResult;
+    private MobileVerifyResult prevVerifyResult;
+    private MobileVerifyResult presVerifyResult;
 
     public String getId() {
         return id;
@@ -54,11 +57,19 @@ public class MobileCodeDto {
         this.presCode = presCode;
     }
 
-    public String getVerifyResult() {
-        return verifyResult;
+    public MobileVerifyResult getPrevVerifyResult() {
+        return prevVerifyResult;
     }
 
-    public void setVerifyResult(String verifyResult) {
-        this.verifyResult = verifyResult;
+    public void setPrevVerifyResult(MobileVerifyResult prevVerifyResult) {
+        this.prevVerifyResult = prevVerifyResult;
+    }
+
+    public MobileVerifyResult getPresVerifyResult() {
+        return presVerifyResult;
+    }
+
+    public void setPresVerifyResult(MobileVerifyResult presVerifyResult) {
+        this.presVerifyResult = presVerifyResult;
     }
 }

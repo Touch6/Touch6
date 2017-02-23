@@ -22,7 +22,8 @@ public class MobileCode {
     private String mobile;
     private String prevCode;
     private String presCode;
-    private MobileVerifyResult verifyResult;
+    private MobileVerifyResult prevVerifyResult;
+    private MobileVerifyResult presVerifyResult;
     private String reserve1;
     private String reserve2;
     private String reserve3;
@@ -101,11 +102,19 @@ public class MobileCode {
         this.reserve5 = reserve5;
     }
 
-    public MobileVerifyResult getVerifyResult() {
-        return verifyResult;
+    public MobileVerifyResult getPrevVerifyResult() {
+        return prevVerifyResult;
     }
 
-    public void setVerifyResult(MobileVerifyResult verifyResult) {
-        this.verifyResult = verifyResult;
+    public void setPrevVerifyResult(MobileVerifyResult prevVerifyResult) {
+        this.prevVerifyResult = prevVerifyResult;
+    }
+
+    public MobileVerifyResult getPresVerifyResult() {
+        return presVerifyResult;
+    }
+
+    public void setPresVerifyResult(MobileVerifyResult presVerifyResult) {
+        this.presVerifyResult = presVerifyResult;
     }
 }

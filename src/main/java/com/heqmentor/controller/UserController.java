@@ -2,6 +2,7 @@ package com.heqmentor.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.heqmentor.api.service.UserService;
+import com.heqmentor.core.exception.CoreException;
 import com.heqmentor.core.exception.Error;
 import com.heqmentor.core.info.Success;
 import com.heqmentor.dto.entity.RegisterDto;
@@ -36,9 +37,8 @@ public class UserController {
             userService.register(registerDto);
             Success ok = new Success(200, null, "注册成功");
             return new ResponseEntity(ok, HttpStatus.OK);
-        } catch (Exception e) {
-            Error error = new Error(500, "系统异常", e.getMessage());
-            return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
 }

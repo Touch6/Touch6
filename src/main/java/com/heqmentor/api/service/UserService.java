@@ -15,7 +15,7 @@ public interface UserService {
      * @param registerDto
      * @throws Exception
      */
-    void register(RegisterDto registerDto) throws Exception;
+    void register(RegisterDto registerDto) throws CoreException;
 
     /**
      * 添加用户

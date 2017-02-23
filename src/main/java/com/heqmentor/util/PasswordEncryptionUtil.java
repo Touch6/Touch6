@@ -1,5 +1,8 @@
 package com.heqmentor.util;
 
+import com.heqmentor.core.exception.CoreException;
+import com.heqmentor.core.exception.ECodeUtil;
+import com.heqmentor.core.exception.error.constant.SystemErrorConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +61,7 @@ public class PasswordEncryptionUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static boolean authenticate(String attemptedPassword, String encryptedPassword, String salt) throws Exception {
+    public static boolean authenticate(String attemptedPassword, String encryptedPassword, String salt) throws CoreException {
         // 用相同的盐值对用户输入的密码进行加密
         String encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
         // 把加密后的密文和原密文进行比较，相同则验证成功，否则失败
@@ -76,14 +79,14 @@ public class PasswordEncryptionUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static String getEncryptedPassword(String password, String salt) throws Exception {
+    public static String getEncryptedPassword(String password, String salt) throws CoreException {
         try {
             KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), PBKDF2_ITERATIONS, HASH_BIT_SIZE);
             SecretKeyFactory f = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
             return toHex(f.generateSecret(spec).getEncoded());
         }catch (Exception e){
             logger.info("密码加密异常：",e);
-            throw new Exception("系统异常");
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
     }
 
