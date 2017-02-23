@@ -32,6 +32,8 @@ public class UserDto {
     private String cityCode;
     private String districtCode;
     private String address;
+    private String qq;
+    private String weixin;
     private String mobile;
     private String email;
     private CertificateDto idcard;
@@ -154,5 +156,21 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 }

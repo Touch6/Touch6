@@ -1,9 +1,6 @@
-package com.heqmentor.util;
+package com.heqmentor.dto.entity;
 
-import java.util.Random;
-import java.util.UUID;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -15,27 +12,44 @@ import java.util.UUID;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class StringUtil {
-    public static final int[] digits={0,1,2,3,4,5,6,7,8,9};
-    public static final String generate32uuid() {
-        UUID uuid = UUID.randomUUID();
-        String str = uuid.toString();
-        return str.replaceAll("-", "");
+public class MobileCodeDto {
+    private String id;
+    private String mobile;
+    private String prevCode;
+    private String presCode;
+
+    public String getId() {
+        return id;
     }
 
-    public static final String generate6MobileCode(){
-        StringBuilder code=new StringBuilder();
-        for(int i=0;i<6;i++){
-            int index=new Random().nextInt(10);
-            code.append(digits[index]);
-        }
-        return code.toString();
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public static void main(String[] args) {
-        System.out.println(generate6MobileCode());
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPrevCode() {
+        return prevCode;
+    }
+
+    public void setPrevCode(String prevCode) {
+        this.prevCode = prevCode;
+    }
+
+    public String getPresCode() {
+        return presCode;
+    }
+
+    public void setPresCode(String presCode) {
+        this.presCode = presCode;
     }
 }

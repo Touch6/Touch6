@@ -1,9 +1,6 @@
-package com.heqmentor.util;
+package com.heqmentor.api.service;
 
-import java.util.Random;
-import java.util.UUID;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -15,27 +12,21 @@ import java.util.UUID;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class StringUtil {
-    public static final int[] digits={0,1,2,3,4,5,6,7,8,9};
-    public static final String generate32uuid() {
-        UUID uuid = UUID.randomUUID();
-        String str = uuid.toString();
-        return str.replaceAll("-", "");
-    }
+public interface MobileService {
 
-    public static final String generate6MobileCode(){
-        StringBuilder code=new StringBuilder();
-        for(int i=0;i<6;i++){
-            int index=new Random().nextInt(10);
-            code.append(digits[index]);
-        }
-        return code.toString();
-    }
+    /**检测手机号码是否被注册
+     * @param mobile
+     */
+    void checkMobile(String mobile) throws Exception;
 
-    public static void main(String[] args) {
-        System.out.println(generate6MobileCode());
-    }
+    /**
+     * 生成手机验证码
+     *
+     * @param mobile 手机号
+     * @return
+     */
+    String generateMobileCode(String mobile) throws Exception;
 }

@@ -4,19 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.heqmentor.dao.repository.mybatis.UserMybatisDao">
-    <insert id="addUser" parameterType="com.heqmentor.po.entity.User">
-        INSERT  INTO
-        t_b_user(
-        uid,name,nickname,gender,birth,
-        age,nation,profession,province_code,city_code,
-        district_code,address,mobile,idcard,reserve1,
-        reserve2,reserve3,reserve4,reserve5
+    <insert id="register" parameterType="com.heqmentor.po.entity.User">
+        insert into t_b_user(
+        uid,mobile
         )
-        VALUES(
-        #{uid},#{name},#{nickname},#{gender},#{birth},
-        #{age},#{nation},#{profession},#{provinceCode},#{cityCode},
-        #{districtCode},#{address},#{mobile},#{idcard.id},#{reserve1},
-        #{reserve2},#{reserve3},#{reserve4},#{reserve5}
+        values(
+        #{uid},#{mobile}
         )
     </insert>
+    <select id="checkMobile" resultType="string" parameterType="string">
+        select mobile from t_b_user where mobile=#{0}
+    </select>
+    <!--<update id="updateUser" parameterType="com.heqmentor.po.entity.User">-->
+        <!--INSERT  INTO-->
+        <!--t_b_user(-->
+        <!--uid,name,nickname,gender,birth,-->
+        <!--age,nation,profession,province_code,city_code,-->
+        <!--district_code,address,mobile,idcard,reserve1,-->
+        <!--reserve2,reserve3,reserve4,reserve5-->
+        <!--)-->
+        <!--VALUES(-->
+        <!--#{uid},#{name},#{nickname},#{gender},#{birth},-->
+        <!--#{age},#{nation},#{profession},#{provinceCode},#{cityCode},-->
+        <!--#{districtCode},#{address},#{mobile},#{idcard.id},#{reserve1},-->
+        <!--#{reserve2},#{reserve3},#{reserve4},#{reserve5}-->
+        <!--)-->
+    <!--</update>-->
 </mapper>

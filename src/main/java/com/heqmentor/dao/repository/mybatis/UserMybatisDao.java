@@ -10,5 +10,9 @@ import com.heqmentor.po.entity.User;
 
 @MyBatisRepository
 public interface UserMybatisDao {
-    int addUser(User user);
+    int register(User user);
+
+    int updateUser(User user);
+
+    String checkMobile(String mobile);
 }

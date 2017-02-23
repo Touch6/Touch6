@@ -1,7 +1,7 @@
-package com.heqmentor.util;
+package com.heqmentor.dao.repository.mybatis;
 
-import java.util.Random;
-import java.util.UUID;
+import com.heqmentor.dao.repository.mybatis.common.MyBatisRepository;
+import com.heqmentor.po.entity.Auth;
 
 /*
  * ============================================================================		
@@ -15,27 +15,10 @@ import java.util.UUID;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class StringUtil {
-    public static final int[] digits={0,1,2,3,4,5,6,7,8,9};
-    public static final String generate32uuid() {
-        UUID uuid = UUID.randomUUID();
-        String str = uuid.toString();
-        return str.replaceAll("-", "");
-    }
-
-    public static final String generate6MobileCode(){
-        StringBuilder code=new StringBuilder();
-        for(int i=0;i<6;i++){
-            int index=new Random().nextInt(10);
-            code.append(digits[index]);
-        }
-        return code.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(generate6MobileCode());
-    }
+@MyBatisRepository
+public interface AuthMybatisDao {
+    int insertAuth(Auth auth);
 }
