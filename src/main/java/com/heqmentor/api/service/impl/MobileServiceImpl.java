@@ -8,6 +8,7 @@ import com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao;
 import com.heqmentor.dao.repository.mybatis.UserMybatisDao;
 import com.heqmentor.enums.MobileVerifyResult;
 import com.heqmentor.po.entity.MobileCode;
+import com.heqmentor.util.DateUtil;
 import com.heqmentor.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /*
  * ============================================================================		
@@ -53,16 +56,41 @@ public class MobileServiceImpl implements MobileService {
     @Transactional
     public String generateMobileCode(String mobile) throws CoreException {
         String code = StringUtil.generate6MobileCode();
+        Date now = DateUtil.nowTime();
+
         MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
         if (mobileCode == null) {
+            //该手机号未生成过验证码
             mobileCode = new MobileCode();
             mobileCode.setId(StringUtil.generate32uuid());
             mobileCode.setMobile(mobile);
             mobileCode.setPresCode(code);
+            mobileCode.setTimes(1);
+            Date time = DateUtil.nowTime();
+            mobileCode.setPrevTime(time);
+            mobileCode.setPresTime(time);
             //insert mobileCode
             mobileCodeMybatisDao.insertMobileCode(mobileCode);
         } else {
-            //判定当前时间距离上一次时间间隔，1小时内最多获取6次验证码
+            //该手机号生成过验证码
+            if (mobileCode.getTimes() == 6) {
+                //判定当前时间距离上一次时间间隔，1小时内最多获取6次验证码
+                Date pres = mobileCode.getPresTime();
+                long ms = now.getTime() - pres.getTime();
+                if (ms < 60 * 60 * 1000) {
+                    //时间间隔小于1小时，抛出异常
+                    throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_TIMES_TOO_MANY));
+                } else {
+                    //时间间隔大于1小时，重置次数
+                    mobileCode.setTimes(1);
+                }
+            } else {
+                //次数小于6次，正常产生验证码,累加次数
+                mobileCode.setTimes(mobileCode.getTimes() + 1);
+            }
+
+            mobileCode.setPrevTime(mobileCode.getPresTime());
+            mobileCode.setPresTime(now);
             mobileCode.setPrevCode(mobileCode.getPresCode());
             mobileCode.setPresCode(code);
             mobileCode.setPrevVerifyResult(mobileCode.getPresVerifyResult());

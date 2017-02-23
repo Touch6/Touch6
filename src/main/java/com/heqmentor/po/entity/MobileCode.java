@@ -24,6 +24,7 @@ public class MobileCode {
     private String mobile;
     private String prevCode;
     private String presCode;
+    private Integer times;
     private Date prevTime;
     private Date presTime;
     private MobileVerifyResult prevVerifyResult;
@@ -136,5 +137,13 @@ public class MobileCode {
 
     public void setPresTime(Date presTime) {
         this.presTime = presTime;
+    }
+
+    public Integer getTimes() {
+        return times;
+    }
+
+    public void setTimes(Integer times) {
+        this.times = times;
     }
 }

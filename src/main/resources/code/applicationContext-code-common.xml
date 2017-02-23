@@ -22,6 +22,9 @@
                 <entry key="mobile.code.incorrect">
                     <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
                 </entry>
+                <entry key="mobile.code.times.too.many">
+                    <error:error code="200103" info="请求过于频繁" des="手机验证码1小时内最多获取6次，请1小时后再试"/>
+                </entry>
                 <!--200100 手机验证异常end-->
 
 
