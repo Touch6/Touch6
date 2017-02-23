@@ -62,6 +62,7 @@ public class MobileServiceImpl implements MobileService {
             //insert mobileCode
             mobileCodeMybatisDao.insertMobileCode(mobileCode);
         } else {
+            //判定当前时间距离上一次时间间隔，1小时内最多获取6次验证码
             mobileCode.setPrevCode(mobileCode.getPresCode());
             mobileCode.setPresCode(code);
             mobileCode.setPrevVerifyResult(mobileCode.getPresVerifyResult());

@@ -2,6 +2,8 @@ package com.heqmentor.po.entity;
 
 import com.heqmentor.enums.MobileVerifyResult;
 
+import java.util.Date;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -22,6 +24,8 @@ public class MobileCode {
     private String mobile;
     private String prevCode;
     private String presCode;
+    private Date prevTime;
+    private Date presTime;
     private MobileVerifyResult prevVerifyResult;
     private MobileVerifyResult presVerifyResult;
     private String reserve1;
@@ -116,5 +120,21 @@ public class MobileCode {
 
     public void setPresVerifyResult(MobileVerifyResult presVerifyResult) {
         this.presVerifyResult = presVerifyResult;
+    }
+
+    public Date getPrevTime() {
+        return prevTime;
+    }
+
+    public void setPrevTime(Date prevTime) {
+        this.prevTime = prevTime;
+    }
+
+    public Date getPresTime() {
+        return presTime;
+    }
+
+    public void setPresTime(Date presTime) {
+        this.presTime = presTime;
     }
 }
