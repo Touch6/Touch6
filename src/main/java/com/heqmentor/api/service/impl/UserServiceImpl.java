@@ -2,6 +2,7 @@ package com.heqmentor.api.service.impl;
 
 
 import com.heqmentor.api.service.UserService;
+import com.heqmentor.core.exception.CoreException;
 import com.heqmentor.dao.repository.mybatis.AuthMybatisDao;
 import com.heqmentor.dao.repository.mybatis.CertificateMybatisDao;
 import com.heqmentor.dao.repository.mybatis.ImageMybatisDao;
@@ -54,10 +55,7 @@ public class UserServiceImpl implements UserService {
         user.setUid(uid);
         user.setMobile(registerDto.getMobile());
         //insert user
-        int res1=userMybatisDao.register(user);
-        if(res1!=1){
-            throw new Exception("注册失败");
-        }
+        userMybatisDao.register(user);
         Auth auth = new Auth();
         String authId = StringUtil.generate32uuid();
         auth.setId(authId);
@@ -67,10 +65,7 @@ public class UserServiceImpl implements UserService {
         auth.setSalt(salt);
         auth.setPassword(PasswordEncryptionUtil.getEncryptedPassword(registerDto.getPassword(), salt));
         //insert auth
-        int res2=authMybatisDao.insertAuth(auth);
-        if(res2!=1){
-            throw new Exception("添加登录信息失败");
-        }
+        authMybatisDao.insertAuth(auth);
     }
 
     @Override

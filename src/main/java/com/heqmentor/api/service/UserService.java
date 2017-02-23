@@ -1,5 +1,6 @@
 package com.heqmentor.api.service;
 
+import com.heqmentor.core.exception.CoreException;
 import com.heqmentor.dto.entity.RegisterDto;
 import com.heqmentor.dto.entity.UserDto;
 

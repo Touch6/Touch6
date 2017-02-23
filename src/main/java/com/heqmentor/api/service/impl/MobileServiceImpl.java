@@ -1,6 +1,9 @@
 package com.heqmentor.api.service.impl;
 
 import com.heqmentor.api.service.MobileService;
+import com.heqmentor.core.exception.CoreException;
+import com.heqmentor.core.exception.ECodeUtil;
+import com.heqmentor.core.exception.error.constant.MobileErrorConstant;
 import com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao;
 import com.heqmentor.dao.repository.mybatis.UserMybatisDao;
 import com.heqmentor.enums.MobileVerifyResult;
@@ -39,16 +42,16 @@ public class MobileServiceImpl implements MobileService {
     MobileCodeMybatisDao mobileCodeMybatisDao;
 
     @Override
-    public void checkMobile(String mobile) throws Exception {
+    public void checkMobile(String mobile) throws CoreException {
         String mbl = userMybatisDao.checkMobile(mobile);
         if (StringUtils.isNotBlank(mbl)) {
-            throw new Exception("该手机号码已被注册");
+            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_ALREADY_REGISTERED));
         }
     }
 
     @Override
     @Transactional
-    public String generateMobileCode(String mobile) throws Exception {
+    public String generateMobileCode(String mobile) throws CoreException {
         String code = StringUtil.generate6MobileCode();
         MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
         if (mobileCode == null) {
@@ -57,39 +60,30 @@ public class MobileServiceImpl implements MobileService {
             mobileCode.setMobile(mobile);
             mobileCode.setPresCode(code);
             //insert mobileCode
-            int res1 = mobileCodeMybatisDao.insertMobileCode(mobileCode);
-            if (res1 != 1) {
-                throw new Exception("保存手机验证码失败");
-            }
+            mobileCodeMybatisDao.insertMobileCode(mobileCode);
         } else {
             mobileCode.setPrevCode(mobileCode.getPresCode());
             mobileCode.setPresCode(code);
             //update mobileCode
-            int res2 = mobileCodeMybatisDao.updateMobileCode(mobileCode);
-            if (res2 != 1) {
-                throw new Exception("修改手机验证码失败");
-            }
+            mobileCodeMybatisDao.updateMobileCode(mobileCode);
         }
         return code;
     }
 
     @Override
     @Transactional
-    public void verifyMobileCode(String mobile, String code) throws Exception {
+    public void verifyMobileCode(String mobile, String code) throws CoreException {
         MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
         if (mobileCode == null) {
-            throw new Exception("手机号码错误");
+            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_INCORRECT));
         }
         if (mobileCode.getPresCode().equals(code)) {
             //equals
             mobileCode.setVerifyResult(MobileVerifyResult.SUCCESS);
             //update mobileCode
-            int res1 = mobileCodeMybatisDao.updateMobileCode(mobileCode);
-            if (res1 != 1) {
-                throw new Exception("修改验证结果失败");
-            }
+            mobileCodeMybatisDao.updateMobileCode(mobileCode);
         } else {
-            throw new Exception("手机验证码不正确");
+            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_INCORRECT));
         }
     }
 }

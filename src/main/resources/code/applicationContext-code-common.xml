@@ -12,10 +12,17 @@
         <property name="errorMap">
             <!--suppress InjectionValueTypeInspection -->
             <map>
-                <!--20005 配置模块-->
-                <entry key="common.configNotFound">
-                    <error:error code="2000501" info="配置信息不存在" des="必要配置信息未配置"/>
+                <!--200100 手机验证异常start-->
+                <entry key="mobile.already.registered">
+                    <error:error code="200100" info="信息错误" des="该手机号已被注册，请更换手机号码重新注册"/>
                 </entry>
+                <entry key="mobile.incorrect">
+                    <error:error code="200101" info="手机号码不正确" des="手机号不存在，请重新确认"/>
+                </entry>
+                <entry key="mobile.code.incorrect">
+                    <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
+                </entry>
+                <!--200100 手机验证异常end-->
             </map>
         </property>
     </bean>

@@ -3,6 +3,9 @@ package com.heqmentor.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.heqmentor.api.service.MobileService;
 import com.heqmentor.api.service.UserService;
+import com.heqmentor.core.exception.CoreException;
+import com.heqmentor.core.exception.Error;
+import com.heqmentor.core.info.Success;
 import com.heqmentor.dto.entity.MobileCodeDto;
 import com.heqmentor.dto.entity.RegisterDto;
 import com.heqmentor.po.entity.MobileCode;
@@ -34,15 +37,14 @@ public class MobileController {
     public ResponseEntity check(@RequestParam("mobile") String mobile) {
         try {
             mobileService.checkMobile(mobile);
-            JSONObject ok = new JSONObject();
-            ok.put("success", true);
-            ok.put("msg", "恭喜你，该号码可用");
+            Success ok=new Success(200,null,"恭喜你，该号码可用");
             return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            logger.info("异常:", e);
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            JSONObject error = new JSONObject();
-            error.put("success", false);
-            error.put("msg", e.getMessage());
-            return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,16 +54,14 @@ public class MobileController {
     public ResponseEntity generateCode(@RequestParam("mobile") String mobile) {
         try {
             String code = mobileService.generateMobileCode(mobile);
-            JSONObject ok = new JSONObject();
-            ok.put("success", true);
-            ok.put("msg", "生成验证码成功");
-            ok.put("code", code);
+            Success ok=new Success(200,code,"生成验证码成功");
             return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            logger.info("异常:", e);
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            JSONObject error = new JSONObject();
-            error.put("success", false);
-            error.put("msg", e.getMessage());
-            return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -72,15 +72,14 @@ public class MobileController {
     public ResponseEntity verify(@RequestBody MobileCodeDto mobileCode) {
         try {
             mobileService.verifyMobileCode(mobileCode.getMobile(), mobileCode.getPresCode());
-            JSONObject ok = new JSONObject();
-            ok.put("success", true);
-            ok.put("msg", "恭喜你，验证成功");
+            Success ok=new Success(200,null,"恭喜你，验证成功");
             return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            logger.info("异常:", e);
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            JSONObject error = new JSONObject();
-            error.put("success", false);
-            error.put("msg", e.getMessage());
-            return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+            Error error = new Error(500, "系统异常", e.getMessage());
+            return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

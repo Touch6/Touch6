@@ -1,5 +1,8 @@
 package com.heqmentor.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
@@ -24,6 +27,7 @@ import java.security.spec.KeySpec;
  * ============================================================================		
  */
 public class PasswordEncryptionUtil {
+    private static final Logger logger= LoggerFactory.getLogger(PasswordEncryptionUtil.class);
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
     /**
@@ -54,8 +58,7 @@ public class PasswordEncryptionUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static boolean authenticate(String attemptedPassword, String encryptedPassword, String salt)
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static boolean authenticate(String attemptedPassword, String encryptedPassword, String salt) throws Exception {
         // 用相同的盐值对用户输入的密码进行加密
         String encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
         // 把加密后的密文和原密文进行比较，相同则验证成功，否则失败
@@ -73,12 +76,15 @@ public class PasswordEncryptionUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static String getEncryptedPassword(String password, String salt) throws NoSuchAlgorithmException,
-            InvalidKeySpecException {
-
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), PBKDF2_ITERATIONS, HASH_BIT_SIZE);
-        SecretKeyFactory f = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
-        return toHex(f.generateSecret(spec).getEncoded());
+    public static String getEncryptedPassword(String password, String salt) throws Exception {
+        try {
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), PBKDF2_ITERATIONS, HASH_BIT_SIZE);
+            SecretKeyFactory f = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
+            return toHex(f.generateSecret(spec).getEncoded());
+        }catch (Exception e){
+            logger.info("密码加密异常：",e);
+            throw new Exception("系统异常");
+        }
     }
 
     /**

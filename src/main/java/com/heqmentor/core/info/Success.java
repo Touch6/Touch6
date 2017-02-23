@@ -1,8 +1,6 @@
-package com.heqmentor.api.service;
+package com.heqmentor.core.info;
 
-import com.heqmentor.core.exception.CoreException;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -17,28 +15,44 @@ import com.heqmentor.core.exception.CoreException;
  * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public interface MobileService {
+public class Success {
+    private int code;
+    private String info;
+    private String des;
 
-    /**
-     * 检测手机号码是否被注册
-     *
-     * @param mobile
-     */
-    void checkMobile(String mobile) throws CoreException;
+    public Success() {
+        this.code = 200;
+        this.info = null;
+        this.des = "操作成功";
+    }
 
-    /**
-     * 生成手机验证码
-     *
-     * @param mobile 手机号
-     * @return
-     */
-    String generateMobileCode(String mobile) throws CoreException;
+    public Success(int code, String info, String des) {
+        this.code = code;
+        this.info = info;
+        this.des = des;
+    }
 
-    /**
-     * 验证手机验证码是否正确
-     *
-     * @param mobile
-     * @param code
-     */
-    void verifyMobileCode(String mobile, String code) throws CoreException;
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
 }
