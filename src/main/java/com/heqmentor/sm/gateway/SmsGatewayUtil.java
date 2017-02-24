@@ -49,8 +49,9 @@ public class SmsGatewayUtil {
         String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_URL);// 应用地址
         String un = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_UN);// 账号
         String pw = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_PW);// 密码
+        String expired = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
         String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_MSG);// 短信内容
-        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code});
+        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code,expired});
         String rd = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_RD);// 是否需要状态报告，需要1，不需要0
         String ex = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_EX);// 扩展码
         try {
@@ -68,8 +69,9 @@ public class SmsGatewayUtil {
         String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_URL);
         String uid = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_UID);
         String key = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_KEY);
+        String expired = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
         String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_SMSTEXT);
-        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code});
+        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code,expired});
         String contentType = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CONTENT_TYPE);
         String charset = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CHARSET);
         try {

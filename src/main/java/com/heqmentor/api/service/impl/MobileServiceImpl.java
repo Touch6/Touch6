@@ -1,9 +1,11 @@
 package com.heqmentor.api.service.impl;
 
 import com.heqmentor.api.service.MobileService;
+import com.heqmentor.constant.SmsGatewayConstant;
 import com.heqmentor.core.exception.CoreException;
 import com.heqmentor.core.exception.ECodeUtil;
 import com.heqmentor.core.exception.error.constant.MobileErrorConstant;
+import com.heqmentor.core.exception.error.constant.SystemErrorConstant;
 import com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao;
 import com.heqmentor.dao.repository.mybatis.UserMybatisDao;
 import com.heqmentor.enums.MobileVerifyResult;
@@ -11,6 +13,7 @@ import com.heqmentor.enums.SmsGatewayInterface;
 import com.heqmentor.po.entity.MobileCode;
 import com.heqmentor.sm.gateway.SmsGatewayUtil;
 import com.heqmentor.util.DateUtil;
+import com.heqmentor.util.PropertiesUtil;
 import com.heqmentor.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -59,6 +62,8 @@ public class MobileServiceImpl implements MobileService {
     public String generateMobileCode(String mobile) throws CoreException {
         String code = StringUtil.generate6MobileCode();
         Date now = DateUtil.nowTime();
+        String selectedGateway = PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_GATEWAY_SELECTED);
+        SmsGatewayInterface gateway = SmsGatewayInterface.valueOf(selectedGateway);
 
         MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
         if (mobileCode == null) {
@@ -75,6 +80,21 @@ public class MobileServiceImpl implements MobileService {
             mobileCodeMybatisDao.insertMobileCode(mobileCode);
         } else {
             //该手机号生成过验证码
+            switch (gateway) {
+                case SMS253:
+                    //一个手机号码，一天只能接受十条短信。超过十条就接收不到了
+                    break;
+                case WEBCHINESE:
+                    //发送验证码1分钟只能点击发送1次；
+                    //相同IP手机号码1天最多提交20次；
+                    //验证码短信单个手机号码30分钟最多提交10次；
+
+                    break;
+                default:
+                    logger.info("参数错误:[{}]", gateway);
+                    throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+            }
+
             if (mobileCode.getTimes() == 6) {
                 //判定当前时间距离上一次时间间隔，1小时内最多获取6次验证码
                 Date pres = mobileCode.getPresTime();
@@ -100,7 +120,7 @@ public class MobileServiceImpl implements MobileService {
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
         }
-        SmsGatewayUtil.sendSmsCode(SmsGatewayInterface.SMS253, mobile, code);
+        SmsGatewayUtil.sendSmsCode(gateway, mobile, code);
         return code;
     }
 
@@ -112,9 +132,10 @@ public class MobileServiceImpl implements MobileService {
             //手机号错误
             throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_INCORRECT));
         }
-        //判定时间是否在15分钟内
+        //判定时间是否在expired分钟内
         Date now = DateUtil.nowTime();
-        if (15 * 60 * 1000 < (now.getTime() - mobileCode.getPresTime().getTime())) {
+        int expired = Integer.valueOf(PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
+        if (expired * 60 * 1000 < (now.getTime() - mobileCode.getPresTime().getTime())) {
             throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_EXPIRED));
         }
         if (mobileCode.getPresCode().equals(code)) {

@@ -17,6 +17,9 @@ package com.heqmentor.constant;
  */
 public class SmsGatewayConstant {
     public static final String SMS_GATEWAY_PROPERTIES_FILENAME = "sms.gateway.properties";
+    //选择的短信网关
+    public static final String SMS_GATEWAY_SELECTED = "sms.gateway.selected";
+    public static final String SMS_CODE_EXPIRED = "sms.code.expired";
     //253短信网关
     public static final String SMS_GATEWAY_253_URL = "sms.gateway.253.url";
     public static final String SMS_GATEWAY_253_UN = "sms.gateway.253.un";
