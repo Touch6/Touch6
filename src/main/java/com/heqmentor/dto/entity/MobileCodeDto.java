@@ -24,6 +24,7 @@ public class MobileCodeDto {
     private String mobile;
     private String prevCode;
     private String presCode;
+    private Date firstTime;
     private Date prevTime;
     private Date presTime;
     private MobileVerifyResult prevVerifyResult;
@@ -91,5 +92,13 @@ public class MobileCodeDto {
 
     public void setPresTime(Date presTime) {
         this.presTime = presTime;
+    }
+
+    public Date getFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(Date firstTime) {
+        this.firstTime = firstTime;
     }
 }

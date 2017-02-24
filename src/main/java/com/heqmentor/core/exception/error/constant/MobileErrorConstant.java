@@ -14,6 +14,9 @@ public class MobileErrorConstant {
     public final static String MOBILE_CODE_TIMES_TOO_MANY = "mobile.code.times.too.many";
     public final static String MOBILE_CODE_SMS_GATEWAY_ERROR = "mobile.code.sms.gateway.error";
     public final static String MOBILE_CODE_EXPIRED = "mobile.code.expired";
+    public final static String MOBILE_CODE_TOO_FREQUENT_60 = "mobile.code.too.frequent.60";
+    public final static String MOBILE_CODE_TOO_FREQUENT_30 = "mobile.code.too.frequent.30";
+    public final static String MOBILE_CODE_TOO_FREQUENT_24 = "mobile.code.too.frequent.24";
 
 
 }

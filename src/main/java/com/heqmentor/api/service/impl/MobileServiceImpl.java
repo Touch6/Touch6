@@ -16,6 +16,8 @@ import com.heqmentor.util.DateUtil;
 import com.heqmentor.util.PropertiesUtil;
 import com.heqmentor.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,16 +81,49 @@ public class MobileServiceImpl implements MobileService {
             //insert mobileCode
             mobileCodeMybatisDao.insertMobileCode(mobileCode);
         } else {
-            //该手机号生成过验证码
+            //该手机号生成过验证码，再次生成
             switch (gateway) {
                 case SMS253:
                     //一个手机号码，一天只能接受十条短信。超过十条就接收不到了
+                    if (mobileCode.getTimes() >= 10) {
+                        DateTime nowTime = new DateTime(now);
+                        DateTime presTime = new DateTime(mobileCode.getPresTime());
+                        int days = Days.daysBetween(nowTime, presTime).getDays();
+                        if (days == 0) {
+                            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_TIMES_TOO_MANY));
+                        } else {
+                            //次日重置次数
+                            mobileCode.setTimes(1);
+                        }
+                    } else {
+                        //不足10次，累加次数
+                        mobileCode.setTimes(mobileCode.getTimes() + 1);
+                    }
                     break;
                 case WEBCHINESE:
                     //发送验证码1分钟只能点击发送1次；
                     //相同IP手机号码1天最多提交20次；
                     //验证码短信单个手机号码30分钟最多提交10次；
-
+                    if (1 * 60 * 1000 > (now.getTime() - mobileCode.getPresTime().getTime())) {
+                        throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_TOO_FREQUENT_60));
+                    }
+                    if (mobileCode.getTimes() >= 10) {
+                        if(mobileCode.getTimes()>=20){
+                            //// TODO: 2017/2/24  
+                        }
+                        DateTime nowTime = new DateTime(now);
+                        DateTime presTime = new DateTime(mobileCode.getPresTime());
+                        int days = Days.daysBetween(nowTime, presTime).getDays();
+                        if (days == 0) {
+                            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_TIMES_TOO_MANY));
+                        } else {
+                            //次日重置次数
+                            mobileCode.setTimes(1);
+                        }
+                    } else {
+                        //不足10次，累加次数
+                        mobileCode.setTimes(mobileCode.getTimes() + 1);
+                    }
                     break;
                 default:
                     logger.info("参数错误:[{}]", gateway);

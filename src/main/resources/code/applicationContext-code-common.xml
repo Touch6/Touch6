@@ -23,14 +23,22 @@
                     <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
                 </entry>
                 <entry key="mobile.code.times.too.many">
-                    <error:error code="200103" info="请求过于频繁" des="手机验证码1小时内最多获取6次，请1小时后再试"/>
+                    <error:error code="200103" info="请求过于频繁" des="手机验证码1天内最多获取10次，请次日再试"/>
                 </entry>
                 <entry key="mobile.code.sms.gateway.error">
                     <error:error code="200104" info="短信网关错误" des="短信网关错误，请联系管理员"/>
                 </entry>
-
                 <entry key="mobile.code.expired">
                     <error:error code="200105" info="验证码过期" des="验证码验证时间超过15分钟，请重新获取"/>
+                </entry>
+                <entry key="mobile.code.too.frequent.60">
+                    <error:error code="200106" info="请求过于频繁" des="请求过于频繁，1分钟内只能请求一次"/>
+                </entry>
+                <entry key="mobile.code.too.frequent.30">
+                    <error:error code="200107" info="请求过于频繁" des="请求过于频繁，30分钟内最多请求10次"/>
+                </entry>
+                <entry key="mobile.code.too.frequent.24">
+                    <error:error code="200108" info="请求过于频繁" des="请求过于频繁，1天内最多请求20次"/>
                 </entry>
                 <!--200100 手机验证异常end-->
 
