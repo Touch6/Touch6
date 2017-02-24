@@ -7,7 +7,9 @@ import com.heqmentor.core.exception.error.constant.MobileErrorConstant;
 import com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao;
 import com.heqmentor.dao.repository.mybatis.UserMybatisDao;
 import com.heqmentor.enums.MobileVerifyResult;
+import com.heqmentor.enums.SmsGatewayInterface;
 import com.heqmentor.po.entity.MobileCode;
+import com.heqmentor.sm.gateway.SmsGatewayUtil;
 import com.heqmentor.util.DateUtil;
 import com.heqmentor.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -98,6 +100,7 @@ public class MobileServiceImpl implements MobileService {
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
         }
+        SmsGatewayUtil.sendSmsCode(SmsGatewayInterface.SMS253, mobile, code);
         return code;
     }
 
@@ -106,7 +109,13 @@ public class MobileServiceImpl implements MobileService {
     public void verifyMobileCode(String mobile, String code) throws CoreException {
         MobileCode mobileCode = mobileCodeMybatisDao.findByMobile(mobile);
         if (mobileCode == null) {
+            //手机号错误
             throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_INCORRECT));
+        }
+        //判定时间是否在15分钟内
+        Date now = DateUtil.nowTime();
+        if (15 * 60 * 1000 < (now.getTime() - mobileCode.getPresTime().getTime())) {
+            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_EXPIRED));
         }
         if (mobileCode.getPresCode().equals(code)) {
             //equals

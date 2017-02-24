@@ -1,9 +1,14 @@
 package com.heqmentor.sm.gateway.webchinese;
 
+import com.heqmentor.core.exception.CoreException;
+import com.heqmentor.core.exception.ECodeUtil;
+import com.heqmentor.core.exception.error.constant.SystemErrorConstant;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * ============================================================================		
@@ -21,30 +26,41 @@ import org.apache.commons.httpclient.methods.PostMethod;
  * ============================================================================		
  */
 public class Webchinese {
-    public static void main(String[] args) throws Exception {
+    private static final Logger logger = LoggerFactory.getLogger(Webchinese.class);
 
+    public static String batchSend(String url, String uid, String key, String phone, String msg,
+                                   String contentType, String charset) throws CoreException {
         HttpClient client = new HttpClient();
-        PostMethod post = new PostMethod("http://gbk.sms.webchinese.cn");
-        post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=gbk");//在头文件中设置转码
+        PostMethod post = new PostMethod(url);
+        post.addRequestHeader("Content-Type", contentType);//在头文件中设置转码
         NameValuePair[] data = {
-                new NameValuePair("Uid", "Jbaby"),
-                new NameValuePair("Key", "66cb59bc1df5cff7ef5b"),
-                new NameValuePair("smsMob", "13880298929"),
-                new NameValuePair("smsText", "您好，你的验证码是123456【JMBest】")};
+                new NameValuePair("Uid", uid),
+                new NameValuePair("Key", key),
+                new NameValuePair("smsMob", phone),
+                new NameValuePair("smsText", msg)};
         post.setRequestBody(data);
-
-        client.executeMethod(post);
+        try {
+            client.executeMethod(post);
+        } catch (Exception e) {
+            logger.info("中国网建短信发送异常:", e);
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
         Header[] headers = post.getResponseHeaders();
         int statusCode = post.getStatusCode();
         System.out.println("statusCode:" + statusCode);
         for (Header h : headers) {
             System.out.println(h.toString());
         }
-        String result = new String(post.getResponseBodyAsString().getBytes("gbk"));
-        System.out.println(result); //打印返回消息状态
-
+        String result;
+        try {
+            result = new String(post.getResponseBodyAsString().getBytes(charset));
+            System.out.println(result); //打印返回消息状态
+        } catch (Exception e) {
+            logger.info("中国网建短信发送返回异常:", e);
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
 
         post.releaseConnection();
-
+        return result;
     }
 }

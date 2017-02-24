@@ -25,6 +25,13 @@
                 <entry key="mobile.code.times.too.many">
                     <error:error code="200103" info="请求过于频繁" des="手机验证码1小时内最多获取6次，请1小时后再试"/>
                 </entry>
+                <entry key="mobile.code.sms.gateway.error">
+                    <error:error code="200104" info="短信网关错误" des="短信网关错误，请联系管理员"/>
+                </entry>
+
+                <entry key="mobile.code.expired">
+                    <error:error code="200105" info="验证码过期" des="验证码验证时间超过15分钟，请重新获取"/>
+                </entry>
                 <!--200100 手机验证异常end-->
 
 
