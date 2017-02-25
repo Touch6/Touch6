@@ -102,7 +102,7 @@ public class MobileServiceImpl implements MobileService {
                     break;
                 case WEBCHINESE:
                     //发送验证码1分钟只能点击发送1次；
-                    //相同IP手机号码1天最多提交20次；
+                    //相同IP手机号码1天最多提交10次；
                     //验证码短信单个手机号码30分钟最多提交10次；
                     if (1 * 60 * 1000 > (now.getTime() - mobileCode.getPresTime().getTime())) {
                         throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_TOO_FREQUENT_60));
