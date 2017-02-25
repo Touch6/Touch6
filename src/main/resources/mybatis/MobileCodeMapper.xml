@@ -3,30 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.heqmentor.dao.repository.mybatis.MobileCodeMybatisDao">
-    <insert id="insertMobileCode" parameterType="com.heqmentor.po.entity.MobileCode">
+<mapper namespace="com.qingsb.dao.repository.mybatis.MobileCodeMybatisDao">
+    <insert id="insertMobileCode" parameterType="com.qingsb.po.entity.MobileCode">
         insert into t_b_mobile_code(
         id,mobile,prev_code,pres_code,times,
-        prev_time,pres_time,prev_verify_result,pres_verify_result,
+        prev_time,pres_time,verify_times,prev_verify_result,pres_verify_result,
         reserve1,reserve2,reserve3,reserve4,reserve5
         )
         values(
         #{id},#{mobile},#{prevCode},#{presCode},#{times},
-        #{prevTime},#{presTime},#{prevVerifyResult},#{presVerifyResult},
+        #{prevTime},#{presTime},#{verifyTimes},#{prevVerifyResult},#{presVerifyResult},
         #{reserve1},#{reserve2},#{reserve3},#{reserve4},#{reserve5}
         )
     </insert>
-    <update id="updateMobileCode" parameterType="com.heqmentor.po.entity.MobileCode">
+    <update id="updateMobileCode" parameterType="com.qingsb.po.entity.MobileCode">
         update t_b_mobile_code
         <set>
             prev_code=#{prevCode},
             pres_code=#{presCode},
+            prev_time=#{prevTime},
+            pres_time=#{presTime},
+            verify_times=#{verifyTimes},
             prev_verify_result=#{prevVerifyResult},
             pres_verify_result=#{presVerifyResult}
         </set>
         where id=#{id}
     </update>
-    <select id="findByMobile" resultType="com.heqmentor.po.entity.MobileCode" parameterType="string">
+    <select id="findByMobile" resultType="com.qingsb.po.entity.MobileCode" parameterType="string">
         select * from t_b_mobile_code
         where mobile=#{0}
     </select>

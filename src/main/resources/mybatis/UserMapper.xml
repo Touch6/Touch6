@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.heqmentor.dao.repository.mybatis.UserMybatisDao">
-    <insert id="register" parameterType="com.heqmentor.po.entity.User">
+<mapper namespace="com.qingsb.dao.repository.mybatis.UserMybatisDao">
+    <insert id="register" parameterType="com.qingsb.po.entity.User">
         insert into t_b_user(
         uid,mobile
         )
@@ -15,7 +15,7 @@
     <select id="checkMobile" resultType="string" parameterType="string">
         select mobile from t_b_user where mobile=#{0}
     </select>
-    <!--<update id="updateUser" parameterType="com.heqmentor.po.entity.User">-->
+    <!--<update id="updateUser" parameterType="com.qingsb.entity.User">-->
         <!--INSERT  INTO-->
         <!--t_b_user(-->
         <!--uid,name,nickname,gender,birth,-->

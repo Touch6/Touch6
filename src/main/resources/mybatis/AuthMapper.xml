@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.heqmentor.dao.repository.mybatis.AuthMybatisDao">
-    <insert id="insertAuth" parameterType="com.heqmentor.po.entity.Auth">
+<mapper namespace="com.qingsb.dao.repository.mybatis.AuthMybatisDao">
+    <insert id="insertAuth" parameterType="com.qingsb.po.entity.Auth">
         insert into t_b_auth(
         id,uid,login_name,password,salt,
         reserve1,reserve2,reserve3,reserve4,reserve5
