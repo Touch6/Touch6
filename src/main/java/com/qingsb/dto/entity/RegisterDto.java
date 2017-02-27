@@ -27,6 +27,9 @@ public class RegisterDto {
     @Length(min = 6, max = 24, message = "密码长度为6~24位长度")
     private String password;
 
+    @Length(min = 6, max = 24, message = "确认密码长度为6~24位长度")
+    private String confirmPassword;
+
     public String getMobile() {
         return mobile;
     }
@@ -49,5 +52,13 @@ public class RegisterDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

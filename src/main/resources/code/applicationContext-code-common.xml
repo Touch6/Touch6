@@ -12,6 +12,13 @@
         <property name="errorMap">
             <!--suppress InjectionValueTypeInspection -->
             <map>
+                <!--200000 共同异常start-->
+                <entry key="common.params.error">
+                    <error:error code="200000" info="参数错误" des="参数错误，请检查"/>
+                </entry>
+                <!--200000 共同异常end-->
+
+
                 <!--200100 手机验证异常start-->
                 <entry key="mobile.already.registered">
                     <error:error code="200100" info="信息错误" des="该手机号已被注册，请更换手机号码重新注册"/>
@@ -39,6 +46,11 @@
                 </entry>
                 <!--200100 手机验证异常end-->
 
+                <!--500200 用户信息start-->
+                <entry key="user.info.password.confirm.error">
+                    <error:error code="500200" info="确认密码错误" des="密码和确认密码不一致，请重新输入"/>
+                </entry>
+                <!--500200 用户信息end-->
 
                 <!--500100 系统异常start-->
                 <entry key="system.exception">

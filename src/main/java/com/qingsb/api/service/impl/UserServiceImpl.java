@@ -3,12 +3,15 @@ package com.qingsb.api.service.impl;
 
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
+import com.qingsb.core.exception.ECodeUtil;
+import com.qingsb.core.exception.error.constant.UserInfoConstant;
 import com.qingsb.dao.repository.mybatis.AuthMybatisDao;
 import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
 import com.qingsb.dao.repository.mybatis.ImageMybatisDao;
 import com.qingsb.dao.repository.mybatis.UserMybatisDao;
 import com.qingsb.dto.entity.RegisterDto;
 import com.qingsb.dto.entity.UserDto;
+import com.qingsb.enums.UserInfo;
 import com.qingsb.po.entity.Auth;
 import com.qingsb.po.entity.Certificate;
 import com.qingsb.po.entity.Image;
@@ -49,6 +52,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void register(RegisterDto registerDto) throws CoreException {
         BeanValidators.validateWithException(validator, registerDto);
+        //判定密码和确认密码是否一样
+        if (!registerDto.getPassword().equals(registerDto.getConfirmPassword())) {
+            throw new CoreException(ECodeUtil.getCommError(UserInfoConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
+        }
 
         User user = new User();
         String uid = StringUtil.generate32uuid();
@@ -69,35 +76,75 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void addUser(UserDto userDto) throws Exception {
-        User user = BeanMapper.map(userDto, User.class);
-        String uid = StringUtil.generate32uuid();
-        user.setUid(uid);
-        //加入用户信息
-        int res1 = userMybatisDao.updateUser(user);
-        if (res1 != 1) {
-            throw new Exception("添加用户失败");
+    public void perfectUserInfo(String uid, String info, UserInfo type) throws CoreException {
+        switch (type) {
+            case NAME:
+                break;
+            case NICKNAME:
+                break;
+            case GENDER:
+                break;
+            case BIRTH:
+                break;
+            case AGE:
+                break;
+            case NATION:
+                break;
+            case PROFESSION:
+                break;
+            case PROVINCE_CODE:
+                break;
+            case CITY_CODE:
+                break;
+            case DISTRICT_CODE:
+                break;
+            case ADDRESS:
+                break;
+            case QQ:
+                break;
+            case WEIXIN:
+                break;
+            case MOBILE:
+                break;
+            case EMAIL:
+                break;
+            case IDCARD:
+                break;
+            default:
+                throw new CoreException()
         }
-
-        if (user.getIdcard() != null) {
-            Certificate idcard = user.getIdcard();
-            String id = StringUtil.generate32uuid();
-            idcard.setId(id);
-            //加入身份证证件
-            int res2 = certificateMybatisDao.addCert(idcard);
-            if (res2 != 1) {
-                throw new Exception("添加身份证信息失败");
-            }
-            Image idcardImage = idcard.getCert();
-            String imageId = StringUtil.generate32uuid();
-            idcardImage.setImageId(imageId);
-            //加入证件图片
-            int res3 = imageMybatisDao.addImage(idcardImage);
-            if (res3 != 1) {
-                throw new Exception("添加身份证图片失败");
-            }
-        }
-
     }
+
+//    @Override
+//    @Transactional
+//    public void addUser(UserDto userDto) throws Exception {
+//        User user = BeanMapper.map(userDto, User.class);
+//        String uid = StringUtil.generate32uuid();
+//        user.setUid(uid);
+//        //加入用户信息
+//        int res1 = userMybatisDao.updateUser(user);
+//        if (res1 != 1) {
+//            throw new Exception("添加用户失败");
+//        }
+//
+//        if (user.getIdcard() != null) {
+//            Certificate idcard = user.getIdcard();
+//            String id = StringUtil.generate32uuid();
+//            idcard.setId(id);
+//            //加入身份证证件
+//            int res2 = certificateMybatisDao.addCert(idcard);
+//            if (res2 != 1) {
+//                throw new Exception("添加身份证信息失败");
+//            }
+//            Image idcardImage = idcard.getCert();
+//            String imageId = StringUtil.generate32uuid();
+//            idcardImage.setImageId(imageId);
+//            //加入证件图片
+//            int res3 = imageMybatisDao.addImage(idcardImage);
+//            if (res3 != 1) {
+//                throw new Exception("添加身份证图片失败");
+//            }
+//        }
+//
+//    }
 }

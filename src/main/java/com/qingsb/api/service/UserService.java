@@ -3,6 +3,7 @@ package com.qingsb.api.service;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.dto.entity.RegisterDto;
 import com.qingsb.dto.entity.UserDto;
+import com.qingsb.enums.UserInfo;
 
 /**
  * Created by zhuxl on 2015/5/20.
@@ -17,10 +18,11 @@ public interface UserService {
      */
     void register(RegisterDto registerDto) throws CoreException;
 
-    /**
-     * 添加用户
-     *
-     * @param userDto
+    /** 完善用户信息，单项更新
+     * @param uid
+     * @param info
+     * @param type
+     * @throws Exception
      */
-    void addUser(UserDto userDto) throws Exception;
+    void perfectUserInfo(String uid,String info,UserInfo type) throws CoreException;
 }
