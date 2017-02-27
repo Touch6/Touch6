@@ -4,6 +4,7 @@ package com.qingsb.api.service.impl;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.ECodeUtil;
+import com.qingsb.core.exception.error.constant.CommonErrorConstant;
 import com.qingsb.core.exception.error.constant.UserInfoConstant;
 import com.qingsb.dao.repository.mybatis.AuthMybatisDao;
 import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
@@ -111,7 +112,7 @@ public class UserServiceImpl implements UserService {
             case IDCARD:
                 break;
             default:
-                throw new CoreException()
+                throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
     }
 
