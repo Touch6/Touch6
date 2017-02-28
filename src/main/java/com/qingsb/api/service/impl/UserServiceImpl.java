@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException {
         try {
             BeanValidators.validateWithException(validator, perfectInfoParam);
