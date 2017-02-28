@@ -21,4 +21,5 @@ public interface UserMybatisDao {
     String checkMobile(String mobile);
 
     int perfectUserInfo(Map params);
+
 }

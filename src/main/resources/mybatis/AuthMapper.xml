@@ -14,4 +14,8 @@
         #{reserve1},#{reserve2},#{reserve3},#{reserve4},#{reserve5}
         )
     </insert>
+
+    <select id="findAuthByLoginName" resultType="com.qingsb.po.entity.Auth" parameterType="string">
+        select * from t_b_auth where login_name=#{0}
+    </select>
 </mapper>

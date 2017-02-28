@@ -3,6 +3,7 @@ package com.qingsb.controller;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.info.Success;
+import com.qingsb.params.LoginParam;
 import com.qingsb.params.PerfectInfoParam;
 import com.qingsb.params.RegisterParam;
 import org.slf4j.Logger;
@@ -34,6 +35,20 @@ public class UserController {
         try {
             userService.register(registerParam);
             Success ok = new Success(200, "注册成功", "恭喜你!注册成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity login(@RequestBody LoginParam loginParam) {
+        try {
+            String uid=userService.login(loginParam);
+            Success ok = new Success(200, uid, "恭喜你!登录成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

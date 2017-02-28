@@ -1,10 +1,6 @@
-package com.qingsb.dao.repository.mybatis;
+package com.qingsb.params;
 
-import com.qingsb.dao.repository.mybatis.common.MyBatisRepository;
-import com.qingsb.po.entity.Auth;
-import com.qingsb.po.entity.User;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -16,12 +12,26 @@ import com.qingsb.po.entity.User;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/28  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-@MyBatisRepository
-public interface AuthMybatisDao {
-    int insertAuth(Auth auth);
+public class LoginParam {
+    private String loginName;
+    private String password;
 
-    Auth findAuthByLoginName(String loginName);
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

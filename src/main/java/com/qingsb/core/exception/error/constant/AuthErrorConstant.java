@@ -1,10 +1,6 @@
-package com.qingsb.dao.repository.mybatis;
+package com.qingsb.core.exception.error.constant;
 
-import com.qingsb.dao.repository.mybatis.common.MyBatisRepository;
-import com.qingsb.po.entity.Auth;
-import com.qingsb.po.entity.User;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -16,12 +12,10 @@ import com.qingsb.po.entity.User;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/28  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-@MyBatisRepository
-public interface AuthMybatisDao {
-    int insertAuth(Auth auth);
-
-    Auth findAuthByLoginName(String loginName);
+public class AuthErrorConstant {
+    public static final String AUTH_NO_USER="auth.no.user";
+    public static final String AUTH_PASSWORD_ERROR="auth.password.error";
 }

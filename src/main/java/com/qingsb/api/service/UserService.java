@@ -1,6 +1,7 @@
 package com.qingsb.api.service;
 
 import com.qingsb.core.exception.CoreException;
+import com.qingsb.params.LoginParam;
 import com.qingsb.params.PerfectInfoParam;
 import com.qingsb.params.RegisterParam;
 
@@ -16,6 +17,13 @@ public interface UserService {
      * @throws Exception
      */
     void register(RegisterParam registerParam) throws CoreException;
+
+    /** 用户登录，登录成功返回uid
+     * @param loginParam
+     * @return
+     * @throws CoreException
+     */
+    String login(LoginParam loginParam) throws CoreException;
 
     /** 完善用户信息，单项更新
      * @param perfectInfoParam

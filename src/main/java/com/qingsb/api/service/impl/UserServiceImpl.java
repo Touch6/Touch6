@@ -4,6 +4,7 @@ package com.qingsb.api.service.impl;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.ECodeUtil;
+import com.qingsb.core.exception.error.constant.AuthErrorConstant;
 import com.qingsb.core.exception.error.constant.CommonErrorConstant;
 import com.qingsb.core.exception.error.constant.SystemErrorConstant;
 import com.qingsb.core.exception.error.constant.UserInfoConstant;
@@ -12,6 +13,7 @@ import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
 import com.qingsb.dao.repository.mybatis.ImageMybatisDao;
 import com.qingsb.dao.repository.mybatis.UserMybatisDao;
 import com.qingsb.enums.UserInfo;
+import com.qingsb.params.LoginParam;
 import com.qingsb.params.PerfectInfoParam;
 import com.qingsb.params.RegisterParam;
 import com.qingsb.po.entity.Auth;
@@ -84,6 +86,24 @@ public class UserServiceImpl implements UserService {
             logger.info("插入登录信息异常，堆栈:", e);
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+    }
+
+    @Override
+    public String login(LoginParam loginParam) throws CoreException {
+        //todo 加入登录日志
+        String loginName = loginParam.getLoginName();
+        String password = loginParam.getPassword();
+        Auth auth = authMybatisDao.findAuthByLoginName(loginName);
+        if (auth == null) {
+            logger.info("通过登录名[{}]查询不到登录信息", loginName);
+            throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_NO_USER));
+        }
+        boolean success = PasswordEncryptionUtil.authenticate(password, auth.getPassword(), auth.getSalt());
+        if (!success) {
+            logger.info("登录账号[{}]密码[{}]错误", loginName, password);
+            throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_PASSWORD_ERROR));
+        }
+        return auth.getUid();
     }
 
     @Override
