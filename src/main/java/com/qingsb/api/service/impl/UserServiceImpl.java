@@ -20,6 +20,8 @@ import com.qingsb.po.entity.Auth;
 import com.qingsb.po.entity.User;
 import com.qingsb.util.PasswordEncryptionUtil;
 import com.qingsb.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.HibernateValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,12 +111,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException {
         try {
+            BeanValidators.validateWithException(validator, perfectInfoParam);
+
             UserInfo infoType = UserInfo.valueOf(perfectInfoParam.getType());
-            String column = infoType.name().toLowerCase();
             Map params = new HashMap();
-            params.put("uid", perfectInfoParam.getUid());
+            String column = infoType.name().toLowerCase();
+            params.put("uid", "'" + perfectInfoParam.getUid() + "'");
             params.put("column", column);
-            params.put("value", perfectInfoParam.getInfo());
+            if (StringUtils.isBlank(perfectInfoParam.getValue())) {
+                params.put("value", "null");
+            } else {
+                params.put("value", "'" + perfectInfoParam.getValue() + "'");
+            }
             logger.info("即将完善的信息参数:[{}]", params.toString());
             userMybatisDao.perfectUserInfo(params);
         } catch (Exception e) {

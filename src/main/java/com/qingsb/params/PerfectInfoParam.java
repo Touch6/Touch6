@@ -1,6 +1,10 @@
 package com.qingsb.params;
 
-/*		
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
+/*
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -16,9 +20,12 @@ package com.qingsb.params;
  * ============================================================================		
  */
 public class PerfectInfoParam {
+    @NotNull
+    @Length(max = 32, min = 32, message = "uid为32位字符串")
     private String uid;
-    private String info;
+    @NotNull
     private String type;
+    private String value;
 
     public String getUid() {
         return uid;
@@ -28,19 +35,19 @@ public class PerfectInfoParam {
         this.uid = uid;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
