@@ -3,7 +3,8 @@ package com.qingsb.controller;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.info.Success;
-import com.qingsb.dto.entity.RegisterDto;
+import com.qingsb.params.PerfectInfoParam;
+import com.qingsb.params.RegisterParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,24 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity register(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity register(@RequestBody RegisterParam registerParam) {
         try {
-            userService.register(registerDto);
-            Success ok = new Success(200, null, "注册成功");
+            userService.register(registerParam);
+            Success ok = new Success(200, "注册成功", "恭喜你!注册成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "perfect", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity perfectInfo(@RequestBody PerfectInfoParam infoParam) {
+        try {
+            userService.perfectUserInfo(infoParam);
+            Success ok = new Success(200, "更新成功", "恭喜你!资料更新成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

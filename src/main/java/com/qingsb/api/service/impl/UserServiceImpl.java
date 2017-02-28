@@ -5,17 +5,16 @@ import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.ECodeUtil;
 import com.qingsb.core.exception.error.constant.CommonErrorConstant;
+import com.qingsb.core.exception.error.constant.SystemErrorConstant;
 import com.qingsb.core.exception.error.constant.UserInfoConstant;
 import com.qingsb.dao.repository.mybatis.AuthMybatisDao;
 import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
 import com.qingsb.dao.repository.mybatis.ImageMybatisDao;
 import com.qingsb.dao.repository.mybatis.UserMybatisDao;
-import com.qingsb.dto.entity.RegisterDto;
-import com.qingsb.dto.entity.UserDto;
 import com.qingsb.enums.UserInfo;
+import com.qingsb.params.PerfectInfoParam;
+import com.qingsb.params.RegisterParam;
 import com.qingsb.po.entity.Auth;
-import com.qingsb.po.entity.Certificate;
-import com.qingsb.po.entity.Image;
 import com.qingsb.po.entity.User;
 import com.qingsb.util.PasswordEncryptionUtil;
 import com.qingsb.util.StringUtil;
@@ -25,9 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.beanvalidator.BeanValidators;
-import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,68 +51,55 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void register(RegisterDto registerDto) throws CoreException {
-        BeanValidators.validateWithException(validator, registerDto);
+    public void register(RegisterParam registerParam) throws CoreException {
+        BeanValidators.validateWithException(validator, registerParam);
         //判定密码和确认密码是否一样
-        if (!registerDto.getPassword().equals(registerDto.getConfirmPassword())) {
+        if (!registerParam.getPassword().equals(registerParam.getConfirmPassword())) {
             throw new CoreException(ECodeUtil.getCommError(UserInfoConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
         }
 
         User user = new User();
         String uid = StringUtil.generate32uuid();
         user.setUid(uid);
-        user.setMobile(registerDto.getMobile());
+        user.setMobile(registerParam.getMobile());
         //insert user
-        userMybatisDao.register(user);
+        try {
+            userMybatisDao.register(user);
+        } catch (Exception e) {
+            logger.info("插入用户信息异常，堆栈:", e);
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
         Auth auth = new Auth();
         String authId = StringUtil.generate32uuid();
         auth.setId(authId);
         auth.setUid(uid);
-        auth.setLoginName(registerDto.getLoginName());
+        auth.setLoginName(registerParam.getLoginName());
         String salt = StringUtil.generate32uuid();
         auth.setSalt(salt);
-        auth.setPassword(PasswordEncryptionUtil.getEncryptedPassword(registerDto.getPassword(), salt));
+        auth.setPassword(PasswordEncryptionUtil.getEncryptedPassword(registerParam.getPassword(), salt));
         //insert auth
-        authMybatisDao.insertAuth(auth);
+        try {
+            authMybatisDao.insertAuth(auth);
+        } catch (Exception e) {
+            logger.info("插入登录信息异常，堆栈:", e);
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
     }
 
     @Override
-    public void perfectUserInfo(String uid, String info, UserInfo type) throws CoreException {
-        switch (type) {
-            case NAME:
-                break;
-            case NICKNAME:
-                break;
-            case GENDER:
-                break;
-            case BIRTH:
-                break;
-            case AGE:
-                break;
-            case NATION:
-                break;
-            case PROFESSION:
-                break;
-            case PROVINCE_CODE:
-                break;
-            case CITY_CODE:
-                break;
-            case DISTRICT_CODE:
-                break;
-            case ADDRESS:
-                break;
-            case QQ:
-                break;
-            case WEIXIN:
-                break;
-            case MOBILE:
-                break;
-            case EMAIL:
-                break;
-            case IDCARD:
-                break;
-            default:
-                throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+    public void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException {
+        try {
+            UserInfo infoType = UserInfo.valueOf(perfectInfoParam.getType());
+            String column = infoType.name().toLowerCase();
+            Map params = new HashMap();
+            params.put("uid", perfectInfoParam.getUid());
+            params.put("column", column);
+            params.put("value", perfectInfoParam.getInfo());
+            logger.info("即将完善的信息参数:[{}]", params.toString());
+            userMybatisDao.perfectUserInfo(params);
+        } catch (Exception e) {
+            logger.info("完善信息异常，堆栈:", e);
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
     }
 

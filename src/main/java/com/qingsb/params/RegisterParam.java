@@ -1,4 +1,4 @@
-package com.qingsb.dto.entity;
+package com.qingsb.params;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
  * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class RegisterDto {
+public class RegisterParam {
     @Length(min = 11, max = 11, message = "手机号码长度为11位")
     private String mobile;
 

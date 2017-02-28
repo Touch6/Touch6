@@ -15,19 +15,26 @@
     <select id="checkMobile" resultType="string" parameterType="string">
         select mobile from t_b_user where mobile=#{0}
     </select>
+    <update id="perfectUserInfo" statementType="STATEMENT" parameterType="hashMap">
+        <![CDATA[
+        update t_b_user
+        set ${column}=${value}
+        where uid=${uid}
+        ]]>
+    </update>
     <!--<update id="updateUser" parameterType="com.qingsb.entity.User">-->
-        <!--INSERT  INTO-->
-        <!--t_b_user(-->
-        <!--uid,name,nickname,gender,birth,-->
-        <!--age,nation,profession,province_code,city_code,-->
-        <!--district_code,address,mobile,idcard,reserve1,-->
-        <!--reserve2,reserve3,reserve4,reserve5-->
-        <!--)-->
-        <!--VALUES(-->
-        <!--#{uid},#{name},#{nickname},#{gender},#{birth},-->
-        <!--#{age},#{nation},#{profession},#{provinceCode},#{cityCode},-->
-        <!--#{districtCode},#{address},#{mobile},#{idcard.id},#{reserve1},-->
-        <!--#{reserve2},#{reserve3},#{reserve4},#{reserve5}-->
-        <!--)-->
+    <!--INSERT  INTO-->
+    <!--t_b_user(-->
+    <!--uid,name,nickname,gender,birth,-->
+    <!--age,nation,profession,province_code,city_code,-->
+    <!--district_code,address,mobile,idcard,reserve1,-->
+    <!--reserve2,reserve3,reserve4,reserve5-->
+    <!--)-->
+    <!--VALUES(-->
+    <!--#{uid},#{name},#{nickname},#{gender},#{birth},-->
+    <!--#{age},#{nation},#{profession},#{provinceCode},#{cityCode},-->
+    <!--#{districtCode},#{address},#{mobile},#{idcard.id},#{reserve1},-->
+    <!--#{reserve2},#{reserve3},#{reserve4},#{reserve5}-->
+    <!--)-->
     <!--</update>-->
 </mapper>
