@@ -2,6 +2,8 @@ package com.qingsb.params;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -18,15 +20,19 @@ import org.hibernate.validator.constraints.Length;
  * ============================================================================		
  */
 public class RegisterParam {
+    @NotNull(message = "手机号不能为空")
     @Length(min = 11, max = 11, message = "手机号码长度为11位")
     private String mobile;
 
+    @NotNull(message = "登录名不能为空")
     @Length(min = 6, max = 18, message = "登录账号为6~18位长度")
     private String loginName;
 
+    @NotNull(message = "登录密码不能为空")
     @Length(min = 6, max = 24, message = "密码长度为6~24位长度")
     private String password;
 
+    @NotNull(message = "确认密码不能为空")
     @Length(min = 6, max = 24, message = "确认密码长度为6~24位长度")
     private String confirmPassword;
 

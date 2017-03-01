@@ -23,7 +23,7 @@ public class PerfectInfoParam {
     @NotNull
     @Length(max = 32, min = 32, message = "uid为32位字符串")
     private String uid;
-    @NotNull
+    @NotNull(message = "请指定完善哪项资料")
     private String type;
     private String value;
 

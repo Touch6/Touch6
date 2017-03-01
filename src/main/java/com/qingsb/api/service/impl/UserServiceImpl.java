@@ -4,6 +4,7 @@ package com.qingsb.api.service.impl;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.ECodeUtil;
+import com.qingsb.core.exception.Error;
 import com.qingsb.core.exception.error.constant.*;
 import com.qingsb.dao.repository.mybatis.AuthMybatisDao;
 import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
@@ -18,6 +19,7 @@ import com.qingsb.po.entity.Auth;
 import com.qingsb.po.entity.User;
 import com.qingsb.util.PasswordEncryptionUtil;
 import com.qingsb.util.StringUtil;
+import com.qingsb.util.ValidatorUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.mapper.BeanMapper;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -54,7 +58,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(RegisterParam registerParam) throws CoreException {
-        BeanValidators.validateWithException(validator, registerParam);
+        String error = ValidatorUtil.validate(validator, registerParam);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
         //判定密码和确认密码是否一样
         if (!registerParam.getPassword().equals(registerParam.getConfirmPassword())) {
             throw new CoreException(ECodeUtil.getCommError(UserInfoErrorConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
@@ -121,8 +130,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException {
         try {
-            BeanValidators.validateWithException(validator, perfectInfoParam);
-
+            String error = ValidatorUtil.validate(validator, perfectInfoParam);
+            if (error != null) {
+                Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+                err.setDes(error);
+                throw new CoreException(err);
+            }
             UserInfo infoType = UserInfo.valueOf(perfectInfoParam.getType());
             Map params = new HashMap();
             String column = infoType.name().toLowerCase();
