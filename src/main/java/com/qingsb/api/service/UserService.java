@@ -1,6 +1,7 @@
 package com.qingsb.api.service;
 
 import com.qingsb.core.exception.CoreException;
+import com.qingsb.dto.entity.UserDto;
 import com.qingsb.params.LoginParam;
 import com.qingsb.params.PerfectInfoParam;
 import com.qingsb.params.RegisterParam;
@@ -18,16 +19,27 @@ public interface UserService {
      */
     void register(RegisterParam registerParam) throws CoreException;
 
-    /** 用户登录，登录成功返回uid
+    /**
+     * 用户登录，登录成功返回uid
+     *
      * @param loginParam
      * @return
      * @throws CoreException
      */
     String login(LoginParam loginParam) throws CoreException;
 
-    /** 完善用户信息，单项更新
+    /**
+     * 完善用户信息，单项更新
+     *
      * @param perfectInfoParam
      * @throws Exception
      */
     void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException;
+
+    /**获取用户详情
+     * @param uid
+     * @return
+     * @throws CoreException
+     */
+    UserDto getUserInfo(String uid) throws CoreException;
 }

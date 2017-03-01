@@ -18,4 +18,5 @@ package com.qingsb.core.exception.error.constant;
 public class AuthErrorConstant {
     public static final String AUTH_NO_USER="auth.no.user";
     public static final String AUTH_PASSWORD_ERROR="auth.password.error";
+    public static final String AUTH_LOGIN_NAME_EXISTED="auth.login.name.existed";
 }

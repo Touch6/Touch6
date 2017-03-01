@@ -24,4 +24,6 @@ public interface AuthMybatisDao {
     int insertAuth(Auth auth);
 
     Auth findAuthByLoginName(String loginName);
+
+    int checkIsRegisteredByLoginName(String loginName);
 }

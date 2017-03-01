@@ -15,6 +15,6 @@ package com.qingsb.core.exception.error.constant;
  * 2017/2/27  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class UserInfoConstant {
+public class UserInfoErrorConstant {
     public static final String USER_INFO_PASSWORD_CONFIRM_ERROR="user.info.password.confirm.error";
 }

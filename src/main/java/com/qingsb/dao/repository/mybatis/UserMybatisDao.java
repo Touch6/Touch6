@@ -22,4 +22,7 @@ public interface UserMybatisDao {
 
     int perfectUserInfo(Map params);
 
+    User findByUid(String uid);
+
+    int checkIsRegisteredByMobile(String mobile);
 }

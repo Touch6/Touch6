@@ -4,14 +4,12 @@ package com.qingsb.api.service.impl;
 import com.qingsb.api.service.UserService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.ECodeUtil;
-import com.qingsb.core.exception.error.constant.AuthErrorConstant;
-import com.qingsb.core.exception.error.constant.CommonErrorConstant;
-import com.qingsb.core.exception.error.constant.SystemErrorConstant;
-import com.qingsb.core.exception.error.constant.UserInfoConstant;
+import com.qingsb.core.exception.error.constant.*;
 import com.qingsb.dao.repository.mybatis.AuthMybatisDao;
 import com.qingsb.dao.repository.mybatis.CertificateMybatisDao;
 import com.qingsb.dao.repository.mybatis.ImageMybatisDao;
 import com.qingsb.dao.repository.mybatis.UserMybatisDao;
+import com.qingsb.dto.entity.UserDto;
 import com.qingsb.enums.UserInfo;
 import com.qingsb.params.LoginParam;
 import com.qingsb.params.PerfectInfoParam;
@@ -21,13 +19,13 @@ import com.qingsb.po.entity.User;
 import com.qingsb.util.PasswordEncryptionUtil;
 import com.qingsb.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.validator.HibernateValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.beanvalidator.BeanValidators;
+import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
 import java.util.HashMap;
@@ -59,7 +57,18 @@ public class UserServiceImpl implements UserService {
         BeanValidators.validateWithException(validator, registerParam);
         //判定密码和确认密码是否一样
         if (!registerParam.getPassword().equals(registerParam.getConfirmPassword())) {
-            throw new CoreException(ECodeUtil.getCommError(UserInfoConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(UserInfoErrorConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
+        }
+        //判定手机号是否已注册
+        int count1=userMybatisDao.checkIsRegisteredByMobile(registerParam.getMobile());
+        if(count1>0){
+            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_ALREADY_REGISTERED));
+        }
+
+        //判定登录名是否已注册
+        int count2=authMybatisDao.checkIsRegisteredByLoginName(registerParam.getLoginName());
+        if(count2>0){
+            throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_LOGIN_NAME_EXISTED));
         }
 
         User user = new User();
@@ -130,6 +139,16 @@ public class UserServiceImpl implements UserService {
             logger.info("完善信息异常，堆栈:", e);
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+    }
+
+    @Override
+    public UserDto getUserInfo(String uid) throws CoreException {
+        User user=userMybatisDao.findByUid(uid);
+        if(user==null){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+        UserDto userDto= BeanMapper.map(user,UserDto.class);
+        return userDto;
     }
 
 //    @Override

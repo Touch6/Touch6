@@ -18,4 +18,8 @@
     <select id="findAuthByLoginName" resultType="com.qingsb.po.entity.Auth" parameterType="string">
         select * from t_b_auth where login_name=#{0}
     </select>
+
+    <select id="checkIsRegisteredByLoginName" resultType="int" parameterType="string">
+        select count(1) from t_b_auth where login_name=#{0}
+    </select>
 </mapper>
