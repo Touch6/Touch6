@@ -49,8 +49,8 @@ public class UserController {
     @ResponseBody
     public ResponseEntity login(@RequestBody LoginParam loginParam) {
         try {
-            String uid = userService.login(loginParam);
-            Success ok = new Success(200, uid, "恭喜你!登录成功");
+            UserDto userDto = userService.login(loginParam);
+            Success ok = new Success(200, userDto, "恭喜你!登录成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

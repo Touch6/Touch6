@@ -26,7 +26,7 @@ public interface UserService {
      * @return
      * @throws CoreException
      */
-    String login(LoginParam loginParam) throws CoreException;
+    UserDto login(LoginParam loginParam) throws CoreException;
 
     /**
      * 完善用户信息，单项更新

@@ -18,18 +18,18 @@ package com.qingsb.core.info;
 public class Success {
     private int code;
     private String info;
-    private String des;
+    private Object object;
 
     public Success() {
         this.code = 200;
-        this.info = null;
-        this.des = "操作成功";
+        this.info = "操作成功";
+        this.object =null;
     }
 
-    public Success(int code, String info, String des) {
+    public Success(int code, Object object, String info) {
         this.code = code;
+        this.object = object;
         this.info = info;
-        this.des = des;
     }
 
     public int getCode() {
@@ -48,11 +48,11 @@ public class Success {
         this.info = info;
     }
 
-    public String getDes() {
-        return des;
+    public Object getObject() {
+        return object;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setObject(Object object) {
+        this.object = object;
     }
 }

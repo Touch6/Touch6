@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(LoginParam loginParam) throws CoreException {
+    public UserDto login(LoginParam loginParam) throws CoreException {
         //todo 加入登录日志
         String loginName = loginParam.getLoginName();
         String password = loginParam.getPassword();
@@ -123,7 +123,8 @@ public class UserServiceImpl implements UserService {
             logger.info("登录账号[{}]密码[{}]错误", loginName, password);
             throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_PASSWORD_ERROR));
         }
-        return auth.getUid();
+        User user=userMybatisDao.findByUid(auth.getUid());
+        return BeanMapper.map(user,UserDto.class);
     }
 
     @Override
