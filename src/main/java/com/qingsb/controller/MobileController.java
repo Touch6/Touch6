@@ -1,5 +1,6 @@
 package com.qingsb.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.qingsb.api.service.MobileService;
 import com.qingsb.core.exception.CoreException;
 import com.qingsb.core.exception.Error;
@@ -30,9 +31,9 @@ public class MobileController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity check(@RequestParam("mobile") String mobile) {
+    public ResponseEntity check(@RequestBody JSONObject mobile) {
         try {
-            mobileService.checkMobile(mobile);
+            mobileService.checkMobile(mobile.getString("mobile"));
             Success ok=new Success(200,null,"恭喜你，该号码可用");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {

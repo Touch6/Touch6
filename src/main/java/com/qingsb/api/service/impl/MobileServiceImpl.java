@@ -98,6 +98,7 @@ public class MobileServiceImpl implements MobileService {
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
         }
+        logger.info("向手机号：[{}]发送验证码：[{}]",mobile,code);
         QingsbSmsUtil.sendSmsCode(gateway, mobile, code);
     }
 
