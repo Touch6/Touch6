@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.qingsb.dao.repository.mybatis.UserMybatisDao">
-    <insert id="register" parameterType="com.qingsb.po.entity.User">
+<mapper namespace="com.knowincloud.dao.repository.mybatis.UserMybatisDao">
+    <insert id="register" parameterType="com.knowincloud.po.entity.User">
         insert into t_b_user(
         uid,mobile
         )
@@ -22,13 +22,13 @@
         where uid=${uid}
         ]]>
     </update>
-    <select id="findByUid" resultType="com.qingsb.po.entity.User" parameterType="string">
+    <select id="findByUid" resultType="com.knowincloud.po.entity.User" parameterType="string">
         select * from t_b_user where uid=#{0}
     </select>
     <select id="checkIsRegisteredByMobile" resultType="int" parameterType="string">
         select count(1) from t_b_user where mobile=#{0}
     </select>
-    <!--<update id="updateUser" parameterType="com.qingsb.entity.User">-->
+    <!--<update id="updateUser" parameterType="com.knowincloudcloud.entity.User">-->
     <!--INSERT  INTO-->
     <!--t_b_user(-->
     <!--uid,name,nickname,gender,birth,-->
