@@ -11,6 +11,7 @@ import com.knowincloud.dao.repository.mybatis.CertificateMybatisDao;
 import com.knowincloud.dao.repository.mybatis.ImageMybatisDao;
 import com.knowincloud.dao.repository.mybatis.UserMybatisDao;
 import com.knowincloud.dto.entity.UserDto;
+import com.knowincloud.enums.UserInfo;
 import com.knowincloud.params.LoginParam;
 import com.knowincloud.params.PerfectInfoParam;
 import com.knowincloud.params.RegisterParam;
