@@ -109,7 +109,7 @@ public class PhoneServiceImpl implements PhoneService {
         }
         //判定时间是否在expired分钟内
         Date now = DateUtil.nowTime();
-        int expired = Integer.valueOf(PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
+        long expired = Long.parseLong(PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
         if (expired * 60 * 1000 < (now.getTime() - phoneCode.getPresTime().getTime())) {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_CODE_EXPIRED));
         }
