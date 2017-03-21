@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <mvc:annotation-driven />
-    <context:component-scan base-package="com.qingsb.controller" />
+    <context:component-scan base-package="com.knowincloud.controller" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/" />

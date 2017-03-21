@@ -1,2 +1,2 @@
-http\://www.qingsb.com/schema/error=com.qingsb.core.exception.TagsNamespaceHandler
-http\://www.qingsb.com/schema/error/error.xsd=
+http\://www.knowincloud.com/schema/error=com.knowincloud.core.exception.TagsNamespaceHandler
+http\://www.knowincloud.com/schema/error/error.xsd=
