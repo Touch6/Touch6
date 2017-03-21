@@ -18,8 +18,8 @@ import com.knowincloud.enums.SmsGatewayInterface;
  * 2017/2/25  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class KnowincloudTest {
+public class KicTest {
     public static void main(String[] args) throws CoreException {
-        KnowincloudSmsUtil.sendSmsCode(SmsGatewayInterface.ALIYUN,"13880298929","266399");
+        KicSmsUtil.sendSmsCode(SmsGatewayInterface.ALIYUN,"13880298929","266399");
     }
 }

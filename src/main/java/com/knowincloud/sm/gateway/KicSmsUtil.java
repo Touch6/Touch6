@@ -28,7 +28,7 @@ import com.knowincloud.util.ReplaceUtil;
  * 2017/2/24  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class KnowincloudSmsUtil {
+public class KicSmsUtil {
     public static void sendSmsCode(SmsGatewayInterface gateway, String mobile, String code) throws CoreException {
         switch (gateway) {
             case SMS253:

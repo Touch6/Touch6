@@ -10,7 +10,7 @@ import com.knowincloud.dao.repository.mybatis.UserMybatisDao;
 import com.knowincloud.enums.MobileVerifyResult;
 import com.knowincloud.enums.SmsGatewayInterface;
 import com.knowincloud.po.entity.MobileCode;
-import com.knowincloud.sm.gateway.KnowincloudSmsUtil;
+import com.knowincloud.sm.gateway.KicSmsUtil;
 import com.knowincloud.util.DateUtil;
 import com.knowincloud.util.PropertiesUtil;
 import com.knowincloud.util.StringUtil;
@@ -94,8 +94,9 @@ public class MobileServiceImpl implements MobileService {
             mobileCode.setPrevVerifyResult(mobileCode.getPresVerifyResult());
             //update mobileCode
             mobileCodeMybatisDao.updateMobileCode(mobileCode);
-        }logger.info("向手机号：[{}]发送验证码：[{}]",mobile,code);
-        KnowincloudSmsUtil.sendSmsCode(gateway, mobile, code);
+        }
+        logger.info("向手机号：[{}]发送验证码：[{}]",mobile,code);
+        KicSmsUtil.sendSmsCode(gateway, mobile, code);
     }
 
     @Override
