@@ -1,7 +1,10 @@
 package com.knowincloud.sm.gateway.aliyun;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +25,9 @@ import java.util.Map;
  * ============================================================================		
  */
 public class AliyunSmsGateway {
-    public static final String batchSend(String url, String path, String method, String auth, String vars, String mobiles, String signName, String smsTemplate) {
+    private static final Logger logger = LoggerFactory.getLogger(AliyunSmsGateway.class);
+
+    public static final boolean batchSend(String url, String path, String method, String auth, String vars, String mobiles, String signName, String smsTemplate) {
         Map<String, String> headers = new HashMap<>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", auth);
@@ -36,9 +41,16 @@ public class AliyunSmsGateway {
             HttpResponse response = HttpUtils.doGet(url, path, method, headers, querys);
             result = EntityUtils.toString(response.getEntity());
             //获取response的body
+            logger.info("<<======发送短信验证码响应:[{}]",result);
+            JSONObject obj = JSONObject.parseObject(result);
+            if("true".equals(obj.getString("success"))){
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return false;
     }
 }

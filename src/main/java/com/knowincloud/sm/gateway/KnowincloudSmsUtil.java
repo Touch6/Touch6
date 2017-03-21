@@ -5,6 +5,7 @@ import com.knowincloud.constant.SmsGatewayConstant;
 import com.knowincloud.core.exception.CoreException;
 import com.knowincloud.core.exception.ECodeUtil;
 import com.knowincloud.core.exception.error.constant.MobileErrorConstant;
+import com.knowincloud.core.exception.error.constant.SystemErrorConstant;
 import com.knowincloud.enums.SmsGatewayInterface;
 import com.knowincloud.sm.gateway.aliyun.AliyunSmsGateway;
 import com.knowincloud.sm.gateway.sms253.HttpSender;
@@ -94,15 +95,12 @@ public class KnowincloudSmsUtil {
         String auth = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_AUTH);
         String signName = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SIGNNAME);
         String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SMSTEMPLATE);
-        try {
-            JSONObject vars = new JSONObject();
-            vars.put("code", code);
-            vars.put("time", expired);
-            String returnString = AliyunSmsGateway.batchSend(url, path, method, auth, vars.toJSONString(), mobile, signName, msgTemplate);
-            System.out.println(returnString);
-        } catch (Exception e) {
-            // TODO 处理异常
-            e.printStackTrace();
+        JSONObject vars = new JSONObject();
+        vars.put("code", code);
+        vars.put("time", expired);
+        boolean res = AliyunSmsGateway.batchSend(url, path, method, auth, vars.toJSONString(), mobile, signName, msgTemplate);
+        if (!res) {
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
     }
 }
