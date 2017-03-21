@@ -33,28 +33,28 @@
 
 
                 <!--200100 手机验证异常start-->
-                <entry key="mobile.already.registered">
+                <entry key="phone.already.registered">
                     <error:error code="200100" info="信息错误" des="该手机号已被注册，请更换手机号码重新注册"/>
                 </entry>
-                <entry key="mobile.incorrect">
+                <entry key="phone.incorrect">
                     <error:error code="200101" info="手机号码不正确" des="手机号不存在，请重新确认"/>
                 </entry>
-                <entry key="mobile.code.incorrect">
+                <entry key="phone.code.incorrect">
                     <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
                 </entry>
-                <!--<entry key="mobile.code.times.too.many">-->
+                <!--<entry key="phone.code.times.too.many">-->
                     <!--<error:error code="200103" info="请求过于频繁" des="手机验证码1天内最多获取10次，请次日再试"/>-->
                 <!--</entry>-->
-                <entry key="mobile.code.sms.gateway.error">
+                <entry key="phone.code.sms.gateway.error">
                     <error:error code="200104" info="短信网关错误" des="短信网关错误，请联系管理员"/>
                 </entry>
-                <entry key="mobile.code.expired">
+                <entry key="phone.code.expired">
                     <error:error code="200105" info="验证码过期" des="验证码验证时间超过15分钟，请重新获取"/>
                 </entry>
-                <entry key="mobile.code.too.frequent.60">
+                <entry key="phone.code.too.frequent.60">
                     <error:error code="200106" info="请求过于频繁" des="请求过于频繁，1分钟内只能请求一次"/>
                 </entry>
-                <entry key="mobile.code.only.verify.one.times">
+                <entry key="phone.code.only.verify.one.times">
                     <error:error code="200107" info="验证码已失效" des="验证码只允许验证一次"/>
                 </entry>
                 <!--200100 手机验证异常end-->

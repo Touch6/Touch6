@@ -15,7 +15,7 @@ package com.knowincloud.enums;
  * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public enum MobileVerifyResult {
+public enum PhoneVerifyResult {
     SUCCESS,
     FAILED
 }

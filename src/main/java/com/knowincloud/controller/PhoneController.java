@@ -1,11 +1,11 @@
 package com.knowincloud.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.knowincloud.api.service.MobileService;
+import com.knowincloud.api.service.PhoneService;
 import com.knowincloud.core.exception.CoreException;
 import com.knowincloud.core.exception.Error;
 import com.knowincloud.core.info.Success;
-import com.knowincloud.dto.entity.MobileCodeDto;
+import com.knowincloud.dto.entity.PhoneCodeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +20,20 @@ import org.springframework.web.bind.annotation.*;
  */
 @SuppressWarnings("ALL")
 @Controller
-@RequestMapping(value = "/api/v1/mobile")
-public class MobileController {
-    private static final Logger logger = LoggerFactory.getLogger(MobileController.class);
+@RequestMapping(value = "/api/v1/phone")
+public class PhoneController {
+    private static final Logger logger = LoggerFactory.getLogger(PhoneController.class);
 
     @Autowired
-    private MobileService mobileService;
+    private PhoneService phoneService;
 
     @RequestMapping(value = "check", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity check(@RequestBody JSONObject mobile) {
+    public ResponseEntity check(@RequestBody JSONObject phone) {
         try {
-            mobileService.checkMobile(mobile.getString("mobile"));
+            phoneService.checkPhone(phone.getString("phone"));
             Success ok=new Success(200,null,"恭喜你，该号码可用");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -49,9 +49,9 @@ public class MobileController {
     @RequestMapping(value = "code", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity generateCode(@RequestParam("mobile") String mobile) {
+    public ResponseEntity generateCode(@RequestParam("phone") String phone) {
         try {
-            mobileService.generateMobileCode(mobile);
+            phoneService.generatePhoneCode(phone);
             Success ok=new Success(200,"操作成功","生成验证码成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -68,9 +68,9 @@ public class MobileController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity verify(@RequestBody MobileCodeDto mobileCode) {
+    public ResponseEntity verify(@RequestBody PhoneCodeDto phoneCodeDto) {
         try {
-            mobileService.verifyMobileCode(mobileCode.getMobile(), mobileCode.getPresCode());
+            phoneService.verifyPhoneCode(phoneCodeDto.getPhone(), phoneCodeDto.getPresCode());
             Success ok=new Success(200,null,"恭喜你，验证成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {

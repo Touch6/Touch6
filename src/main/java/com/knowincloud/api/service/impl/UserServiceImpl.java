@@ -11,7 +11,6 @@ import com.knowincloud.dao.repository.mybatis.CertificateMybatisDao;
 import com.knowincloud.dao.repository.mybatis.ImageMybatisDao;
 import com.knowincloud.dao.repository.mybatis.UserMybatisDao;
 import com.knowincloud.dto.entity.UserDto;
-import com.knowincloud.enums.UserInfo;
 import com.knowincloud.params.LoginParam;
 import com.knowincloud.params.PerfectInfoParam;
 import com.knowincloud.params.RegisterParam;
@@ -66,9 +65,9 @@ public class UserServiceImpl implements UserService {
             throw new CoreException(ECodeUtil.getCommError(UserInfoErrorConstant.USER_INFO_PASSWORD_CONFIRM_ERROR));
         }
         //判定手机号是否已注册
-        int count1=userMybatisDao.checkIsRegisteredByMobile(registerParam.getMobile());
+        int count1=userMybatisDao.checkIsRegisteredByPhone(registerParam.getPhone());
         if(count1>0){
-            throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_ALREADY_REGISTERED));
+            throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_ALREADY_REGISTERED));
         }
 
         //判定登录名是否已注册
@@ -80,7 +79,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         String uid = StringUtil.generate32uuid();
         user.setUid(uid);
-        user.setMobile(registerParam.getMobile());
+        user.setPhone(registerParam.getPhone());
         //insert user
         try {
             userMybatisDao.register(user);

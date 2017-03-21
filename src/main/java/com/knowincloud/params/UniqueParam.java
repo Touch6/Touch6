@@ -5,7 +5,7 @@ package com.knowincloud.params;
  */
 public class UniqueParam {
     private String uid;
-    private String mobile;
+    private String phone;
     private String loginName;
 
     public String getUid() {
@@ -16,12 +16,12 @@ public class UniqueParam {
         this.uid = uid;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getLoginName() {

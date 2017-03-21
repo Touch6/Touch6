@@ -35,7 +35,7 @@ public class User {
     private String address;
     private String qq;
     private String weixin;
-    private String mobile;
+    private String phone;
     private String email;
     private Certificate idcard;
     private String reserve1;
@@ -140,12 +140,12 @@ public class User {
         this.address = address;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Certificate getIdcard() {

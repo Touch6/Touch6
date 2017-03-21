@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.knowincloud.constant.SmsGatewayConstant;
 import com.knowincloud.core.exception.CoreException;
 import com.knowincloud.core.exception.ECodeUtil;
-import com.knowincloud.core.exception.error.constant.MobileErrorConstant;
+import com.knowincloud.core.exception.error.constant.PhoneErrorConstant;
 import com.knowincloud.core.exception.error.constant.SystemErrorConstant;
 import com.knowincloud.enums.SmsGatewayInterface;
 import com.knowincloud.sm.gateway.aliyun.AliyunSmsGateway;
@@ -29,23 +29,23 @@ import com.knowincloud.util.ReplaceUtil;
  * ============================================================================		
  */
 public class KicSmsUtil {
-    public static void sendSmsCode(SmsGatewayInterface gateway, String mobile, String code) throws CoreException {
+    public static void sendSmsCode(SmsGatewayInterface gateway, String phone, String code) throws CoreException {
         switch (gateway) {
             case SMS253:
-                sendSmsBySms253(mobile, code);
+                sendSmsBySms253(phone, code);
                 break;
             case WEBCHINESE:
-                sendSmsByWebchinese(mobile, code);
+                sendSmsByWebchinese(phone, code);
                 break;
             case ALIYUN:
-                sendSmsByAliyun(mobile, code);
+                sendSmsByAliyun(phone, code);
                 break;
             default:
-                throw new CoreException(ECodeUtil.getCommError(MobileErrorConstant.MOBILE_CODE_SMS_GATEWAY_ERROR));
+                throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_CODE_SMS_GATEWAY_ERROR));
         }
     }
 
-    public static void sendSmsBySms253(String mobile, String code) throws CoreException {
+    public static void sendSmsBySms253(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
         String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_URL);// 应用地址
@@ -57,7 +57,7 @@ public class KicSmsUtil {
         String rd = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_RD);// 是否需要状态报告，需要1，不需要0
         String ex = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_EX);// 扩展码
         try {
-            String returnString = HttpSender.batchSend(url, un, pw, mobile, msg, rd, ex);
+            String returnString = HttpSender.batchSend(url, un, pw, phone, msg, rd, ex);
             System.out.println(returnString);
         } catch (Exception e) {
             // TODO 处理异常
@@ -65,7 +65,7 @@ public class KicSmsUtil {
         }
     }
 
-    public static void sendSmsByWebchinese(String mobile, String code) throws CoreException {
+    public static void sendSmsByWebchinese(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
         String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_URL);
@@ -77,7 +77,7 @@ public class KicSmsUtil {
         String contentType = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CONTENT_TYPE);
         String charset = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CHARSET);
         try {
-            String returnString = Webchinese.batchSend(url, uid, key, mobile, msg, contentType, charset);
+            String returnString = Webchinese.batchSend(url, uid, key, phone, msg, contentType, charset);
             System.out.println(returnString);
         } catch (Exception e) {
             // TODO 处理异常
@@ -85,7 +85,7 @@ public class KicSmsUtil {
         }
     }
 
-    public static void sendSmsByAliyun(String mobile, String code) throws CoreException {
+    public static void sendSmsByAliyun(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
         String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_URL);
@@ -98,7 +98,7 @@ public class KicSmsUtil {
         JSONObject vars = new JSONObject();
         vars.put("code", code);
         vars.put("time", expired);
-        boolean res = AliyunSmsGateway.batchSend(url, path, method, auth, vars.toJSONString(), mobile, signName, msgTemplate);
+        boolean res = AliyunSmsGateway.batchSend(url, path, method, auth, vars.toJSONString(), phone, signName, msgTemplate);
         if (!res) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }

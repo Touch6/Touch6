@@ -32,7 +32,7 @@ public class UserDto {
     private String address;
     private String qq;
     private String weixin;
-    private String mobile;
+    private String phone;
     private String email;
     private CertificateDto idcard;
 
@@ -132,12 +132,12 @@ public class UserDto {
         this.address = address;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public CertificateDto getIdcard() {

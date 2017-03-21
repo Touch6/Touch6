@@ -27,13 +27,13 @@ import java.util.Map;
 public class AliyunSmsGateway {
     private static final Logger logger = LoggerFactory.getLogger(AliyunSmsGateway.class);
 
-    public static final boolean batchSend(String url, String path, String method, String auth, String vars, String mobiles, String signName, String smsTemplate) {
+    public static final boolean batchSend(String url, String path, String method, String auth, String vars, String phones, String signName, String smsTemplate) {
         Map<String, String> headers = new HashMap<>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", auth);
         Map<String, String> querys = new HashMap<>();
         querys.put("ParamString", vars);
-        querys.put("RecNum", mobiles);
+        querys.put("RecNum", phones);
         querys.put("SignName", signName);
         querys.put("TemplateCode", smsTemplate);
         String result = null;

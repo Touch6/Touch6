@@ -16,11 +16,11 @@ public interface UserMybatisDao {
 
     int updateUser(User user);
 
-    String checkMobile(String mobile);
+    String checkPhone(String phone);
 
     int perfectUserInfo(Map params);
 
     User findByUid(String uid);
 
-    int checkIsRegisteredByMobile(String mobile);
+    int checkIsRegisteredByPhone(String phone);
 }

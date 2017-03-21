@@ -1,6 +1,8 @@
-package com.knowincloud.enums;
+package com.knowincloud.api.service;
 
-/*		
+import com.knowincloud.core.exception.CoreException;
+
+/*
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -12,24 +14,30 @@ package com.knowincloud.enums;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/27  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public enum UserInfo {
-    NAME,
-    NICKNAME,
-    GENDER,
-    BIRTH,
-    AGE,
-    NATION,
-    PROFESSION,
-    PROVINCE_CODE,
-    CITY_CODE,
-    DISTRICT_CODE,
-    ADDRESS,
-    QQ,
-    WEIXIN,
-    MOBILE,
-    EMAIL,
-    IDCARD
+public interface PhoneService {
+
+    /**
+     * 检测手机号码是否被注册
+     *
+     * @param phone
+     */
+    void checkPhone(String phone) throws CoreException;
+
+    /**
+     * 生成手机验证码
+     *
+     * @param phone 手机号
+     */
+    void generatePhoneCode(String phone) throws CoreException;
+
+    /**
+     * 验证手机验证码是否正确
+     *
+     * @param phone
+     * @param code
+     */
+    void verifyPhoneCode(String phone, String code) throws CoreException;
 }

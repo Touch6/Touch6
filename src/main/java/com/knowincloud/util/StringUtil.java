@@ -26,7 +26,7 @@ public class StringUtil {
         return str.replaceAll("-", "");
     }
 
-    public static final String generate6MobileCode(){
+    public static final String generate6PhoneCode(){
         StringBuilder code=new StringBuilder();
         for(int i=0;i<6;i++){
             int index=new Random().nextInt(10);

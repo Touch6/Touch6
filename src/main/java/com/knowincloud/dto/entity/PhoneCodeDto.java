@@ -1,6 +1,6 @@
 package com.knowincloud.dto.entity;
 
-import com.knowincloud.enums.MobileVerifyResult;
+import com.knowincloud.enums.PhoneVerifyResult;
 
 import java.util.Date;
 
@@ -19,17 +19,17 @@ import java.util.Date;
  * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class MobileCodeDto {
+public class PhoneCodeDto {
     private String id;
-    private String mobile;
+    private String phone;
     private String prevCode;
     private String presCode;
     private Integer times;
     private Date prevTime;
     private Date presTime;
     private Integer verifyTimes;
-    private MobileVerifyResult prevVerifyResult;
-    private MobileVerifyResult presVerifyResult;
+    private PhoneVerifyResult prevVerifyResult;
+    private PhoneVerifyResult presVerifyResult;
 
     public String getId() {
         return id;
@@ -39,12 +39,12 @@ public class MobileCodeDto {
         this.id = id;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPrevCode() {
@@ -63,19 +63,19 @@ public class MobileCodeDto {
         this.presCode = presCode;
     }
 
-    public MobileVerifyResult getPrevVerifyResult() {
+    public PhoneVerifyResult getPrevVerifyResult() {
         return prevVerifyResult;
     }
 
-    public void setPrevVerifyResult(MobileVerifyResult prevVerifyResult) {
+    public void setPrevVerifyResult(PhoneVerifyResult prevVerifyResult) {
         this.prevVerifyResult = prevVerifyResult;
     }
 
-    public MobileVerifyResult getPresVerifyResult() {
+    public PhoneVerifyResult getPresVerifyResult() {
         return presVerifyResult;
     }
 
-    public void setPresVerifyResult(MobileVerifyResult presVerifyResult) {
+    public void setPresVerifyResult(PhoneVerifyResult presVerifyResult) {
         this.presVerifyResult = presVerifyResult;
     }
 

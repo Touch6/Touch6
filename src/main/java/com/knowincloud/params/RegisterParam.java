@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class RegisterParam {
     @NotNull(message = "手机号不能为空")
     @Length(min = 11, max = 11, message = "手机号码长度为11位")
-    private String mobile;
+    private String phone;
 
     @NotNull(message = "登录名不能为空")
     @Length(min = 6, max = 18, message = "登录账号为6~18位长度")
@@ -36,12 +36,12 @@ public class RegisterParam {
     @Length(min = 6, max = 24, message = "确认密码长度为6~24位长度")
     private String confirmPassword;
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getLoginName() {
