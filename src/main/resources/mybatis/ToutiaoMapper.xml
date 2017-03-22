@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.knowincloud.dao.repository.mybatis.ToutiaoMybatisDao">
+    <insert id="insertToutiaoInBatch" parameterType="list">
+        insert into t_b_toutiao(
+        uniquekey,title,date,category,author_name,
+        url,thumbnail_pic_s,thumbnail_pic_s02,thumbnail_pic_s03,
+        reserve1,reserve2,reserve3,reserve4,reserve5
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+              #{item.uniquekey},#{item.title},#{item.date},#{item.category},#{item.authorName},
+              #{item.url},#{item.thumbnailPicS},#{item.thumbnailPicS02},#{item.thumbnailPicS03},
+              #{item.reserve1},#{item.reserve2},#{item.reserve3},#{item.reserve4},#{item.reserve5}
+            )
+        </foreach>
+    </insert>
+</mapper>
