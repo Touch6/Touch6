@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.knowincloud.dao.repository.mybatis.ToutiaoMybatisDao">
     <insert id="insertToutiaoInBatch" parameterType="list">
-        insert into t_b_toutiao(
+        insert ignore into t_b_toutiao(
         uniquekey,title,date,category,author_name,
         url,thumbnail_pic_s,thumbnail_pic_s02,thumbnail_pic_s03,
         reserve1,reserve2,reserve3,reserve4,reserve5
