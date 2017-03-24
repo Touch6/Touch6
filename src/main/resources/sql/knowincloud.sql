@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : 127.0.0.1
 Source Server Version : 50717
 Source Host           : 127.0.0.1:3306
-Source Database       : knowincloud
+Source Database       : touch6
 
 Target Server Type    : MYSQL
 Target Server Version : 50717

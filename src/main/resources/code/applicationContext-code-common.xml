@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:error="http://www.knowincloud.com/schema/error"
+       xmlns:error="http://www.touch6.com/schema/error"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.knowincloud.com/schema/error
-                           http://www.knowincloud.com/schema/error/error.xsd">
+                           http://www.touch6.com/schema/error
+                           http://www.touch6.com/schema/error/error.xsd">
 
     <!-- 异常代码配置  -->
-    <bean id="eCode_comm" class="com.knowincloud.core.exception.ECode">
+    <bean id="eCode_comm" class="com.touch6.core.exception.ECode">
         <property name="errorMap">
             <!--suppress InjectionValueTypeInspection -->
             <map>

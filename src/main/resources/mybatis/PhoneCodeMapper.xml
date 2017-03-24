@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.knowincloud.dao.repository.mybatis.PhoneCodeMybatisDao">
-    <insert id="insertPhoneCode" parameterType="com.knowincloud.po.entity.PhoneCode">
+<mapper namespace="com.touch6.dao.repository.mybatis.PhoneCodeMybatisDao">
+    <insert id="insertPhoneCode" parameterType="com.touch6.po.entity.PhoneCode">
         insert into t_b_phone_code(
         id,phone,prev_code,pres_code,times,
         prev_time,pres_time,verify_times,prev_verify_result,pres_verify_result,
@@ -16,7 +16,7 @@
         #{reserve1},#{reserve2},#{reserve3},#{reserve4},#{reserve5}
         )
     </insert>
-    <update id="updatePhoneCode" parameterType="com.knowincloud.po.entity.PhoneCode">
+    <update id="updatePhoneCode" parameterType="com.touch6.po.entity.PhoneCode">
         update t_b_phone_code
         <set>
             prev_code=#{prevCode},
@@ -29,7 +29,7 @@
         </set>
         where id=#{id}
     </update>
-    <select id="findByPhone" resultType="com.knowincloud.po.entity.PhoneCode" parameterType="string">
+    <select id="findByPhone" resultType="com.touch6.po.entity.PhoneCode" parameterType="string">
         select * from t_b_phone_code
         where phone=#{0}
     </select>

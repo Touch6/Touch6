@@ -1,2 +1,2 @@
-http\://www.knowincloud.com/schema/error=com.knowincloud.core.exception.TagsNamespaceHandler
-http\://www.knowincloud.com/schema/error/error.xsd=
+http\://www.touch6.com/schema/error=com.touch6.core.exception.TagsNamespaceHandler
+http\://www.touch6.com/schema/error/error.xsd=
