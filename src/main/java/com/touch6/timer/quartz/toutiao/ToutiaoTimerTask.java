@@ -25,6 +25,6 @@ public class ToutiaoTimerTask {
         JSONArray toutiao = KicToutiaoApi.pullNews();
         List<Toutiao> toutiaos = KicToutiaoApi.toToutiaoList(toutiao);
         int result = toutiaoMybatisDao.insertToutiaoInBatch(toutiaos);
-        logger.info("插入数据库的条数:[{}]", result);
+        logger.info("更新条数:[{}]", result);
     }
 }
