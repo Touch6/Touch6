@@ -14,7 +14,12 @@
             classpath:/spring/applicationContext.xml
         </param-value>
     </context-param>
-
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <!--<param-value>development</param-value>-->
+        <param-value>test</param-value>
+        <!--<param-value>production</param-value>-->
+    </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -36,14 +41,6 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <context-param>
-        <param-name>spring.profiles.default</param-name>
-        <!--<param-value>production</param-value>-->
-        <!--<param-value>preview</param-value>-->
-        <!--<param-value>test</param-value>-->
-        <param-value>development</param-value>
-    </context-param>
-
     <!-- 核心控制器 -->
     <servlet>
         <servlet-name>book</servlet-name>

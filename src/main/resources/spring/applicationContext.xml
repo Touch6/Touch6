@@ -72,12 +72,31 @@
     <bean id="validator"
           class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
+    <import resource="classpath:/spring/applicationContext_timerTask.xml"/>
 
     <!-- local development环境 -->
     <beans profile="development">
         <context:property-placeholder
                 ignore-resource-not-found="true"
                 location="classpath*:/application.development.properties"/>
+
+        <!-- 数据源 -->
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="driverClassName" value="${jdbc.driver}"/>
+            <property name="initialSize" value="10"/>
+            <property name="maxActive" value="40"/>
+            <property name="maxIdle" value="5"/>
+            <property name="password" value="${jdbc.password}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="defaultAutoCommit" value="false"/>
+        </bean>
+    </beans>
+    <!-- local development环境 -->
+    <beans profile="test">
+        <context:property-placeholder
+                ignore-resource-not-found="true"
+                location="classpath*:/application.test.properties"/>
 
         <!-- 数据源 -->
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
