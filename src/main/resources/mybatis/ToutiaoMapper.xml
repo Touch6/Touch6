@@ -25,6 +25,7 @@
             tt.title,
             tt.date,
             tt.category,
+	        tt.author_name,
             tt.url,
             tt.thumbnail_pic_s
         FROM
