@@ -11,5 +11,5 @@ public interface ToutiaoService {
     /** 拉取头条更新
      * @return
      */
-    List<ToutiaoDto> listToutiao();
+    List<ToutiaoDto> listToutiao(int pageNo,int pageSize);
 }
