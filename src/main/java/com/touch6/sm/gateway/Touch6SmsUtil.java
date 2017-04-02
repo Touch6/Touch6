@@ -6,12 +6,12 @@ import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.error.constant.PhoneErrorConstant;
 import com.touch6.core.exception.error.constant.SystemErrorConstant;
-import com.touch6.enums.SmsGatewayInterface;
+import com.touch6.business.enums.SmsGatewayInterface;
 import com.touch6.sm.gateway.aliyun.AliyunSmsGateway;
 import com.touch6.sm.gateway.sms253.HttpSender;
 import com.touch6.sm.gateway.webchinese.Webchinese;
-import com.touch6.util.PropertiesUtil;
-import com.touch6.util.ReplaceUtil;
+import com.touch6.utils.PropertiesUtil;
+import com.touch6.utils.ReplaceUtil;
 
 /*
  * ============================================================================		

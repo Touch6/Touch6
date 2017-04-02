@@ -1,8 +1,8 @@
 package com.touch6.timer.quartz.toutiao;
 
 import com.alibaba.fastjson.JSONArray;
-import com.touch6.dao.repository.mybatis.ToutiaoMybatisDao;
-import com.touch6.po.entity.news.Toutiao;
+import com.touch6.business.mybatis.ToutiaoMybatisDao;
+import com.touch6.business.entity.news.Toutiao;
 import com.touch6.third.api.toutiao.KicToutiaoApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

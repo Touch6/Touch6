@@ -1,7 +1,6 @@
-package com.touch6.sm.gateway;
+package com.touch6.business.api.service;
 
 import com.touch6.core.exception.CoreException;
-import com.touch6.business.enums.SmsGatewayInterface;
 
 /*
  * ============================================================================		
@@ -15,11 +14,30 @@ import com.touch6.business.enums.SmsGatewayInterface;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/25  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/23  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Touch6Test {
-    public static void main(String[] args) throws CoreException {
-        Touch6SmsUtil.sendSmsCode(SmsGatewayInterface.ALIYUN,"13880298929","266399");
-    }
+public interface PhoneService {
+
+    /**
+     * 检测手机号码是否被注册
+     *
+     * @param phone
+     */
+    void checkPhone(String phone) throws CoreException;
+
+    /**
+     * 生成手机验证码
+     *
+     * @param phone 手机号
+     */
+    void generatePhoneCode(String phone) throws CoreException;
+
+    /**
+     * 验证手机验证码是否正确
+     *
+     * @param phone
+     * @param code
+     */
+    void verifyPhoneCode(String phone, String code) throws CoreException;
 }

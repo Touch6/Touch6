@@ -1,7 +1,8 @@
-package com.touch6.sm.gateway;
+package com.touch6.utils;
 
-import com.touch6.core.exception.CoreException;
-import com.touch6.business.enums.SmsGatewayInterface;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
 
 /*
  * ============================================================================		
@@ -15,11 +16,17 @@ import com.touch6.business.enums.SmsGatewayInterface;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/25  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/3/1  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Touch6Test {
-    public static void main(String[] args) throws CoreException {
-        Touch6SmsUtil.sendSmsCode(SmsGatewayInterface.ALIYUN,"13880298929","266399");
+public class ValidatorUtil {
+    public static final String validate(Validator validator, Object clazz) {
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(clazz);
+        StringBuilder msg = new StringBuilder();
+        for (ConstraintViolation cv : constraintViolations) {
+            String s = cv.getMessage();
+            msg.append(s + ";");
+        }
+        return msg.length() == 0 ? null : msg.toString();
     }
 }
