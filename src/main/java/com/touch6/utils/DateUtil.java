@@ -25,9 +25,9 @@ public class DateUtil {
     public static final String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
     }
-    public static Long dateParse(String dst, String format) {
+    public static Long dateParse(String src, String format) {
         try {
-            return new SimpleDateFormat(format).parse(dst).getTime();
+            return new SimpleDateFormat(format).parse(src).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

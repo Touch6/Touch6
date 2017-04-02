@@ -12,11 +12,11 @@ public class ToolsServiceImpl implements ToolsService {
 
 
     @Override
-    public String dateFormat(String src, String format,String dst,String type) {
+    public String dateFormat(String src, String format,String type) {
         if("1".equals(type)){
             return DateUtil.dateFormat(src, format);
         }else if("-1".equals(type)){
-            return DateUtil.dateParse(dst, format).toString();
+            return DateUtil.dateParse(src, format).toString();
         }
         return null;
     }

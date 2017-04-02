@@ -36,10 +36,9 @@ public class ToolsController {
     @ResponseBody
     public ResponseEntity pull(@RequestParam(value = "src") String src,
                                @RequestParam(value = "format") String format,
-                               @RequestParam(value = "dst") String dst,
                                @RequestParam(value = "type") String type) {
         try {
-            String result = toolsService.dateFormat(src, format,dst,type);
+            String result = toolsService.dateFormat(src, format,type);
             Success ok = new Success(200, result, "更新成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
