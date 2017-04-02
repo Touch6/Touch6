@@ -1,9 +1,6 @@
-package com.touch6.sm.gateway;
+package com.touch6.business.params;
 
-import com.touch6.core.exception.CoreException;
-import com.touch6.business.enums.SmsGatewayInterface;
-
-/*
+/*		
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -15,11 +12,26 @@ import com.touch6.business.enums.SmsGatewayInterface;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/25  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/2/28  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Touch6Test {
-    public static void main(String[] args) throws CoreException {
-        Touch6SmsUtil.sendSmsCode(SmsGatewayInterface.ALIYUN,"13880298929","266399");
+public class LoginParam {
+    private String loginName;
+    private String password;
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

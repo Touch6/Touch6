@@ -2,7 +2,7 @@ package com.touch6.third.api.toutiao;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.touch6.po.entity.news.Toutiao;
+import com.touch6.business.entity.news.Toutiao;
 import com.touch6.sm.gateway.aliyun.HttpUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
