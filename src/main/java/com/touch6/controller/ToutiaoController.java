@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -29,12 +30,13 @@ public class ToutiaoController {
     @Autowired
     private ToutiaoService toutiaoService;
 
-    @RequestMapping(value = "news", method = RequestMethod.GET,
+    @RequestMapping(value = "overview", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity pull() {
+    public ResponseEntity pull(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                               @RequestParam(value = "phone", defaultValue = "30") int pageSize) {
         try {
-            List<ToutiaoDto> toutiaoDtos = toutiaoService.listToutiao();
+            List<ToutiaoDto> toutiaoDtos = toutiaoService.listToutiao(pageNo, pageSize);
             Success ok = new Success(200, toutiaoDtos, "更新成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
