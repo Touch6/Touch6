@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.dao.repository.mybatis.CertificateMybatisDao">
-    <insert id="addCert" parameterType="com.touch6.po.entity.Certificate">
+<mapper namespace="com.touch6.business.mybatis.CertificateMybatisDao">
+    <insert id="addCert" parameterType="com.touch6.business.entity.Certificate">
         INSERT  INTO
         t_b_certificate(
         id,name,type,no,cert,

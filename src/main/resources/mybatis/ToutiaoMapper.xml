@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.dao.repository.mybatis.ToutiaoMybatisDao">
+<mapper namespace="com.touch6.business.mybatis.ToutiaoMybatisDao">
     <insert id="insertToutiaoInBatch" parameterType="list">
         insert ignore into t_b_toutiao(
         uniquekey,title,date,category,author_name,
@@ -19,7 +19,7 @@
             )
         </foreach>
     </insert>
-    <select id="overview" resultType="com.touch6.po.entity.news.Toutiao" parameterType="hashMap">
+    <select id="overview" resultType="com.touch6.business.entity.news.Toutiao" parameterType="hashMap">
         SELECT
             tt.uniquekey,
             tt.title,

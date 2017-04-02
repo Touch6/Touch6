@@ -5,5 +5,5 @@ package com.touch6.business.api.service;
  */
 public interface ToolsService {
 
-    String dateFormat(String date,String format);
+    String dateFormat(String src, String format, String dst, String type);
 }
