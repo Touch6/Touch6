@@ -6,4 +6,6 @@ package com.touch6.business.api.service;
 public interface ToolsService {
 
     String dateFormat(String src, String format, String type);
+
+    String codec(String src, String type);
 }

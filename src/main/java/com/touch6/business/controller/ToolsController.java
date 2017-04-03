@@ -34,12 +34,25 @@ public class ToolsController {
     @RequestMapping(value = "dateformat", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity pull(@RequestParam(value = "src") String src,
+    public ResponseEntity dateFormat(@RequestParam(value = "src") String src,
                                @RequestParam(value = "format") String format,
                                @RequestParam(value = "type") String type) {
         try {
             String result = toolsService.dateFormat(src, format,type);
-            Success ok = new Success(200, result, "更新成功");
+            Success ok = new Success(200, result, "格式化成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "codec", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity codec(@RequestParam(value = "src") String src,
+                               @RequestParam(value = "type") String type) {
+        try {
+            String result = toolsService.codec(src,type);
+            Success ok = new Success(200, result, "编解码成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
