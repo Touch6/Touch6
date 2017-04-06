@@ -3,7 +3,7 @@ package com.touch6.business.controller;
 import com.touch6.business.api.service.ToutiaoService;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
-import com.touch6.business.entity.news.ToutiaoDto;
+import com.touch6.business.dto.ToutiaoDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

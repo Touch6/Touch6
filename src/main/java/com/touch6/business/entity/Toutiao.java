@@ -1,12 +1,14 @@
-package com.touch6.business.entity.news;
+package com.touch6.business.entity;
+
+import java.util.Date;
 
 /**
  * Created by LONG on 2017/3/22.
  */
-public class ToutiaoDto {
+public class Toutiao {
     private String uniquekey;
     private String title;
-    private String date;
+    private Date date;
     private String category;
     private String authorName;
     private String url;
@@ -35,11 +37,11 @@ public class ToutiaoDto {
         this.title = title;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

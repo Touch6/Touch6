@@ -2,8 +2,8 @@ package com.touch6.business.api.service.impl;
 
 import com.touch6.business.api.service.ToutiaoService;
 import com.touch6.business.mybatis.ToutiaoMybatisDao;
-import com.touch6.business.entity.news.ToutiaoDto;
-import com.touch6.business.entity.news.Toutiao;
+import com.touch6.business.dto.ToutiaoDto;
+import com.touch6.business.entity.Toutiao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

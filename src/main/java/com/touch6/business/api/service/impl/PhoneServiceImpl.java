@@ -11,7 +11,7 @@ import com.touch6.business.enums.PhoneVerifyResult;
 import com.touch6.business.enums.SmsGatewayInterface;
 import com.touch6.business.entity.PhoneCode;
 import com.touch6.sm.gateway.Touch6SmsUtil;
-import com.touch6.utils.DateUtil;
+import com.touch6.utils.DateUtils;
 import com.touch6.utils.PropertiesUtil;
 import com.touch6.utils.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -60,7 +60,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Transactional
     public void generatePhoneCode(String phone) throws CoreException {
         String code = StringUtil.generate6PhoneCode();
-        Date now = DateUtil.nowTime();
+        Date now = DateUtils.nowTime();
         String selectedGateway = PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_GATEWAY_SELECTED);
         SmsGatewayInterface gateway = SmsGatewayInterface.valueOf(selectedGateway);
 
@@ -73,7 +73,7 @@ public class PhoneServiceImpl implements PhoneService {
             phoneCode.setPresCode(code);
             phoneCode.setTimes(1);
             phoneCode.setVerifyTimes(0);
-            Date time = DateUtil.nowTime();
+            Date time = DateUtils.nowTime();
             phoneCode.setPresTime(time);
             //insert phoneCode
             phoneCodeMybatisDao.insertPhoneCode(phoneCode);
@@ -108,7 +108,7 @@ public class PhoneServiceImpl implements PhoneService {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_INCORRECT));
         }
         //判定时间是否在expired分钟内
-        Date now = DateUtil.nowTime();
+        Date now = DateUtils.nowTime();
         long expired = Long.parseLong(PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
         if (expired * 60 * 1000 < (now.getTime() - phoneCode.getPresTime().getTime())) {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_CODE_EXPIRED));

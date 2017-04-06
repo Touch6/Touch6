@@ -5,7 +5,7 @@ import com.touch6.business.api.service.PhoneService;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.Error;
 import com.touch6.core.info.Success;
-import com.touch6.business.entity.PhoneCodeDto;
+import com.touch6.business.dto.PhoneCodeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

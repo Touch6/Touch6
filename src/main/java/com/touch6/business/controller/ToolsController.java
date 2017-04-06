@@ -1,8 +1,6 @@
 package com.touch6.business.controller;
 
 import com.touch6.business.api.service.ToolsService;
-import com.touch6.business.api.service.ToutiaoService;
-import com.touch6.business.entity.news.ToutiaoDto;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import org.slf4j.Logger;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * Created by zhuxl@paxsz.com on 2016/7/27.

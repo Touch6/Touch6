@@ -1,9 +1,10 @@
 package com.touch6.business.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.UserService;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
-import com.touch6.business.entity.UserDto;
+import com.touch6.business.dto.UserDto;
 import com.touch6.business.params.LoginParam;
 import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;
@@ -35,6 +36,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity register(@RequestBody RegisterParam registerParam) {
         try {
+            logger.info("接收到注册信息:[{}]", JSONObject.toJSONString(registerParam));
             userService.register(registerParam);
             Success ok = new Success(200, "注册成功", "恭喜你!注册成功");
             return new ResponseEntity(ok, HttpStatus.OK);

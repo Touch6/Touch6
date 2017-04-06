@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by LONG on 2017/2/23.
  */
-public class DateUtil {
+public class DateUtils {
     public static final String format1 = "yyyy-MM-dd";
     public static final String format2 = "yyyy-MM-dd HH:mm";
     public static final String format3 = "yyyy-MM-dd HH:mm:ss";
@@ -24,6 +24,14 @@ public class DateUtil {
 
     public static final String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
+    }
+    public static Date parseDate(String format,String date){
+        try {
+            return new SimpleDateFormat(format).parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public static Long dateParse(String src, String format) {
         try {

@@ -6,8 +6,10 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="console" />
     </root>
-    <!--<logger name="dao" level="DEBUG"/>-->
+    <logger name="dao" level="DEBUG" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
 </configuration>

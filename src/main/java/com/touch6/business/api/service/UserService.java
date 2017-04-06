@@ -1,7 +1,7 @@
 package com.touch6.business.api.service;
 
 import com.touch6.core.exception.CoreException;
-import com.touch6.business.entity.UserDto;
+import com.touch6.business.dto.UserDto;
 import com.touch6.business.params.LoginParam;
 import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;

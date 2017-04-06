@@ -10,6 +10,7 @@
         <property name="triggers">
             <list>
                 <ref bean="updateToutiaoTrigger"></ref>
+                <ref bean="deleteToutiaoTrigger"></ref>
             </list>
         </property>
     </bean>
@@ -36,5 +37,31 @@
         </property>
         <property name="concurrent" value="false"/>
     </bean>
-    <!--=====================================门店支付类别同步配置结束======================================================-->
+    <!--=====================================定时更新头条配置结束======================================================-->
+
+
+    <!--=====================================定时删除头条开始======================================================-->
+    <!--配置触发器-->
+    <bean id="deleteToutiaoTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="toutiaoJob2"></ref>
+        </property>
+        <property name="cronExpression">
+            <!--每天00:00:00-->
+            <!--<value>0 0 0 * * ? *</value>-->
+            <!--从0秒开始每60秒同步一次-->
+            <value>${quartz.cron.toutiao.delete}</value>
+        </property>
+    </bean>
+    <!--配置任务-->
+    <bean id="toutiaoJob2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="toutiaoTimerTask"></ref>
+        </property>
+        <property name="targetMethod">
+            <value>deleteToutiao</value>
+        </property>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--=====================================定时删除配置结束======================================================-->
 </beans>

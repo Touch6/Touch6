@@ -19,7 +19,7 @@
             )
         </foreach>
     </insert>
-    <select id="overview" resultType="com.touch6.business.entity.news.Toutiao" parameterType="hashMap">
+    <select id="overview" resultType="com.touch6.business.entity.Toutiao" parameterType="hashMap">
         SELECT
             tt.uniquekey,
             tt.title,
@@ -34,4 +34,7 @@
             tt.date DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
+    <delete id="deleteToutiaoBefore10" parameterType="java.util.Date">
+        delete from t_b_toutiao where date <![CDATA[<]]> #{0}
+    </delete>
 </mapper>

@@ -24,9 +24,9 @@ public class RegisterParam {
     @Length(min = 11, max = 11, message = "手机号码长度为11位")
     private String phone;
 
-    @NotNull(message = "登录名不能为空")
-    @Length(min = 6, max = 18, message = "登录账号为6~18位长度")
-    private String loginName;
+    @NotNull(message = "验证码不能为空")
+    @Length(min = 6, max = 18, message = "验证码为6位数字")
+    private String code;
 
     @NotNull(message = "登录密码不能为空")
     @Length(min = 6, max = 24, message = "密码长度为6~24位长度")
@@ -44,14 +44,6 @@ public class RegisterParam {
         this.phone = phone;
     }
 
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -66,5 +58,13 @@ public class RegisterParam {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

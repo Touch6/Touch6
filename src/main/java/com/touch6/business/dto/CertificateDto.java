@@ -1,4 +1,4 @@
-package com.touch6.business.entity;
+package com.touch6.business.dto;
 
 import java.util.Date;
 

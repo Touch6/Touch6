@@ -2,7 +2,7 @@ package com.touch6.business.api.service.impl;
 
 import com.touch6.business.api.service.ToolsService;
 import com.touch6.utils.CodecUtils;
-import com.touch6.utils.DateUtil;
+import com.touch6.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,9 +15,9 @@ public class ToolsServiceImpl implements ToolsService {
     @Override
     public String dateFormat(String src, String format, String type) {
         if ("1".equals(type)) {
-            return DateUtil.dateFormat(src, format);
+            return DateUtils.dateFormat(src, format);
         } else if ("-1".equals(type)) {
-            return DateUtil.dateParse(src, format).toString();
+            return DateUtils.dateParse(src, format).toString();
         }
         return null;
     }

@@ -1,6 +1,6 @@
 package com.touch6.business.api.service;
 
-import com.touch6.business.entity.news.ToutiaoDto;
+import com.touch6.business.dto.ToutiaoDto;
 
 import java.util.List;
 
