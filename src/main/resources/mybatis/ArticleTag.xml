@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.ArticleTagMybatisDao">
     <insert id="addArticleTag" parameterType="list">
-        insert ignore into t_b_toutiao(
+        insert ignore into t_b_article_tag(
         article_id,name
         )
         values
