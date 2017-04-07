@@ -9,10 +9,22 @@
         article_id,name
         )
         values
-        <foreach collection="list" item="item" index="index" separator="," >
+        <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.articleId},#{item.name}
             )
         </foreach>
     </insert>
+    <select id="findTagListByArticleIds" resultType="com.touch6.business.entity.article.ArticleTag"
+            parameterType="list">
+        select tag.*
+        from t_b_article_tag tag
+        where tag.article_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <delete id="deleteTagsByArticleId" parameterType="string">
+        delete from t_b_article_tag where article_id=#{0}
+    </delete>
 </mapper>

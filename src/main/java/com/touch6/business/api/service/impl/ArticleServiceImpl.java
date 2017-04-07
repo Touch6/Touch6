@@ -48,27 +48,60 @@ public class ArticleServiceImpl implements ArticleService {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
         Article article = BeanMapper.map(articleDto, Article.class);
-        article.setId(T6StringUtils.generate32uuid());
-        //插入文章标签
-        if (StringUtils.isNotBlank(article.getTag())) {
-            String[] tags = StringUtils.split(article.getTag(), ",");
-            List<ArticleTag> tagList = new ArrayList<>();
-            for (String tag : tags) {
-                ArticleTag at = new ArticleTag();
-                at.setArticleId(article.getId());
-                at.setName(tag);
-                tagList.add(at);
+        //articleId为空新增，不为空修改
+        if (StringUtils.isBlank(article.getId())) {
+            article.setId(T6StringUtils.generate32uuid());
+            //插入文章标签
+            if (StringUtils.isNotBlank(article.getTag())) {
+                String[] tags = StringUtils.split(article.getTag(), ",");
+                List<ArticleTag> tagList = new ArrayList<>();
+                for (String tag : tags) {
+                    ArticleTag at = new ArticleTag();
+                    at.setArticleId(article.getId());
+                    at.setName(tag);
+                    tagList.add(at);
+                }
+                int tagcount = articleTagMybatisDao.addArticleTag(tagList);
+                logger.info("文章:[{}]插入[{}]个标签", article.getId() + "/" + article.getTitle(), tagcount);
             }
-            int tagcount = articleTagMybatisDao.addArticleTag(tagList);
-            logger.info("文章:[{}]插入[{}]个标签", article.getId() + "/" + article.getTitle(), tagcount);
+            Date date = new Date();
+            article.setUid(author.getUid());
+            article.setAuthor(author.getName());
+            article.setCreateTime(date);
+            article.setUpdateTime(date);
+            article.setAuditStatus(0);
+            int inserted = articleMybatisDao.writeArticle(article);
+            logger.info("插入文章数:[{}]", inserted);
+            return BeanMapper.map(article, ArticleDto.class);
+        } else {
+            //修改
+            //查询出原文章
+            Article old = articleMybatisDao.findById(article.getId());
+            //删除原来标签
+            int d = articleTagMybatisDao.deleteTagsByArticleId(article.getId());
+            logger.info("修改文章，删除原来标签个数:[{}]", d);
+            //插入文章标签
+            if (StringUtils.isNotBlank(article.getTag())) {
+                String[] tags = StringUtils.split(article.getTag(), ",");
+                List<ArticleTag> tagList = new ArrayList<>();
+                for (String tag : tags) {
+                    ArticleTag at = new ArticleTag();
+                    at.setArticleId(article.getId());
+                    at.setName(tag);
+                    tagList.add(at);
+                }
+                int tagcount = articleTagMybatisDao.addArticleTag(tagList);
+                logger.info("修改文章:[{}]插入[{}]个标签", article.getId() + "/" + article.getTitle(), tagcount);
+            }
+            Date date = new Date();
+            article.setUid(old.getUid());
+            article.setAuthor(old.getAuthor());
+            article.setCreateTime(old.getCreateTime());
+            article.setUpdateTime(date);
+            article.setAuditStatus(0);
+            int updated = articleMybatisDao.updateArticle(article);
+            logger.info("修改文章数:[{}]", updated);
+            return BeanMapper.map(article, ArticleDto.class);
         }
-        Date date = new Date();
-        article.setUid(author.getUid());
-        article.setAuthor(author.getName());
-        article.setCreateTime(date);
-        article.setUpdateTime(date);
-        int inserted = articleMybatisDao.writeArticle(article);
-        logger.info("插入文章数:[{}]", inserted);
-        return BeanMapper.map(article, ArticleDto.class);
     }
 }

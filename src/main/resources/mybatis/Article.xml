@@ -16,4 +16,20 @@
         #{auditStatus}
         )
     </insert>
+    <select id="findById" resultType="com.touch6.business.entity.article.Article" parameterType="string">
+        select a.* from t_b_article a where a.id=#{0}
+    </select>
+    <update id="updateArticle" parameterType="com.touch6.business.entity.article.Article">
+        update t_b_article
+        <set>
+            title=#{title},
+            content=#{content},
+            category=#{category},
+            type=#{type},
+            tag=#{tag},
+            update_time=#{updateTime},
+            audit_status=#{auditStatus}
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

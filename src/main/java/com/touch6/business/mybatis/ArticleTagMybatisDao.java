@@ -15,4 +15,8 @@ import java.util.Map;
 @MyBatisRepository
 public interface ArticleTagMybatisDao {
     int addArticleTag(List<ArticleTag> articleTags);
+
+    List<ArticleTag> findTagListByArticleIds(List<String> articleIds);
+
+    int deleteTagsByArticleId(String id);
 }
