@@ -1,11 +1,11 @@
-package com.touch6.business.entity.article;
+package com.touch6.business.dto.article;
 
 import java.util.Date;
 
 /**
  * Created by LONG on 2017/4/6.
  */
-public class Article {
+public class ArticleDto {
     private String id;
     private String uid;
     private String author;

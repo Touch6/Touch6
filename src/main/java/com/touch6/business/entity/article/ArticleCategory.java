@@ -4,18 +4,9 @@ package com.touch6.business.entity.article;
  * Created by LONG on 2017/4/7.
  */
 public class ArticleCategory {
-    private String id;
-    private String parentCategory;
     private String category;
+    private String parentCategory;
     private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCategory() {
         return category;
