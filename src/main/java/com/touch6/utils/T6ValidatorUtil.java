@@ -1,6 +1,10 @@
 package com.touch6.utils;
 
-/*		
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
+
+/*
  * ============================================================================		
  * = COPYRIGHT		
  *               PAX TECHNOLOGY, Inc. PROPRIETARY INFORMATION		
@@ -12,14 +16,17 @@ package com.touch6.utils;
  *             // interfaces with the other modules, and dependencies. 		
  * Revision History:		
  * Date	                 Author	                  Action
- * 2017/2/24  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
+ * 2017/3/1  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class ReplaceUtil {
-    public static final String replaceAll(String source, String regex, String... strings) {
-        for (String s : strings) {
-            source = source.replaceFirst(regex, s);
+public class T6ValidatorUtil {
+    public static final String validate(Validator validator, Object clazz) {
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(clazz);
+        StringBuilder msg = new StringBuilder();
+        for (ConstraintViolation cv : constraintViolations) {
+            String s = cv.getMessage();
+            msg.append(s + ";");
         }
-        return source;
+        return msg.length() == 0 ? null : msg.toString();
     }
 }

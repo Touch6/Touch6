@@ -11,10 +11,9 @@ import com.touch6.business.enums.PhoneVerifyResult;
 import com.touch6.business.enums.SmsGatewayInterface;
 import com.touch6.business.entity.PhoneCode;
 import com.touch6.sm.gateway.Touch6SmsUtil;
-import com.touch6.utils.DateUtils;
-import com.touch6.utils.PropertiesUtil;
-import com.touch6.utils.StringUtil;
-import org.apache.commons.lang.StringUtils;
+import com.touch6.utils.T6DateUtils;
+import com.touch6.utils.T6PropertiesUtil;
+import com.touch6.utils.T6StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public void checkPhone(String phone) throws CoreException {
         String mbl = userMybatisDao.checkPhone(phone);
-        if (StringUtils.isNotBlank(mbl)) {
+        if (org.apache.commons.lang.StringUtils.isNotBlank(mbl)) {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_ALREADY_REGISTERED));
         }
     }
@@ -59,21 +58,21 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     @Transactional
     public void generatePhoneCode(String phone) throws CoreException {
-        String code = StringUtil.generate6PhoneCode();
-        Date now = DateUtils.nowTime();
-        String selectedGateway = PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_GATEWAY_SELECTED);
+        String code = T6StringUtils.generate6PhoneCode();
+        Date now = T6DateUtils.nowTime();
+        String selectedGateway = T6PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_GATEWAY_SELECTED);
         SmsGatewayInterface gateway = SmsGatewayInterface.valueOf(selectedGateway);
 
         PhoneCode phoneCode = phoneCodeMybatisDao.findByPhone(phone);
         if (phoneCode == null) {
             //该手机号未生成过验证码
             phoneCode = new PhoneCode();
-            phoneCode.setId(StringUtil.generate32uuid());
+            phoneCode.setId(T6StringUtils.generate32uuid());
             phoneCode.setPhone(phone);
             phoneCode.setPresCode(code);
             phoneCode.setTimes(1);
             phoneCode.setVerifyTimes(0);
-            Date time = DateUtils.nowTime();
+            Date time = T6DateUtils.nowTime();
             phoneCode.setPresTime(time);
             //insert phoneCode
             phoneCodeMybatisDao.insertPhoneCode(phoneCode);
@@ -108,8 +107,8 @@ public class PhoneServiceImpl implements PhoneService {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_INCORRECT));
         }
         //判定时间是否在expired分钟内
-        Date now = DateUtils.nowTime();
-        long expired = Long.parseLong(PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
+        Date now = T6DateUtils.nowTime();
+        long expired = Long.parseLong(T6PropertiesUtil.getValue(SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME, SmsGatewayConstant.SMS_CODE_EXPIRED));
         if (expired * 60 * 1000 < (now.getTime() - phoneCode.getPresTime().getTime())) {
             throw new CoreException(ECodeUtil.getCommError(PhoneErrorConstant.PHONE_CODE_EXPIRED));
         }

@@ -7,7 +7,7 @@ import java.net.URLEncoder;
 /**
  * Created by LONG on 2017/4/3.
  */
-public class CodecUtils {
+public class T6CodecUtils {
     public static String URLEncode(String src, String enc) {
         // 将普通字符创转换成application/x-www-from-urlencoded字符串
         try {

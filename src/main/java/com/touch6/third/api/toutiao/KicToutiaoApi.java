@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.entity.Toutiao;
 import com.touch6.sm.gateway.aliyun.HttpUtils;
-import com.touch6.utils.DateUtils;
+import com.touch6.utils.T6DateUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
@@ -60,7 +60,7 @@ public class KicToutiaoApi {
             }
             if (object.containsKey("date")) {
                 String d = object.getString("date");
-                Date date = DateUtils.parseDate(DateUtils.format2, d);
+                Date date = T6DateUtils.parseDate(T6DateUtils.format2, d);
                 toutiao.setDate(date);
             }
             if (object.containsKey("category")) {

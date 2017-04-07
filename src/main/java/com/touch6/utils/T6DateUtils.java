@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by LONG on 2017/2/23.
  */
-public class DateUtils {
+public class T6DateUtils {
     public static final String format1 = "yyyy-MM-dd";
     public static final String format2 = "yyyy-MM-dd HH:mm";
     public static final String format3 = "yyyy-MM-dd HH:mm:ss";

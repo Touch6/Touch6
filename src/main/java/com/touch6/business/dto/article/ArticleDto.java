@@ -12,6 +12,7 @@ public class ArticleDto {
     private String title;
     private String content;
     private String category;//
+    private String tag;//逗号隔开
     private String type;//original：原创  reprint：转载  translation：翻译
     private Date createTime;
     private Date updateTime;
@@ -95,5 +96,13 @@ public class ArticleDto {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

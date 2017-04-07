@@ -15,10 +15,9 @@ import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;
 import com.touch6.business.entity.Auth;
 import com.touch6.business.entity.User;
-import com.touch6.utils.PasswordEncryptionUtil;
-import com.touch6.utils.StringUtil;
-import com.touch6.utils.ValidatorUtil;
-import org.apache.commons.lang.StringUtils;
+import com.touch6.utils.T6PasswordEncryptionUtil;
+import com.touch6.utils.T6StringUtils;
+import com.touch6.utils.T6ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(RegisterParam registerParam) throws CoreException {
-        String error = ValidatorUtil.validate(validator, registerParam);
+        String error = T6ValidatorUtil.validate(validator, registerParam);
         if (error != null) {
             Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
             err.setDes(error);
@@ -82,7 +81,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = new User();
-        String uid = StringUtil.generate32uuid();
+        String uid = T6StringUtils.generate32uuid();
         user.setUid(uid);
         user.setPhone(registerParam.getPhone());
         //insert user
@@ -93,13 +92,13 @@ public class UserServiceImpl implements UserService {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
         Auth auth = new Auth();
-        String authId = StringUtil.generate32uuid();
+        String authId = T6StringUtils.generate32uuid();
         auth.setId(authId);
         auth.setUid(uid);
         auth.setLoginName(registerParam.getPhone());
-        String salt = StringUtil.generate32uuid();
+        String salt = T6StringUtils.generate32uuid();
         auth.setSalt(salt);
-        auth.setPassword(PasswordEncryptionUtil.getEncryptedPassword(registerParam.getPassword(), salt));
+        auth.setPassword(T6PasswordEncryptionUtil.getEncryptedPassword(registerParam.getPassword(), salt));
         //insert auth
         try {
             authMybatisDao.insertAuth(auth);
@@ -119,7 +118,7 @@ public class UserServiceImpl implements UserService {
             logger.info("通过登录名[{}]查询不到登录信息", loginName);
             throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_NO_USER));
         }
-        boolean success = PasswordEncryptionUtil.authenticate(password, auth.getPassword(), auth.getSalt());
+        boolean success = T6PasswordEncryptionUtil.authenticate(password, auth.getPassword(), auth.getSalt());
         if (!success) {
             logger.info("登录账号[{}]密码[{}]错误", loginName, password);
             throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_PASSWORD_ERROR));
@@ -132,7 +131,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void perfectUserInfo(PerfectInfoParam perfectInfoParam) throws CoreException {
         try {
-            String error = ValidatorUtil.validate(validator, perfectInfoParam);
+            String error = T6ValidatorUtil.validate(validator, perfectInfoParam);
             if (error != null) {
                 Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
                 err.setDes(error);
@@ -143,7 +142,7 @@ public class UserServiceImpl implements UserService {
             String column = infoType.name().toLowerCase();
             params.put("uid", "'" + perfectInfoParam.getUid() + "'");
             params.put("column", column);
-            if (StringUtils.isBlank(perfectInfoParam.getValue())) {
+            if (org.apache.commons.lang.StringUtils.isBlank(perfectInfoParam.getValue())) {
                 params.put("value", "null");
             } else {
                 params.put("value", "'" + perfectInfoParam.getValue() + "'");

@@ -29,8 +29,8 @@ import java.security.spec.KeySpec;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class PasswordEncryptionUtil {
-    private static final Logger logger= LoggerFactory.getLogger(PasswordEncryptionUtil.class);
+public class T6PasswordEncryptionUtil {
+    private static final Logger logger= LoggerFactory.getLogger(T6PasswordEncryptionUtil.class);
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
     /**

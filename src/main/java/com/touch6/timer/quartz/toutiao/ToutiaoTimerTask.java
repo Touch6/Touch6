@@ -4,16 +4,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.touch6.business.mybatis.ToutiaoMybatisDao;
 import com.touch6.business.entity.Toutiao;
 import com.touch6.third.api.toutiao.KicToutiaoApi;
-import com.touch6.utils.DateUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

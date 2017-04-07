@@ -26,8 +26,8 @@ import java.util.Properties;
  * 2017/2/24  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class PropertiesUtil {
-    private static final Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
+public class T6PropertiesUtil {
+    private static final Logger logger = LoggerFactory.getLogger(T6PropertiesUtil.class);
 
     public static final String getValue(String fileName, String key) throws CoreException {
         try {

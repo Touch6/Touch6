@@ -10,8 +10,8 @@ import com.touch6.business.enums.SmsGatewayInterface;
 import com.touch6.sm.gateway.aliyun.AliyunSmsGateway;
 import com.touch6.sm.gateway.sms253.HttpSender;
 import com.touch6.sm.gateway.webchinese.Webchinese;
-import com.touch6.utils.PropertiesUtil;
-import com.touch6.utils.ReplaceUtil;
+import com.touch6.utils.T6PropertiesUtil;
+import com.touch6.utils.T6ReplaceUtil;
 
 /*
  * ============================================================================		
@@ -48,14 +48,14 @@ public class Touch6SmsUtil {
     public static void sendSmsBySms253(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
-        String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_URL);// 应用地址
-        String un = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_UN);// 账号
-        String pw = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_PW);// 密码
-        String expired = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
-        String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_MSG);// 短信内容
-        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code, expired});
-        String rd = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_RD);// 是否需要状态报告，需要1，不需要0
-        String ex = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_EX);// 扩展码
+        String url = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_URL);// 应用地址
+        String un = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_UN);// 账号
+        String pw = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_PW);// 密码
+        String expired = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
+        String msgTemplate = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_MSG);// 短信内容
+        String msg = T6ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code, expired});
+        String rd = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_RD);// 是否需要状态报告，需要1，不需要0
+        String ex = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_253_EX);// 扩展码
         try {
             String returnString = HttpSender.batchSend(url, un, pw, phone, msg, rd, ex);
             System.out.println(returnString);
@@ -68,14 +68,14 @@ public class Touch6SmsUtil {
     public static void sendSmsByWebchinese(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
-        String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_URL);
-        String uid = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_UID);
-        String key = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_KEY);
-        String expired = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
-        String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_SMSTEXT);
-        String msg = ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code, expired});
-        String contentType = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CONTENT_TYPE);
-        String charset = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CHARSET);
+        String url = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_URL);
+        String uid = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_UID);
+        String key = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_KEY);
+        String expired = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);// 过期时间
+        String msgTemplate = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_SMSTEXT);
+        String msg = T6ReplaceUtil.replaceAll(msgTemplate, "\\{\\}", new String[]{code, expired});
+        String contentType = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CONTENT_TYPE);
+        String charset = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_WEBCHINESE_CHARSET);
         try {
             String returnString = Webchinese.batchSend(url, uid, key, phone, msg, contentType, charset);
             System.out.println(returnString);
@@ -88,13 +88,13 @@ public class Touch6SmsUtil {
     public static void sendSmsByAliyun(String phone, String code) throws CoreException {
         String fileName = SmsGatewayConstant.SMS_GATEWAY_PROPERTIES_FILENAME;
 
-        String url = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_URL);
-        String path = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_PATH);
-        String method = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_METHOD);
-        String expired = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);
-        String auth = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_AUTH);
-        String signName = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SIGNNAME);
-        String msgTemplate = PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SMSTEMPLATE);
+        String url = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_URL);
+        String path = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_PATH);
+        String method = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_METHOD);
+        String expired = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_CODE_EXPIRED);
+        String auth = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_AUTH);
+        String signName = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SIGNNAME);
+        String msgTemplate = T6PropertiesUtil.getValue(fileName, SmsGatewayConstant.SMS_GATEWAY_ALIYUN_SMSTEMPLATE);
         JSONObject vars = new JSONObject();
         vars.put("code", code);
         vars.put("time", expired);
