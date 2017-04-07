@@ -32,4 +32,10 @@
         </set>
         where id=#{id}
     </update>
+    <select id="articleList" resultType="com.touch6.business.entity.article.Article" parameterType="hashMap">
+        select art.*
+        from t_b_article art
+        where art.uid=#{uid}
+        limit #{limit} offset #{offset}
+    </select>
 </mapper>

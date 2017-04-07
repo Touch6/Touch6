@@ -12,6 +12,7 @@ import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
 import com.touch6.utils.T6StringUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.BeanMapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by PAX on 2017/4/7.
@@ -103,5 +101,24 @@ public class ArticleServiceImpl implements ArticleService {
             logger.info("修改文章数:[{}]", updated);
             return BeanMapper.map(article, ArticleDto.class);
         }
+    }
+
+    @Override
+    public ArticleDto articleDetail(String id) {
+        Article article = articleMybatisDao.findById(id);
+        if (article == null) {
+            return null;
+        }
+        return BeanMapper.map(article, ArticleDto.class);
+    }
+
+    @Override
+    public List<ArticleDto> articleList(String uid, int page, int pageSize) {
+        Map params = new HashedMap();
+        params.put("uid", uid);
+        params.put("limit", pageSize);
+        params.put("offset", (page - 1) * pageSize);
+        List<Article> articles = articleMybatisDao.articleList(params);
+        return BeanMapper.mapList(articles, ArticleDto.class);
     }
 }

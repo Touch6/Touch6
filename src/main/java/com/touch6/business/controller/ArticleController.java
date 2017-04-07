@@ -20,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by zhuxl@paxsz.com on 2016/7/27.
  */
@@ -42,6 +44,36 @@ public class ArticleController {
             logger.info("接收到要保存的文章信息:[{}]", JSONObject.toJSONString(articleDto));
             ArticleDto article = articleService.writeArticle(uid, articleDto);
             Success ok = new Success(200, article, "保存成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity detail(@RequestParam("id") String id) {
+        try {
+            logger.info("查看文章:[{}]详细信息", id);
+            ArticleDto article = articleService.articleDetail(id);
+            Success ok = new Success(200, article, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "list", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity articles(@RequestParam("uid") String uid,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        try {
+            logger.info("用户:[{}]查看文章列表page[{}],pageSize:[{}]", uid, page, pageSize);
+            List<ArticleDto> articles = articleService.articleList(uid, page, pageSize);
+            Success ok = new Success(200, articles, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
