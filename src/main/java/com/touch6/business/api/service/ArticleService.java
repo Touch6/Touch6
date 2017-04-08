@@ -1,6 +1,7 @@
 package com.touch6.business.api.service;
 
 import com.touch6.business.dto.article.ArticleDto;
+import com.touch6.commons.PageObject;
 
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface ArticleService {
      * @param pageSize 每页显示条数
      * @return
      */
-    List<ArticleDto> articleList(String uid,int page,int pageSize);
+    PageObject<ArticleDto> articleList(String uid, int page, int pageSize);
 }

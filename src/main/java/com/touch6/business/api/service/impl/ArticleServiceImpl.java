@@ -1,13 +1,17 @@
 package com.touch6.business.api.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.touch6.business.api.service.ArticleService;
 import com.touch6.business.dto.article.ArticleDto;
+import com.touch6.business.entity.Toutiao;
 import com.touch6.business.entity.User;
 import com.touch6.business.entity.article.Article;
 import com.touch6.business.entity.article.ArticleTag;
 import com.touch6.business.mybatis.ArticleMybatisDao;
 import com.touch6.business.mybatis.ArticleTagMybatisDao;
 import com.touch6.business.mybatis.UserMybatisDao;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
@@ -113,12 +117,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> articleList(String uid, int page, int pageSize) {
-        Map params = new HashedMap();
-        params.put("uid", uid);
-        params.put("limit", pageSize);
-        params.put("offset", (page - 1) * pageSize);
-        List<Article> articles = articleMybatisDao.articleList(params);
-        return BeanMapper.mapList(articles, ArticleDto.class);
+    public PageObject<ArticleDto> articleList(String uid, int page, int pageSize) {
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+        List<Article> articles = articleMybatisDao.articleList(uid);
+        PageInfo<Article> pageInfo = new PageInfo<Article>(articles);
+
+        List<ArticleDto> articleDtos = BeanMapper.mapList(articles, ArticleDto.class);
+        PageObject<ArticleDto> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(articleDtos);
+        return pageObject;
     }
 }

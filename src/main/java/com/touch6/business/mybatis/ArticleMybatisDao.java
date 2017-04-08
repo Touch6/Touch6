@@ -20,5 +20,5 @@ public interface ArticleMybatisDao {
 
     int updateArticle(Article article);
 
-    List<Article> articleList(Map params);
+    List<Article> articleList(String uid);
 }

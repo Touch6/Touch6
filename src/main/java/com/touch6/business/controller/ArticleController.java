@@ -9,6 +9,7 @@ import com.touch6.business.params.LoginParam;
 import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;
 import com.touch6.business.params.UniqueParam;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class ArticleController {
                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         try {
             logger.info("用户:[{}]查看文章列表page[{}],pageSize:[{}]", uid, page, pageSize);
-            List<ArticleDto> articles = articleService.articleList(uid, page, pageSize);
+            PageObject<ArticleDto> articles = articleService.articleList(uid, page, pageSize);
             Success ok = new Success(200, articles, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
