@@ -37,4 +37,9 @@
         from t_b_article art
         where art.uid=#{uid}
     </select>
+
+    <select id="findAll" resultType="com.touch6.business.entity.article.Article">
+        select art.*
+        from t_b_article art
+    </select>
 </mapper>

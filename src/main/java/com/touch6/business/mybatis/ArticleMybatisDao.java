@@ -21,4 +21,6 @@ public interface ArticleMybatisDao {
     int updateArticle(Article article);
 
     List<Article> articleList(String uid);
+
+    List<Article> findAll();
 }

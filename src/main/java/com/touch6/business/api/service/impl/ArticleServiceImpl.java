@@ -119,7 +119,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public PageObject<ArticleDto> articleList(String uid, int page, int pageSize) {
         PageHelper.startPage(page, pageSize, true);//查询出总数
-        List<Article> articles = articleMybatisDao.articleList(uid);
+
+        List<Article> articles;
+        if (StringUtils.isNotBlank(uid)) {
+            articles = articleMybatisDao.articleList(uid);
+        } else {
+            articles = articleMybatisDao.findAll();
+        }
         PageInfo<Article> pageInfo = new PageInfo<Article>(articles);
 
         List<ArticleDto> articleDtos = BeanMapper.mapList(articles, ArticleDto.class);
