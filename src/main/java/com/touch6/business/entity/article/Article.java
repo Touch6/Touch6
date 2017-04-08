@@ -10,10 +10,15 @@ public class Article {
     private String uid;
     private String author;
     private String title;
+    private String summary;
     private String content;
     private String category;//
     private String tag;//逗号隔开
     private String type;//original：原创  reprint：转载  translation：翻译
+    private Integer readAmount = 0;
+    private Integer commentAmount = 0;
+    private Integer approvalAmount = 0;
+    private Integer treadAmount = 0;
     private Date createTime;
     private Date updateTime;
     private Integer auditStatus;//0:待审核  1：不通过   2：通过
@@ -104,5 +109,45 @@ public class Article {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Integer getCommentAmount() {
+        return commentAmount;
+    }
+
+    public void setCommentAmount(Integer commentAmount) {
+        this.commentAmount = commentAmount;
+    }
+
+    public Integer getApprovalAmount() {
+        return approvalAmount;
+    }
+
+    public void setApprovalAmount(Integer approvalAmount) {
+        this.approvalAmount = approvalAmount;
+    }
+
+    public Integer getTreadAmount() {
+        return treadAmount;
+    }
+
+    public void setTreadAmount(Integer treadAmount) {
+        this.treadAmount = treadAmount;
+    }
+
+    public Integer getReadAmount() {
+        return readAmount;
+    }
+
+    public void setReadAmount(Integer readAmount) {
+        this.readAmount = readAmount;
     }
 }

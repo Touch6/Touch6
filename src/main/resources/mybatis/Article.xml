@@ -6,13 +6,15 @@
 <mapper namespace="com.touch6.business.mybatis.ArticleMybatisDao">
     <insert id="writeArticle" parameterType="com.touch6.business.entity.article.Article">
         insert into t_b_article(
-        id,uid,author,title,content,
-        category,type,tag,create_time,update_time,
+        id,uid,author,title,summary,
+        content,category,type,tag,read_amount,
+        comment_amount,approval_amount,tread_amount,create_time,update_time,
         audit_status
         )
         values(
-        #{id},#{uid},#{author},#{title},#{content},
-        #{category},#{type},#{tag},#{createTime},#{updateTime},
+        #{id},#{uid},#{author},#{title},#{summary},
+        #{content},#{category},#{type},#{tag},#{readAmount},
+        #{commentAmount},#{approvalAmount},#{treadAmount},#{createTime},#{updateTime},
         #{auditStatus}
         )
     </insert>
@@ -23,10 +25,15 @@
         update t_b_article
         <set>
             title=#{title},
+            summary=#{summary},
             content=#{content},
             category=#{category},
             type=#{type},
             tag=#{tag},
+            read_amount=#{readAmount},
+            comment_amount=#{commentAmount},
+            approval_amount=#{approvalAmount},
+            tread_amount=#{treadAmount},
             update_time=#{updateTime},
             audit_status=#{auditStatus}
         </set>
