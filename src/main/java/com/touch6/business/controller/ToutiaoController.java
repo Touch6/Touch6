@@ -1,6 +1,7 @@
 package com.touch6.business.controller;
 
 import com.touch6.business.api.service.ToutiaoService;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import com.touch6.business.dto.ToutiaoDto;
@@ -33,10 +34,10 @@ public class ToutiaoController {
     @RequestMapping(value = "overview", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity pull(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "phone", defaultValue = "30") int pageSize) {
+    public ResponseEntity pull(@RequestParam(value = "page", defaultValue = "1") int page,
+                               @RequestParam(value = "pageSize", defaultValue = "30") int pageSize) {
         try {
-            List<ToutiaoDto> toutiaoDtos = toutiaoService.listToutiao(pageNo, pageSize);
+            PageObject<ToutiaoDto> toutiaoDtos = toutiaoService.listToutiao(page, pageSize);
             Success ok = new Success(200, toutiaoDtos, "更新成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {

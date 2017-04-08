@@ -17,4 +17,6 @@ public interface ToutiaoMybatisDao {
     List<Toutiao> overview(Map params);
 
     int deleteToutiaoBefore10(Date date);
+
+    List<Toutiao> findAll();
 }
