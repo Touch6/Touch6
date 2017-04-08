@@ -4,17 +4,8 @@ package com.touch6.business.entity.article;
  * Created by LONG on 2017/4/7.
  */
 public class ArticleType {
-    private String id;
     private String type;//original：原创  reprint：转载  translation：翻译
     private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getType() {
         return type;

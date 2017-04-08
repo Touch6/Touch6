@@ -5,6 +5,7 @@ import com.touch6.business.api.service.ArticleService;
 import com.touch6.business.api.service.UserService;
 import com.touch6.business.dto.UserDto;
 import com.touch6.business.dto.article.ArticleDto;
+import com.touch6.business.entity.article.ArticleType;
 import com.touch6.business.params.LoginParam;
 import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;
@@ -75,6 +76,20 @@ public class ArticleController {
             logger.info("用户:[{}]查看文章列表page[{}],pageSize:[{}]", uid, page, pageSize);
             PageObject<ArticleDto> articles = articleService.articleList(uid, page, pageSize);
             Success ok = new Success(200, articles, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "types", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity types() {
+        try {
+            logger.info("查看文章类型列表");
+            List<ArticleType> types = articleService.typeList();
+            Success ok = new Success(200, types, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

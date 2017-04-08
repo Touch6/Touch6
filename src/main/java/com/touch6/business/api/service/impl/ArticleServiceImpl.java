@@ -8,8 +8,10 @@ import com.touch6.business.entity.Toutiao;
 import com.touch6.business.entity.User;
 import com.touch6.business.entity.article.Article;
 import com.touch6.business.entity.article.ArticleTag;
+import com.touch6.business.entity.article.ArticleType;
 import com.touch6.business.mybatis.ArticleMybatisDao;
 import com.touch6.business.mybatis.ArticleTagMybatisDao;
+import com.touch6.business.mybatis.ArticleTypeMybatisDao;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
@@ -40,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleTagMybatisDao articleTagMybatisDao;
     @Autowired
     private ArticleMybatisDao articleMybatisDao;
+    @Autowired
+    private ArticleTypeMybatisDao articleTypeMybatisDao;
 
     @Override
     @Transactional
@@ -132,5 +136,11 @@ public class ArticleServiceImpl implements ArticleService {
         PageObject<ArticleDto> pageObject = BeanMapper.map(pageInfo, PageObject.class);
         pageObject.setList(articleDtos);
         return pageObject;
+    }
+
+    @Override
+    public List<ArticleType> typeList() {
+        List<ArticleType> articleTypes = articleTypeMybatisDao.findTypes();
+        return articleTypes;
     }
 }
