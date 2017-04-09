@@ -35,7 +35,7 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
     <select id="findAll" resultType="com.touch6.business.entity.Toutiao">
-        select * from t_b_toutiao
+        select * from t_b_toutiao tt ORDER BY tt.date DESC
     </select>
     <delete id="deleteToutiaoBefore10" parameterType="java.util.Date">
         delete from t_b_toutiao where date <![CDATA[<]]> #{0}

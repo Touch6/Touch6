@@ -49,9 +49,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public ArticleDto writeArticle(String uid, ArticleDto articleDto) {
+    public ArticleDto writeArticle(ArticleDto articleDto) {
         //校验dto属性
-        User author = userMybatisDao.findByUid(uid);
+        User author = userMybatisDao.findByUid(articleDto.getUid());
         if (author == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }

@@ -15,11 +15,10 @@ public interface ArticleService {
     /**
      * 用户撰写文章
      *
-     * @param uid
      * @param articleDto
      * @return
      */
-    ArticleDto writeArticle(String uid, ArticleDto articleDto);
+    ArticleDto writeArticle(ArticleDto articleDto);
 
     /**
      * 查看文章详细信息

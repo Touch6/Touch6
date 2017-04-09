@@ -35,11 +35,10 @@ public class ArticleController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity write(@RequestParam("uid") String uid,
-                                @RequestBody ArticleDto articleDto) {
+    public ResponseEntity write(@RequestBody ArticleDto articleDto) {
         try {
             logger.info("接收到要保存的文章信息:[{}]", JSONObject.toJSONString(articleDto));
-            ArticleDto article = articleService.writeArticle(uid, articleDto);
+            ArticleDto article = articleService.writeArticle(articleDto);
             Success ok = new Success(200, article, "保存成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
