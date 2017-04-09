@@ -6,9 +6,11 @@ import com.touch6.business.api.service.ArticleService;
 import com.touch6.business.dto.article.ArticleDto;
 import com.touch6.business.entity.User;
 import com.touch6.business.entity.article.Article;
+import com.touch6.business.entity.init.article.ArticleCategory;
 import com.touch6.business.entity.init.article.ArticleTag;
 import com.touch6.business.entity.init.article.ArticleType;
 import com.touch6.business.mybatis.ArticleMybatisDao;
+import com.touch6.business.mybatis.init.article.ArticleCategoryMybatisDao;
 import com.touch6.business.mybatis.init.article.ArticleTagMybatisDao;
 import com.touch6.business.mybatis.init.article.ArticleTypeMybatisDao;
 import com.touch6.business.mybatis.UserMybatisDao;
@@ -42,6 +44,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMybatisDao articleMybatisDao;
     @Autowired
     private ArticleTypeMybatisDao articleTypeMybatisDao;
+    @Autowired
+    private ArticleCategoryMybatisDao articleCategoryMybatisDao;
 
     @Override
     @Transactional
@@ -140,5 +144,16 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleType> typeList() {
         List<ArticleType> articleTypes = articleTypeMybatisDao.findTypes();
         return articleTypes;
+    }
+
+    @Override
+    public List<ArticleCategory> findCategoriesByParentCategory(String parentCategory) {
+        Map param = new HashMap();
+        if (StringUtils.isNotBlank(parentCategory)) {
+            param.put("parentCategory", parentCategory);
+        } else {
+            param.put("parentCategory", "");
+        }
+        return articleCategoryMybatisDao.findCategoriesByParentCategory(parentCategory);
     }
 }

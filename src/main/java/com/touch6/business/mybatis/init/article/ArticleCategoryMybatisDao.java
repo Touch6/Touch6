@@ -12,5 +12,6 @@ import java.util.List;
 
 @MyBatisRepository
 public interface ArticleCategoryMybatisDao {
-    List<ArticleCategory> findCategories();
+
+    List<ArticleCategory> findCategoriesByParentCategory(String parentCategory);
 }

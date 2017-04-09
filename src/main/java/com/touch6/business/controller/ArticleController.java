@@ -3,6 +3,7 @@ package com.touch6.business.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.ArticleService;
 import com.touch6.business.dto.article.ArticleDto;
+import com.touch6.business.entity.init.article.ArticleCategory;
 import com.touch6.business.entity.init.article.ArticleType;
 import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
@@ -84,6 +85,20 @@ public class ArticleController {
             logger.info("查看文章类型列表");
             List<ArticleType> types = articleService.typeList();
             Success ok = new Success(200, types, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "category/{parentCategory}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity categories(@PathVariable("parentCategory") String parentCategory) {
+        try {
+            logger.info("查看文章分类列表");
+            List<ArticleCategory> categories = articleService.findCategoriesByParentCategory(parentCategory);
+            Success ok = new Success(200, categories, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

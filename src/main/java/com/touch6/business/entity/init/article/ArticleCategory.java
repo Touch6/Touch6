@@ -4,25 +4,9 @@ package com.touch6.business.entity.init.article;
  * Created by LONG on 2017/4/7.
  */
 public class ArticleCategory {
-    private String category;
+    private String categoryCode;
     private String parentCategory;
-    private String name;
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String categoryName;
 
     public String getParentCategory() {
         return parentCategory;
@@ -30,5 +14,21 @@ public class ArticleCategory {
 
     public void setParentCategory(String parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public String getCategoryCode() {
+        return categoryCode;
+    }
+
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

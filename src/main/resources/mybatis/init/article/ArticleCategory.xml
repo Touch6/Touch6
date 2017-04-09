@@ -4,8 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.init.article.ArticleCategoryMybatisDao">
-    <select id="findCategories" resultType="com.touch6.business.entity.init.article.ArticleCategory">
-        select *
-        from t_bi_article_category
+    <select id="findCategoriesByParentCategory" resultType="com.touch6.business.entity.init.article.ArticleCategory"
+            parameterType="hashMap">
+        select c.*
+        from t_bi_article_category c
+        where 1=1
+        <choose>
+            <when test="parentCategory==''">
+                and c.parent_category is null
+            </when>
+            <otherwise>
+                and c.parent_category=#{parentCategory}
+            </otherwise>
+        </choose>
     </select>
 </mapper>
