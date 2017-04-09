@@ -154,6 +154,6 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             param.put("parentCategory", "");
         }
-        return articleCategoryMybatisDao.findCategoriesByParentCategory(parentCategory);
+        return articleCategoryMybatisDao.findCategoriesByParentCategory(param);
     }
 }

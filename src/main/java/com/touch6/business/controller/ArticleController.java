@@ -91,10 +91,10 @@ public class ArticleController {
         }
     }
 
-    @RequestMapping(value = "category/{parentCategory}", method = RequestMethod.GET,
+    @RequestMapping(value = "categories", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity categories(@PathVariable("parentCategory") String parentCategory) {
+    public ResponseEntity categories(@RequestParam(value = "parentCategory", defaultValue = "") String parentCategory) {
         try {
             logger.info("查看文章分类列表");
             List<ArticleCategory> categories = articleService.findCategoriesByParentCategory(parentCategory);
