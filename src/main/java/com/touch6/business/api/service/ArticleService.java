@@ -1,7 +1,7 @@
 package com.touch6.business.api.service;
 
 import com.touch6.business.dto.article.ArticleDto;
-import com.touch6.business.entity.article.ArticleType;
+import com.touch6.business.entity.init.article.ArticleType;
 import com.touch6.commons.PageObject;
 
 import java.util.List;

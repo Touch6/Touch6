@@ -1,4 +1,4 @@
-package com.touch6.business.entity;
+package com.touch6.business.entity.init.area;
 
 /*		
  * ============================================================================		
@@ -15,10 +15,10 @@ package com.touch6.business.entity;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Area {
+public class City {
     private String code;
     private String name;
-    private String pCode;
+    private String provinceCode;
     private String reserve1;
     private String reserve2;
     private String reserve3;
@@ -39,14 +39,6 @@ public class Area {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getpCode() {
-        return pCode;
-    }
-
-    public void setpCode(String pCode) {
-        this.pCode = pCode;
     }
 
     public String getReserve1() {
@@ -87,5 +79,13 @@ public class Area {
 
     public void setReserve5(String reserve5) {
         this.reserve5 = reserve5;
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
     }
 }

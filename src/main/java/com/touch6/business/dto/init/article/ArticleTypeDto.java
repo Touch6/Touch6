@@ -1,9 +1,9 @@
-package com.touch6.business.entity.article;
+package com.touch6.business.dto.init.article;
 
 /**
  * Created by LONG on 2017/4/7.
  */
-public class ArticleType {
+public class ArticleTypeDto {
     private String type;//original：原创  reprint：转载  translation：翻译
     private String name;
 

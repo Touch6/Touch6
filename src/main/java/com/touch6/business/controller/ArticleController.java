@@ -2,14 +2,8 @@ package com.touch6.business.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.ArticleService;
-import com.touch6.business.api.service.UserService;
-import com.touch6.business.dto.UserDto;
 import com.touch6.business.dto.article.ArticleDto;
-import com.touch6.business.entity.article.ArticleType;
-import com.touch6.business.params.LoginParam;
-import com.touch6.business.params.PerfectInfoParam;
-import com.touch6.business.params.RegisterParam;
-import com.touch6.business.params.UniqueParam;
+import com.touch6.business.entity.init.article.ArticleType;
 import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;

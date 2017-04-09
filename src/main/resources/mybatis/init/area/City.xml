@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.init.area.CityMybatisDao">
+    <select id="findCitiesByProvinceCode" resultType="com.touch6.business.entity.init.area.City" parameterType="string">
+        select c.code,c.name,c.province_code
+        from t_bi_city c
+        where c.province_code=#{0}
+    </select>
+</mapper>

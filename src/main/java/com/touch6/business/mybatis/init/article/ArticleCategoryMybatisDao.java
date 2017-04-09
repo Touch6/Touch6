@@ -1,8 +1,7 @@
-package com.touch6.business.mybatis;
+package com.touch6.business.mybatis.init.article;
 
 
-import com.touch6.business.entity.article.Article;
-import com.touch6.business.entity.article.ArticleCategory;
+import com.touch6.business.entity.init.article.ArticleCategory;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
 import java.util.List;

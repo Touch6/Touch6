@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.business.mybatis.ArticleCategoryMybatisDao">
-    <select id="findCategories" resultType="com.touch6.business.entity.article.ArticleCategory">
+<mapper namespace="com.touch6.business.mybatis.init.article.ArticleCategoryMybatisDao">
+    <select id="findCategories" resultType="com.touch6.business.entity.init.article.ArticleCategory">
         select *
         from t_bi_article_category
     </select>

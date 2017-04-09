@@ -1,9 +1,9 @@
-package com.touch6.business.entity.article;
+package com.touch6.business.dto.init.article;
 
 /**
  * Created by PAX on 2017/4/7.
  */
-public class ArticleTag {
+public class ArticleTagDto {
     private String articleId;
     private String name;
 
