@@ -1,15 +1,16 @@
-package com.touch6.business.entity.article;
+package com.touch6.business.dto.article;
 
 import java.util.Date;
 
 /**
- * Created by PAX on 2017/4/11.
+ * Created by xuan.touch6@qq.com on 2017/4/11.
  */
-public class CommentReply {
+public class ArticleCommentDto {
     private String id;
-    private String commentId;
+    private String articleId;
     private String sponsorId;
-    private String replyTo;
+    private Integer floor;
+    private Integer follows;
     private String content;
     private Date createTime;
     private Date updateTime;
@@ -22,12 +23,12 @@ public class CommentReply {
         this.id = id;
     }
 
-    public String getCommentId() {
-        return commentId;
+    public String getArticleId() {
+        return articleId;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
     public String getSponsorId() {
@@ -38,20 +39,12 @@ public class CommentReply {
         this.sponsorId = sponsorId;
     }
 
-    public String getReplyTo() {
-        return replyTo;
+    public Integer getFollows() {
+        return follows;
     }
 
-    public void setReplyTo(String replyTo) {
-        this.replyTo = replyTo;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setFollows(Integer follows) {
+        this.follows = follows;
     }
 
     public Date getCreateTime() {
@@ -68,5 +61,21 @@ public class CommentReply {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getFloor() {
+        return floor;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
