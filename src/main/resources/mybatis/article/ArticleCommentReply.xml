@@ -14,12 +14,23 @@
         #{approvalAmount},#{opposeAmount},#{createTime},#{updateTime}
         )
     </insert>
-    <select id="findById" resultType="com.touch6.business.entity.article.ArticleCommentReply" parameterType="string">
-        select re.* from t_b_article_comment_reply re where re.id=#{0}
-    </select>
     <select id="replyList" resultType="com.touch6.business.entity.article.ArticleCommentReply" parameterType="string">
         select re.*
         from t_b_article_comment_reply re
         where re.comment_id=#{0}
+    </select>
+    <select id="findCommentReplySponsors" resultType="string" parameterType="string">
+        select count(re.sponsor_id)
+        from t_b_article_comment_reply re
+        left join t_b_article_comment c on c.id=re.comment_id
+        where c.article_id=#{0}
+        group by re.sponsor_id;
+    </select>
+    <select id="findCommentRepliers" resultType="string" parameterType="string">
+        select count(re.replier_id)
+        from t_b_article_comment_reply re
+        left join t_b_article_comment c on c.id=re.comment_id
+        where c.article_id=#{0}
+        group by re.replier_id;
     </select>
 </mapper>

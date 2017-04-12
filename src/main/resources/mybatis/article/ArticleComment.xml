@@ -22,4 +22,28 @@
         from t_b_article_comment c
         where c.article_id=#{0}
     </select>
+    <select id="findCommentNumbers" resultType="int" parameterType="string">
+        select count(1)
+        from t_b_article_comment comment
+        where comment.article_id=#{0}
+    </select>
+    <select id="findCommentSponsors" resultType="string" parameterType="string">
+        select c.sponsor_id
+        from t_b_article_comment c
+        where c.article_id=#{0}
+        group by c.sponsor_id;
+    </select>
+    <select id="isFollower" resultType="int" parameterType="string">
+        select count(1)
+        from t_b_article_comment_reply re
+        left join t_b_article_comment c on c.id=re.comment_id
+        where re.sponsor_id=#{0} or c.sponsor_id=#{0} or re.replier_id=#{0};
+    </select>
+    <update id="increaseFollows" parameterType="string">
+        update t_b_article_comment
+        <set>
+            follows=follows+1
+        </set>
+        where id=#{0}
+    </update>
 </mapper>

@@ -23,4 +23,7 @@ public interface ArticleMybatisDao {
     List<Article> articleList(String uid);
 
     List<Article> findAll();
+
+    int increaseCommentAmount(String articleId);
+
 }

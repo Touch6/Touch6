@@ -19,4 +19,8 @@ public interface ArticleCommentReplyMybatisDao {
 
     List<ArticleCommentReply> replyList(String commentId);
 
+    List<String> findCommentReplySponsors(String articleId);
+
+    List<String> findCommentRepliers(String articleId);
+
 }
