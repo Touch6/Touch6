@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.article.ArticleCommentReplyMybatisDao">
+    <insert id="addReply" parameterType="com.touch6.business.entity.article.ArticleCommentReply">
+        insert into t_b_article_comment_reply(
+        id,comment_id,sponsor_id,replier_id,content,
+        approval_amount,oppose_amount,create_time,update_time
+        )
+        values(
+        #{id},#{commentId},#{sponsorId},#{replierId},#{content},
+        #{approvalAmount},#{opposeAmount},#{createTime},#{updateTime}
+        )
+    </insert>
+    <select id="findById" resultType="com.touch6.business.entity.article.ArticleCommentReply" parameterType="string">
+        select re.* from t_b_article_comment_reply re where re.id=#{0}
+    </select>
+    <select id="replyList" resultType="com.touch6.business.entity.article.ArticleCommentReply" parameterType="string">
+        select re.*
+        from t_b_article_comment_reply re
+        where re.comment_id=#{0}
+    </select>
+</mapper>

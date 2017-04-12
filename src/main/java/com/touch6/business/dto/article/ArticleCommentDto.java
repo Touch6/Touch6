@@ -12,6 +12,8 @@ public class ArticleCommentDto {
     private Integer floor;
     private Integer follows;
     private String content;
+    private Integer approvalAmount = 0;
+    private Integer opposeAmount = 0;
     private Date createTime;
     private Date updateTime;
 
@@ -77,5 +79,21 @@ public class ArticleCommentDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getApprovalAmount() {
+        return approvalAmount;
+    }
+
+    public void setApprovalAmount(Integer approvalAmount) {
+        this.approvalAmount = approvalAmount;
+    }
+
+    public Integer getOpposeAmount() {
+        return opposeAmount;
+    }
+
+    public void setOpposeAmount(Integer opposeAmount) {
+        this.opposeAmount = opposeAmount;
     }
 }

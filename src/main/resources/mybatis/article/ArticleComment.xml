@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.article.ArticleCommentMybatisDao">
+    <insert id="launchComment" parameterType="com.touch6.business.entity.article.ArticleComment">
+        insert into t_b_article_comment(
+        id,article_id,sponsor_id,floor,follows,
+        content,approval_amount,oppose_amount,create_time,update_time
+        )
+        values(
+        #{id},#{articleId},#{sponsorId},#{floor},#{follows},
+        #{content},#{approvalAmount},#{opposeAmount},#{createTime},#{updateTime}
+        )
+    </insert>
+    <select id="findById" resultType="com.touch6.business.entity.article.ArticleComment" parameterType="string">
+        select c.* from t_b_article_comment c where c.id=#{0}
+    </select>
+    <select id="commentList" resultType="com.touch6.business.entity.article.ArticleComment" parameterType="string">
+        select c.*
+        from t_b_article_comment c
+        where c.article_id=#{0}
+    </select>
+</mapper>

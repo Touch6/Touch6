@@ -1,4 +1,4 @@
-package com.touch6.business.mybatis;
+package com.touch6.business.mybatis.article;
 
 
 import com.touch6.business.entity.User;

@@ -9,7 +9,7 @@ import com.touch6.business.entity.article.Article;
 import com.touch6.business.entity.init.article.ArticleCategory;
 import com.touch6.business.entity.init.article.ArticleTag;
 import com.touch6.business.entity.init.article.ArticleType;
-import com.touch6.business.mybatis.ArticleMybatisDao;
+import com.touch6.business.mybatis.article.ArticleMybatisDao;
 import com.touch6.business.mybatis.init.article.ArticleCategoryMybatisDao;
 import com.touch6.business.mybatis.init.article.ArticleTagMybatisDao;
 import com.touch6.business.mybatis.init.article.ArticleTypeMybatisDao;

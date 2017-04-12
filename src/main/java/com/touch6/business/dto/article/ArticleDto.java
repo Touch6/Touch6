@@ -18,7 +18,7 @@ public class ArticleDto {
     private Integer readAmount = 0;
     private Integer commentAmount = 0;
     private Integer approvalAmount = 0;
-    private Integer treadAmount = 0;
+    private Integer opposeAmount = 0;
     private Date createTime;
     private Date updateTime;
     private Integer auditStatus;//0:待审核  1：不通过   2：通过
@@ -135,12 +135,12 @@ public class ArticleDto {
         this.approvalAmount = approvalAmount;
     }
 
-    public Integer getTreadAmount() {
-        return treadAmount;
+    public Integer getOpposeAmount() {
+        return opposeAmount;
     }
 
-    public void setTreadAmount(Integer treadAmount) {
-        this.treadAmount = treadAmount;
+    public void setOpposeAmount(Integer opposeAmount) {
+        this.opposeAmount = opposeAmount;
     }
 
     public Integer getReadAmount() {

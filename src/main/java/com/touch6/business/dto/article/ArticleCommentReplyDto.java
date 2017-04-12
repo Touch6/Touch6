@@ -9,8 +9,10 @@ public class ArticleCommentReplyDto {
     private String id;
     private String commentId;
     private String sponsorId;
-    private String replier;
+    private String replierId;
     private String content;
+    private Integer approvalAmount = 0;
+    private Integer opposeAmount = 0;
     private Date createTime;
     private Date updateTime;
 
@@ -38,14 +40,6 @@ public class ArticleCommentReplyDto {
         this.sponsorId = sponsorId;
     }
 
-    public String getReplier() {
-        return replier;
-    }
-
-    public void setReplier(String replier) {
-        this.replier = replier;
-    }
-
     public String getContent() {
         return content;
     }
@@ -68,5 +62,29 @@ public class ArticleCommentReplyDto {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getReplierId() {
+        return replierId;
+    }
+
+    public void setReplierId(String replierId) {
+        this.replierId = replierId;
+    }
+
+    public Integer getApprovalAmount() {
+        return approvalAmount;
+    }
+
+    public void setApprovalAmount(Integer approvalAmount) {
+        this.approvalAmount = approvalAmount;
+    }
+
+    public Integer getOpposeAmount() {
+        return opposeAmount;
+    }
+
+    public void setOpposeAmount(Integer opposeAmount) {
+        this.opposeAmount = opposeAmount;
     }
 }

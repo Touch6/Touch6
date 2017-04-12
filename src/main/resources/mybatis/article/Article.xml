@@ -3,18 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.business.mybatis.ArticleMybatisDao">
+<mapper namespace="com.touch6.business.mybatis.article.ArticleMybatisDao">
     <insert id="writeArticle" parameterType="com.touch6.business.entity.article.Article">
         insert into t_b_article(
         id,uid,author,title,summary,
         content,category,type,tag,read_amount,
-        comment_amount,approval_amount,tread_amount,create_time,update_time,
+        comment_amount,approval_amount,oppose_amount,create_time,update_time,
         audit_status
         )
         values(
         #{id},#{uid},#{author},#{title},#{summary},
         #{content},#{category},#{type},#{tag},#{readAmount},
-        #{commentAmount},#{approvalAmount},#{treadAmount},#{createTime},#{updateTime},
+        #{commentAmount},#{approvalAmount},#{opposeAmount},#{createTime},#{updateTime},
         #{auditStatus}
         )
     </insert>
@@ -33,7 +33,7 @@
             read_amount=#{readAmount},
             comment_amount=#{commentAmount},
             approval_amount=#{approvalAmount},
-            tread_amount=#{treadAmount},
+            oppose_amount=#{opposeAmount},
             update_time=#{updateTime},
             audit_status=#{auditStatus}
         </set>
