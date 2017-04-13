@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.common.ApprovalMybatisDao">
+    <insert id="addApproval" parameterType="com.touch6.business.entity.common.Approval">
+        insert into t_b_approval(
+        who,object_id,target_object,create_time,update_time
+        )
+        values(
+        #{who},#{objectId},#{targetObject},#{createTime},#{updateTime}
+        )
+    </insert>
+</mapper>

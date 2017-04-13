@@ -8,8 +8,8 @@ import java.util.Date;
  * Created by xuan.touch6@qq.com on 2017/4/13.
  */
 public class Approval {
-    private String objectId;
     private String who;
+    private String objectId;
     private TargetObject targetObject;
     private Date createTime;
     private Date updateTime;
