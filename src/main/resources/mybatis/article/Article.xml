@@ -49,4 +49,11 @@
         select art.*
         from t_b_article art
     </select>
+    <update id="increaseCommentAmount" parameterType="string">
+        update t_b_article
+        <set>
+            comment_amount=comment_amount+1
+        </set>
+        where id=#{0}
+    </update>
 </mapper>

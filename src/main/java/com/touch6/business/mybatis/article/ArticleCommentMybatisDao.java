@@ -18,4 +18,12 @@ public interface ArticleCommentMybatisDao {
     ArticleComment findById(String commentId);
 
     List<ArticleComment> commentList(String articleId);
+
+    int findCommentNumbers(String articleId);
+
+    List<String> findCommentSponsors(String articleId);
+
+    int isFollower(String sponsorId);
+
+    int increaseFollows(String commentId);
 }
