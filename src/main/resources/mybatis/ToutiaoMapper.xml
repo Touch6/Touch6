@@ -8,6 +8,7 @@
         insert ignore into t_b_toutiao(
         uniquekey,title,date,category,author_name,
         url,thumbnail_pic_s,thumbnail_pic_s02,thumbnail_pic_s03,
+        read_amount,comment_amount,approval_amount,oppose_amount,
         reserve1,reserve2,reserve3,reserve4,reserve5
         )
         values
@@ -15,6 +16,7 @@
             (
             #{item.uniquekey},#{item.title},#{item.date},#{item.category},#{item.authorName},
             #{item.url},#{item.thumbnailPicS},#{item.thumbnailPicS02},#{item.thumbnailPicS03},
+            #{readAmount},#{commentAmount},#{approvalAmount},#{opposeAmount},
             #{item.reserve1},#{item.reserve2},#{item.reserve3},#{item.reserve4},#{item.reserve5}
             )
         </foreach>
@@ -27,7 +29,11 @@
             tt.category,
 	        tt.author_name,
             tt.url,
-            tt.thumbnail_pic_s
+            tt.thumbnail_pic_s,
+            tt.read_amount,
+            tt.comment_amount,
+            tt.approval_amount,
+            tt.oppose_amount
         FROM
             t_b_toutiao tt
         ORDER BY
@@ -40,4 +46,18 @@
     <delete id="deleteToutiaoBefore10" parameterType="java.util.Date">
         delete from t_b_toutiao where date <![CDATA[<]]> #{0}
     </delete>
+    <update id="increaseApprovalAmount" parameterType="string">
+        update t_b_toutiao
+        <set>
+            approval_amount=approval_amount+1
+        </set>
+        where uniquekey=#{0}
+    </update>
+    <update id="increaseOpposeAmount" parameterType="string">
+        update t_b_toutiao
+        <set>
+            oppose_amount=oppose_amount+1
+        </set>
+        where uniquekey=#{0}
+    </update>
 </mapper>

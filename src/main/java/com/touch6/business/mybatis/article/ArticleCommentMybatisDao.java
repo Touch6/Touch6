@@ -26,4 +26,8 @@ public interface ArticleCommentMybatisDao {
     int isFollower(String sponsorId);
 
     int increaseFollows(String commentId);
+
+    void increaseApprovalAmount(String objectId);
+
+    void increaseOpposeAmount(String articleId);
 }

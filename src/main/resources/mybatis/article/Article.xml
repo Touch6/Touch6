@@ -56,4 +56,18 @@
         </set>
         where id=#{0}
     </update>
+    <update id="increaseApprovalAmount" parameterType="string">
+        update t_b_article
+        <set>
+            approval_amount=approval_amount+1
+        </set>
+        where id=#{0}
+    </update>
+    <update id="increaseOpposeAmount" parameterType="string">
+        update t_b_article
+        <set>
+            oppose_amount=oppose_amount+1
+        </set>
+        where id=#{0}
+    </update>
 </mapper>

@@ -15,6 +15,10 @@ public class Toutiao {
     private String thumbnailPicS;
     private String thumbnailPicS02;
     private String thumbnailPicS03;
+    private Integer readAmount=0;
+    private Integer commentAmount=0;
+    private Integer approvalAmount=0;
+    private Integer opposeAmount=0;
     private String reserve1;
     private String reserve2;
     private String reserve3;
@@ -131,5 +135,37 @@ public class Toutiao {
 
     public void setReserve5(String reserve5) {
         this.reserve5 = reserve5;
+    }
+
+    public Integer getReadAmount() {
+        return readAmount;
+    }
+
+    public void setReadAmount(Integer readAmount) {
+        this.readAmount = readAmount;
+    }
+
+    public Integer getCommentAmount() {
+        return commentAmount;
+    }
+
+    public void setCommentAmount(Integer commentAmount) {
+        this.commentAmount = commentAmount;
+    }
+
+    public Integer getApprovalAmount() {
+        return approvalAmount;
+    }
+
+    public void setApprovalAmount(Integer approvalAmount) {
+        this.approvalAmount = approvalAmount;
+    }
+
+    public Integer getOpposeAmount() {
+        return opposeAmount;
+    }
+
+    public void setOpposeAmount(Integer opposeAmount) {
+        this.opposeAmount = opposeAmount;
     }
 }

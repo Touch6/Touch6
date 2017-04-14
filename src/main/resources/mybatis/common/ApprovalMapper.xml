@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.common.ApprovalMybatisDao">
     <insert id="addApproval" parameterType="com.touch6.business.entity.common.Approval">
-        insert into t_b_approval(
+        insert ignore into t_b_approval(
         who,object_id,target_object,create_time,update_time
         )
         values(

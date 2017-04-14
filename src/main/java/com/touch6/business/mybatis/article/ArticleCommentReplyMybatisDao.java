@@ -23,4 +23,7 @@ public interface ArticleCommentReplyMybatisDao {
 
     List<String> findCommentRepliers(String articleId);
 
+    void increaseApprovalAmount(String articleId);
+
+    void increaseOpposeAmount(String articleId);
 }

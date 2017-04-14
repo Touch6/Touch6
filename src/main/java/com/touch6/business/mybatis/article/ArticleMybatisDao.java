@@ -26,4 +26,7 @@ public interface ArticleMybatisDao {
 
     int increaseCommentAmount(String articleId);
 
+    void increaseApprovalAmount(String articleId);
+
+    void increaseOpposeAmount(String articleId);
 }

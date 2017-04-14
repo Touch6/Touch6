@@ -19,4 +19,8 @@ public interface ToutiaoMybatisDao {
     int deleteToutiaoBefore10(Date date);
 
     List<Toutiao> findAll();
+
+    void increaseApprovalAmount(String id);
+
+    void increaseOpposeAmount(String id);
 }

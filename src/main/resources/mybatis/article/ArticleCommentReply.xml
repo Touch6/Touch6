@@ -33,4 +33,18 @@
         where c.article_id=#{0}
         group by re.replier_id;
     </select>
+    <update id="increaseApprovalAmount" parameterType="string">
+        update t_b_article_comment_reply
+        <set>
+            approval_amount=approval_amount+1
+        </set>
+        where id=#{0}
+    </update>
+    <update id="increaseOpposeAmount" parameterType="string">
+        update t_b_article_comment_reply
+        <set>
+            oppose_amount=oppose_amount+1
+        </set>
+        where id=#{0}
+    </update>
 </mapper>
