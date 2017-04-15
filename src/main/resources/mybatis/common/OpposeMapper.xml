@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.common.OpposeMybatisDao">
     <insert id="addOppose" parameterType="com.touch6.business.entity.common.Oppose">
-        insert into t_b_oppose(
+        insert ignore into t_b_oppose(
         who,object_id,target_object,create_time,update_time
         )
         values(

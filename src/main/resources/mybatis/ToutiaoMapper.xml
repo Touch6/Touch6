@@ -16,7 +16,7 @@
             (
             #{item.uniquekey},#{item.title},#{item.date},#{item.category},#{item.authorName},
             #{item.url},#{item.thumbnailPicS},#{item.thumbnailPicS02},#{item.thumbnailPicS03},
-            #{readAmount},#{commentAmount},#{approvalAmount},#{opposeAmount},
+            #{item.readAmount},#{item.commentAmount},#{item.approvalAmount},#{item.opposeAmount},
             #{item.reserve1},#{item.reserve2},#{item.reserve3},#{item.reserve4},#{item.reserve5}
             )
         </foreach>

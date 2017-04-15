@@ -9,5 +9,4 @@ import com.touch6.business.dto.common.OpposeDto;
 public interface ApprovalService {
     ApprovalDto makeApproval(ApprovalDto approvalDto);
 
-    OpposeDto makeOppose(OpposeDto opposeDto);
 }

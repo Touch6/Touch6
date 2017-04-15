@@ -1,6 +1,7 @@
 package com.touch6.business.api.service.impl;
 
 import com.touch6.business.api.service.ApprovalService;
+import com.touch6.business.api.service.OpposeService;
 import com.touch6.business.dto.common.ApprovalDto;
 import com.touch6.business.dto.common.OpposeDto;
 import com.touch6.business.entity.common.Approval;
@@ -29,8 +30,8 @@ import java.util.Date;
  */
 @SuppressWarnings("ALL")
 @Service
-public class ApprovalServiceImpl implements ApprovalService {
-    private static final Logger logger = LoggerFactory.getLogger(ApprovalServiceImpl.class);
+public class OpposeServiceImpl implements OpposeService {
+    private static final Logger logger = LoggerFactory.getLogger(OpposeServiceImpl.class);
 
     @Autowired
     private ApprovalMybatisDao approvalMybatisDao;
@@ -47,31 +48,31 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     @Transactional
-    public ApprovalDto makeApproval(ApprovalDto approvalDto) {
-        //点赞
-        Approval approval = BeanMapper.map(approvalDto, Approval.class);
+    public OpposeDto makeOppose(OpposeDto opposeDto) {
+        //反对
+        Oppose oppose = BeanMapper.map(opposeDto, Oppose.class);
         //插入点赞
         Date time = new Date();
-        approval.setCreateTime(time);
-        approval.setUpdateTime(time);
-        int inserted = approvalMybatisDao.addApproval(approval);
+        oppose.setCreateTime(time);
+        oppose.setUpdateTime(time);
+        int inserted = opposeMybatisDao.addOppose(oppose);
         if (inserted == 1) {
             //插入返回1对象点赞数增加
-            switch (approval.getTargetObject()) {
+            switch (oppose.getTargetObject()) {
                 case ARTICLE:
-                    articleMybatisDao.increaseApprovalAmount(approval.getObjectId());
+                    articleMybatisDao.increaseOpposeAmount(oppose.getObjectId());
                     break;
                 case ARTICLE_COMMENT:
-                    articleCommentMybatisDao.increaseApprovalAmount(approval.getObjectId());
+                    articleCommentMybatisDao.increaseOpposeAmount(oppose.getObjectId());
                     break;
                 case ARTICLE_COMMENT_REPLY:
-                    articleCommentReplyMybatisDao.increaseApprovalAmount(approval.getObjectId());
+                    articleCommentReplyMybatisDao.increaseOpposeAmount(oppose.getObjectId());
                     break;
                 case NEWS:
-                    toutiaoMybatisDao.increaseApprovalAmount(approval.getObjectId());
+                    toutiaoMybatisDao.increaseOpposeAmount(oppose.getObjectId());
                     break;
             }
-            return BeanMapper.map(approval, ApprovalDto.class);
+            return BeanMapper.map(oppose, OpposeDto.class);
         } else {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
