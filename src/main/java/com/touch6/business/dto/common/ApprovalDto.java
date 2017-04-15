@@ -1,14 +1,20 @@
 package com.touch6.business.dto.common;
 
 import com.touch6.business.enums.TargetObject;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
  * Created by xuan.touch6@qq.com on 2017/4/13.
  */
 public class ApprovalDto {
+    @NotNull(message = "未指明操作对象")
     private String objectId;
+    @NotNull(message = "未指明操作人")
+    @Length(min = 32, max = 32, message = "参数长度不正确")
     private String who;
     private TargetObject targetObject;
     private Date createTime;

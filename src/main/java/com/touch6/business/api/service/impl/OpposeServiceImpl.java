@@ -18,8 +18,10 @@ import com.touch6.business.mybatis.common.ApprovalMybatisDao;
 import com.touch6.business.mybatis.common.OpposeMybatisDao;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
+import com.touch6.core.exception.Error;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
 import com.touch6.core.exception.error.constant.SystemErrorConstant;
+import com.touch6.utils.T6ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.BeanMapper;
 
+import javax.validation.Validator;
 import java.util.Date;
 
 /**
@@ -49,10 +52,20 @@ public class OpposeServiceImpl implements OpposeService {
     private ArticleCommentReplyMybatisDao articleCommentReplyMybatisDao;
     @Autowired
     private ToutiaoMybatisDao toutiaoMybatisDao;
+    @Autowired
+    private Validator validator;
+
 
     @Override
     @Transactional
     public int makeOppose(OpposeDto opposeDto) {
+        String error = T6ValidatorUtil.validate(validator, opposeDto);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
+
         int opposeAmount = 0;
         //反对
         Oppose oppose = BeanMapper.map(opposeDto, Oppose.class);
