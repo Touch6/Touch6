@@ -47,4 +47,14 @@
         </set>
         where id=#{0}
     </update>
+    <select id="findApprovalAmountById" resultType="int" parameterType="string">
+        select approval_amount
+        from t_b_article_comment_reply
+        where id=#{0}
+    </select>
+    <select id="findOpposeAmountById" resultType="int" parameterType="string">
+        select oppose_amount
+        from t_b_article_comment_reply
+        where id=#{0}
+    </select>
 </mapper>

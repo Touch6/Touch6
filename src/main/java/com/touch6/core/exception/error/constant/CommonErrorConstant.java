@@ -5,4 +5,5 @@ package com.touch6.core.exception.error.constant;
  */
 public class CommonErrorConstant {
     public static final String COMMON_PARAMS_ERROR="common.params.error";
+    public static final String COMMON_OPER_REPEAT="common.oper.repeat";
 }

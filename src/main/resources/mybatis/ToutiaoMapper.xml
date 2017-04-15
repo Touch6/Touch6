@@ -63,4 +63,14 @@
     <select id="findById" resultType="com.touch6.business.entity.Toutiao" parameterType="string">
         select tt.* from t_b_toutiao where tt.uniquekey=#{0}
     </select>
+    <select id="findApprovalAmountById" resultType="int" parameterType="string">
+        select approval_amount
+        from t_b_toutiao
+        where uniquekey=#{0}
+    </select>
+    <select id="findOpposeAmountById" resultType="int" parameterType="string">
+        select oppose_amount
+        from t_b_toutiao
+        where uniquekey=#{0}
+    </select>
 </mapper>

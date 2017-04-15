@@ -7,6 +7,6 @@ import com.touch6.business.dto.common.OpposeDto;
  * Created by PAX on 2017/4/14.
  */
 public interface ApprovalService {
-    Object makeApproval(ApprovalDto approvalDto);
+    int makeApproval(ApprovalDto approvalDto);
 
 }

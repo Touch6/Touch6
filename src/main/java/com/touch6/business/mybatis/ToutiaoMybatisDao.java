@@ -25,4 +25,8 @@ public interface ToutiaoMybatisDao {
     void increaseOpposeAmount(String id);
 
     Toutiao findById(String objectId);
+
+    int findApprovalAmountById(String objectId);
+
+    int findOpposeAmountById(String objectId);
 }

@@ -52,9 +52,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     @Transactional
-    public Object makeApproval(ApprovalDto approvalDto) {
+    public int makeApproval(ApprovalDto approvalDto) {
         //点赞
-        Object retObj = null;
+        int approvalAmount = 0;
         Approval approval = BeanMapper.map(approvalDto, Approval.class);
         //插入点赞
         Date time = new Date();
@@ -66,28 +66,24 @@ public class ApprovalServiceImpl implements ApprovalService {
             switch (approval.getTargetObject()) {
                 case ARTICLE:
                     articleMybatisDao.increaseApprovalAmount(approval.getObjectId());
-                    retObj = articleMybatisDao.findById(approval.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleDto.class);
+                    approvalAmount = articleMybatisDao.findApprovalAmountById(approval.getObjectId());
                     break;
                 case ARTICLE_COMMENT:
                     articleCommentMybatisDao.increaseApprovalAmount(approval.getObjectId());
-                    retObj = articleCommentMybatisDao.findById(approval.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleCommentDto.class);
+                    approvalAmount = articleCommentMybatisDao.findApprovalAmountById(approval.getObjectId());
                     break;
                 case ARTICLE_COMMENT_REPLY:
                     articleCommentReplyMybatisDao.increaseApprovalAmount(approval.getObjectId());
-                    retObj = articleCommentReplyMybatisDao.findById(approval.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleCommentReplyDto.class);
+                    approvalAmount = articleCommentReplyMybatisDao.findApprovalAmountById(approval.getObjectId());
                     break;
                 case NEWS:
                     toutiaoMybatisDao.increaseApprovalAmount(approval.getObjectId());
-                    retObj = toutiaoMybatisDao.findById(approval.getObjectId());
-                    retObj = BeanMapper.map(retObj, ToutiaoDto.class);
+                    approvalAmount = toutiaoMybatisDao.findApprovalAmountById(approval.getObjectId());
                     break;
             }
-            return retObj;
+            return approvalAmount;
         } else {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
     }
 }

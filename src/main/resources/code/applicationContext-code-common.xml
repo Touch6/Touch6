@@ -29,6 +29,9 @@
                 <entry key="common.params.error">
                     <error:error code="200000" info="参数错误" des="参数错误，请检查"/>
                 </entry>
+                <entry key="common.oper.repeat">
+                    <error:error code="200001" info="重复请求" des="请勿重复操作"/>
+                </entry>
                 <!--200000 共同异常end-->
 
 

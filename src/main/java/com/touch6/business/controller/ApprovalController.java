@@ -42,8 +42,8 @@ public class ApprovalController {
     public ResponseEntity approval(@RequestBody ApprovalDto approvalDto) {
         try {
             logger.info("接收到点赞:[{}]", JSONObject.toJSONString(approvalDto));
-            Object obj=approvalService.makeApproval(approvalDto);
-            Success ok = new Success(200, obj, "点赞成功");
+            int amount=approvalService.makeApproval(approvalDto);
+            Success ok = new Success(200, amount, "点赞成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

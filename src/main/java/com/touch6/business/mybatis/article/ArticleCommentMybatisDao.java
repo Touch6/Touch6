@@ -30,4 +30,8 @@ public interface ArticleCommentMybatisDao {
     void increaseApprovalAmount(String objectId);
 
     void increaseOpposeAmount(String articleId);
+
+    int findApprovalAmountById(String objectId);
+
+    int findOpposeAmountById(String objectId);
 }

@@ -52,8 +52,8 @@ public class OpposeServiceImpl implements OpposeService {
 
     @Override
     @Transactional
-    public Object makeOppose(OpposeDto opposeDto) {
-        Object retObj = null;
+    public int makeOppose(OpposeDto opposeDto) {
+        int opposeAmount = 0;
         //反对
         Oppose oppose = BeanMapper.map(opposeDto, Oppose.class);
         //插入点赞
@@ -66,28 +66,24 @@ public class OpposeServiceImpl implements OpposeService {
             switch (oppose.getTargetObject()) {
                 case ARTICLE:
                     articleMybatisDao.increaseOpposeAmount(oppose.getObjectId());
-                    retObj = articleMybatisDao.findById(oppose.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleDto.class);
+                    opposeAmount = articleMybatisDao.findOpposeAmountById(oppose.getObjectId());
                     break;
                 case ARTICLE_COMMENT:
                     articleCommentMybatisDao.increaseOpposeAmount(oppose.getObjectId());
-                    retObj = articleCommentMybatisDao.findById(oppose.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleCommentDto.class);
+                    opposeAmount = articleCommentMybatisDao.findOpposeAmountById(oppose.getObjectId());
                     break;
                 case ARTICLE_COMMENT_REPLY:
                     articleCommentReplyMybatisDao.increaseOpposeAmount(oppose.getObjectId());
-                    retObj = articleCommentReplyMybatisDao.findById(oppose.getObjectId());
-                    retObj = BeanMapper.map(retObj, ArticleCommentReplyDto.class);
+                    opposeAmount = articleCommentReplyMybatisDao.findOpposeAmountById(oppose.getObjectId());
                     break;
                 case NEWS:
                     toutiaoMybatisDao.increaseOpposeAmount(oppose.getObjectId());
-                    retObj = toutiaoMybatisDao.findById(oppose.getObjectId());
-                    retObj = BeanMapper.map(retObj, ToutiaoDto.class);
+                    opposeAmount = toutiaoMybatisDao.findOpposeAmountById(oppose.getObjectId());
                     break;
             }
-            return retObj;
+            return opposeAmount;
         } else {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
     }
 }

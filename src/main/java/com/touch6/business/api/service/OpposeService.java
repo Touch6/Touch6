@@ -6,5 +6,5 @@ import com.touch6.business.dto.common.OpposeDto;
  * Created by PAX on 2017/4/14.
  */
 public interface OpposeService {
-    Object makeOppose(OpposeDto opposeDto);
+    int makeOppose(OpposeDto opposeDto);
 }

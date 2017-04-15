@@ -38,8 +38,8 @@ public class OpposeController {
     public ResponseEntity oppose(@RequestBody OpposeDto opposeDto) {
         try {
             logger.info("接收到反对:[{}]", JSONObject.toJSONString(opposeDto));
-            Object obj = opposeService.makeOppose(opposeDto);
-            Success ok = new Success(200, obj, "反对成功");
+            int amount = opposeService.makeOppose(opposeDto);
+            Success ok = new Success(200, amount, "反对成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
