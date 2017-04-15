@@ -60,4 +60,7 @@
         </set>
         where uniquekey=#{0}
     </update>
+    <select id="findById" resultType="com.touch6.business.entity.Toutiao" parameterType="string">
+        select tt.* from t_b_toutiao where tt.uniquekey=#{0}
+    </select>
 </mapper>

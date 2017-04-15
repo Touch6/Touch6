@@ -2,6 +2,10 @@ package com.touch6.business.api.service.impl;
 
 import com.touch6.business.api.service.ApprovalService;
 import com.touch6.business.api.service.OpposeService;
+import com.touch6.business.dto.ToutiaoDto;
+import com.touch6.business.dto.article.ArticleCommentDto;
+import com.touch6.business.dto.article.ArticleCommentReplyDto;
+import com.touch6.business.dto.article.ArticleDto;
 import com.touch6.business.dto.common.ApprovalDto;
 import com.touch6.business.dto.common.OpposeDto;
 import com.touch6.business.entity.common.Approval;
@@ -48,7 +52,8 @@ public class OpposeServiceImpl implements OpposeService {
 
     @Override
     @Transactional
-    public OpposeDto makeOppose(OpposeDto opposeDto) {
+    public Object makeOppose(OpposeDto opposeDto) {
+        Object retObj = null;
         //反对
         Oppose oppose = BeanMapper.map(opposeDto, Oppose.class);
         //插入点赞
@@ -61,18 +66,26 @@ public class OpposeServiceImpl implements OpposeService {
             switch (oppose.getTargetObject()) {
                 case ARTICLE:
                     articleMybatisDao.increaseOpposeAmount(oppose.getObjectId());
+                    retObj = articleMybatisDao.findById(oppose.getObjectId());
+                    retObj = BeanMapper.map(retObj, ArticleDto.class);
                     break;
                 case ARTICLE_COMMENT:
                     articleCommentMybatisDao.increaseOpposeAmount(oppose.getObjectId());
+                    retObj = articleCommentMybatisDao.findById(oppose.getObjectId());
+                    retObj = BeanMapper.map(retObj, ArticleCommentDto.class);
                     break;
                 case ARTICLE_COMMENT_REPLY:
                     articleCommentReplyMybatisDao.increaseOpposeAmount(oppose.getObjectId());
+                    retObj = articleCommentReplyMybatisDao.findById(oppose.getObjectId());
+                    retObj = BeanMapper.map(retObj, ArticleCommentReplyDto.class);
                     break;
                 case NEWS:
                     toutiaoMybatisDao.increaseOpposeAmount(oppose.getObjectId());
+                    retObj = toutiaoMybatisDao.findById(oppose.getObjectId());
+                    retObj = BeanMapper.map(retObj, ToutiaoDto.class);
                     break;
             }
-            return BeanMapper.map(oppose, OpposeDto.class);
+            return retObj;
         } else {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
