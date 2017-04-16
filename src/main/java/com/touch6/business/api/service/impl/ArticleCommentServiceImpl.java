@@ -1,7 +1,9 @@
 package com.touch6.business.api.service.impl;
 
+import com.google.common.collect.Lists;
 import com.touch6.business.api.service.ArticleCommentService;
 import com.touch6.business.dto.article.ArticleCommentDto;
+import com.touch6.business.dto.article.ArticleCommentReplyDto;
 import com.touch6.business.entity.article.ArticleComment;
 import com.touch6.business.mybatis.article.ArticleCommentMybatisDao;
 import com.touch6.business.mybatis.article.ArticleCommentReplyMybatisDao;
@@ -17,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.BeanMapper;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by xuan.touch6@qq.com on 2017/4/12.
@@ -78,6 +83,15 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Override
     public List<ArticleCommentDto> commentList(String articleId) {
         List<ArticleComment> comments = articleCommentMybatisDao.commentList(articleId);
-        return BeanMapper.mapList(comments, ArticleCommentDto.class);
+        if (comments.size() > 0) {
+            List<ArticleCommentDto> commentDtos = BeanMapper.mapList(comments, ArticleCommentDto.class);
+            int total = commentDtos.size();
+            for (int i = 0; i < total; i++) {
+                List<ArticleCommentReplyDto> replyDtos = BeanMapper.mapList(comments.get(i).getArticleCommentReplyList(), ArticleCommentReplyDto.class);
+                commentDtos.get(i).setArticleCommentReplyDtoList(replyDtos);
+            }
+            return commentDtos;
+        }
+        return Lists.newArrayList();
     }
 }

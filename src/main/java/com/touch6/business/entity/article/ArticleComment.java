@@ -1,6 +1,9 @@
 package com.touch6.business.entity.article;
 
+import com.google.common.collect.Lists;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xuan.touch6@qq.com on 2017/4/11.
@@ -16,6 +19,7 @@ public class ArticleComment {
     private Integer opposeAmount = 0;
     private Date createTime;
     private Date updateTime;
+    private List<ArticleCommentReply> articleCommentReplyList = Lists.newArrayList();
 
     public String getId() {
         return id;
@@ -95,5 +99,13 @@ public class ArticleComment {
 
     public void setOpposeAmount(Integer opposeAmount) {
         this.opposeAmount = opposeAmount;
+    }
+
+    public List<ArticleCommentReply> getArticleCommentReplyList() {
+        return articleCommentReplyList;
+    }
+
+    public void setArticleCommentReplyList(List<ArticleCommentReply> articleCommentReplyList) {
+        this.articleCommentReplyList = articleCommentReplyList;
     }
 }

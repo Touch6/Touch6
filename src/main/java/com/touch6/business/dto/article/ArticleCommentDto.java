@@ -1,6 +1,9 @@
 package com.touch6.business.dto.article;
 
+import com.google.common.collect.Lists;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xuan.touch6@qq.com on 2017/4/11.
@@ -16,6 +19,7 @@ public class ArticleCommentDto {
     private Integer opposeAmount = 0;
     private Date createTime;
     private Date updateTime;
+    private List<ArticleCommentReplyDto> articleCommentReplyDtoList = Lists.newArrayList();
 
     public String getId() {
         return id;
@@ -95,5 +99,13 @@ public class ArticleCommentDto {
 
     public void setOpposeAmount(Integer opposeAmount) {
         this.opposeAmount = opposeAmount;
+    }
+
+    public List<ArticleCommentReplyDto> getArticleCommentReplyDtoList() {
+        return articleCommentReplyDtoList;
+    }
+
+    public void setArticleCommentReplyDtoList(List<ArticleCommentReplyDto> articleCommentReplyDtoList) {
+        this.articleCommentReplyDtoList = articleCommentReplyDtoList;
     }
 }
