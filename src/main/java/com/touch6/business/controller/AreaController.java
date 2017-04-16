@@ -44,7 +44,7 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/province/{provinceCode}", method = RequestMethod.GET,
+    @RequestMapping(value = "/province/{provinceCode}/cities", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity cities(@PathVariable("provinceCode") String provinceCode) {
@@ -58,7 +58,7 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/province/city/{cityCode}", method = RequestMethod.GET,
+    @RequestMapping(value = "/province/city/{cityCode}/districts", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity districts(@PathVariable("cityCode") String cityCode) {
@@ -72,7 +72,7 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/province/city/district/{districtCode}", method = RequestMethod.GET,
+    @RequestMapping(value = "/province/city/district/{districtCode}/towns", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity towns(@PathVariable("districtCode") String districtCode) {
@@ -86,7 +86,7 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/province/city/district/town/{townCode}", method = RequestMethod.GET,
+    @RequestMapping(value = "/province/city/district/town/{townCode}/villages", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity villages(@PathVariable("townCode") String townCode) {
