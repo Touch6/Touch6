@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Article {
     private String id;
-    private String uid;
+    private Long userId;
     private String author;
     private String title;
     private String summary;
@@ -95,12 +95,12 @@ public class Article {
         this.auditStatus = auditStatus;
     }
 
-    public String getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getTag() {

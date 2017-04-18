@@ -4,28 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.UserMybatisDao">
-    <insert id="register" parameterType="com.touch6.business.entity.User">
-        insert into t_b_user(
-        uid,phone
+    <insert id="register" parameterType="com.touch6.business.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_si_user(
+        token,phone
         )
         values(
-        #{uid},#{phone}
+        #{token},#{phone}
         )
     </insert>
     <select id="checkPhone" resultType="string" parameterType="string">
-        select phone from t_b_user where phone=#{0}
+        select phone from t_si_user where phone=#{0}
     </select>
     <update id="perfectUserInfo" statementType="STATEMENT" parameterType="hashMap">
         <![CDATA[
-        update t_b_user
+        update t_si_user
         set ${column}=${value}
-        where uid=${uid}
+        where token=${token}
         ]]>
     </update>
-    <select id="findByUid" resultType="com.touch6.business.entity.User" parameterType="string">
-        select * from t_b_user where uid=#{0}
+    <select id="findByToken" resultType="com.touch6.business.entity.User" parameterType="string">
+        select * from t_si_user where token=#{0}
+    </select>
+    <select id="findByUserId" resultType="com.touch6.business.entity.User" parameterType="long">
+        select * from t_si_user where id=#{0}
     </select>
     <select id="checkIsRegisteredByPhone" resultType="int" parameterType="string">
-        select count(1) from t_b_user where phone=#{0}
+        select count(1) from t_si_user where phone=#{0}
     </select>
 </mapper>

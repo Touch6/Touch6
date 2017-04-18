@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.AuthCenterMybatisDao">
+    <insert id="insertAuth" parameterType="com.touch6.business.entity.AuthCenter" useGeneratedKeys="true" keyProperty="id">
+        insert into t_bi_auth_center(
+        id,user_id,login_name,password,salt,
+        reserve1,reserve2,reserve3,reserve4,reserve5
+        )
+        values(
+        #{id},#{userId},#{loginName},#{password},#{salt},
+        #{reserve1},#{reserve2},#{reserve3},#{reserve4},#{reserve5}
+        )
+    </insert>
+
+    <select id="findAuthByLoginName" resultType="com.touch6.business.entity.AuthCenter" parameterType="string">
+        select * from t_bi_auth_center where login_name=#{0}
+    </select>
+
+    <select id="checkIsRegisteredByLoginName" resultType="int" parameterType="string">
+        select count(1) from t_bi_auth_center where login_name=#{0}
+    </select>
+</mapper>

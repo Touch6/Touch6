@@ -6,13 +6,13 @@
 <mapper namespace="com.touch6.business.mybatis.article.ArticleMybatisDao">
     <insert id="writeArticle" parameterType="com.touch6.business.entity.article.Article">
         insert into t_b_article(
-        id,uid,author,title,summary,
+        id,user_id,author,title,summary,
         content,category,type,tag,read_amount,
         comment_amount,approval_amount,oppose_amount,create_time,update_time,
         audit_status
         )
         values(
-        #{id},#{uid},#{author},#{title},#{summary},
+        #{id},#{userId},#{author},#{title},#{summary},
         #{content},#{category},#{type},#{tag},#{readAmount},
         #{commentAmount},#{approvalAmount},#{opposeAmount},#{createTime},#{updateTime},
         #{auditStatus}
@@ -42,7 +42,7 @@
     <select id="articleList" resultType="com.touch6.business.entity.article.Article" parameterType="string">
         select art.*
         from t_b_article art
-        where art.uid=#{uid}
+        where art.userId=#{0}
     </select>
 
     <select id="findAll" resultType="com.touch6.business.entity.article.Article">

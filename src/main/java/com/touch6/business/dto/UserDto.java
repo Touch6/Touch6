@@ -18,7 +18,8 @@ import java.util.Date;
  * ============================================================================		
  */
 public class UserDto {
-    private String uid;
+    private Long id;
+    private String token;
     private String name;
     private String nickname;
     private Integer gender;
@@ -36,12 +37,12 @@ public class UserDto {
     private String email;
     private CertificateDto idcard;
 
-    public String getUid() {
-        return uid;
+    public String getToken() {
+        return token;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {
@@ -170,5 +171,13 @@ public class UserDto {
 
     public void setWeixin(String weixin) {
         this.weixin = weixin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

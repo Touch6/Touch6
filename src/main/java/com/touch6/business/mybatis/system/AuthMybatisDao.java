@@ -1,7 +1,8 @@
-package com.touch6.business.mybatis;
+package com.touch6.business.mybatis.system;
 
+import com.touch6.business.entity.AuthCenter;
+import com.touch6.business.entity.system.Auth;
 import com.touch6.business.mybatis.common.MyBatisRepository;
-import com.touch6.business.entity.Auth;
 
 /*
  * ============================================================================		
@@ -22,7 +23,5 @@ import com.touch6.business.entity.Auth;
 public interface AuthMybatisDao {
     int insertAuth(Auth auth);
 
-    Auth findAuthByLoginName(String loginName);
-
-    int checkIsRegisteredByLoginName(String loginName);
+    Auth findByAuthId(Long authId);
 }

@@ -20,7 +20,9 @@ public interface UserMybatisDao {
 
     int perfectUserInfo(Map params);
 
-    User findByUid(String uid);
+    User findByToken(String uid);
 
     int checkIsRegisteredByPhone(String phone);
+
+    User findByUserId(Long userId);
 }

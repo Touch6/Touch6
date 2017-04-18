@@ -15,9 +15,9 @@ package com.touch6.business.entity;
  * 2017/2/22  	         zhuxl@paxsz.com        Create/Add/Modify/Delete
  * ============================================================================		
  */
-public class Auth {
+public class AuthCenter {
     private String id;
-    private String uid;
+    private String userId;
     private String loginName;
     private String password;
     private String salt;
@@ -35,12 +35,12 @@ public class Auth {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getLoginName() {

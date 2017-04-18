@@ -2,6 +2,7 @@ package com.touch6.business.api.service.impl;
 
 
 import com.touch6.business.api.service.UserService;
+import com.touch6.business.entity.AuthCenter;
 import com.touch6.business.entity.PhoneCode;
 import com.touch6.business.mybatis.*;
 import com.touch6.core.exception.CoreException;
@@ -13,7 +14,6 @@ import com.touch6.business.enums.UserInfo;
 import com.touch6.business.params.LoginParam;
 import com.touch6.business.params.PerfectInfoParam;
 import com.touch6.business.params.RegisterParam;
-import com.touch6.business.entity.Auth;
 import com.touch6.business.entity.User;
 import com.touch6.utils.T6PasswordEncryptionUtil;
 import com.touch6.utils.T6StringUtils;
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     ImageMybatisDao imageMybatisDao;
     @Autowired
-    AuthMybatisDao authMybatisDao;
+    AuthCenterMybatisDao authCenterMybatisDao;
     @Autowired
     PhoneCodeMybatisDao phoneCodeMybatisDao;
     @Autowired
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         String uid = T6StringUtils.generate32uuid();
-        user.setUid(uid);
+        user.setToken(uid);
         user.setPhone(registerParam.getPhone());
         //insert user
         try {
@@ -91,17 +91,17 @@ public class UserServiceImpl implements UserService {
             logger.info("插入用户信息异常，堆栈:", e);
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
-        Auth auth = new Auth();
+        AuthCenter authCenter = new AuthCenter();
         String authId = T6StringUtils.generate32uuid();
-        auth.setId(authId);
-        auth.setUid(uid);
-        auth.setLoginName(registerParam.getPhone());
+        authCenter.setId(authId);
+        authCenter.setUserId(uid);
+        authCenter.setLoginName(registerParam.getPhone());
         String salt = T6StringUtils.generate32uuid();
-        auth.setSalt(salt);
-        auth.setPassword(T6PasswordEncryptionUtil.getEncryptedPassword(registerParam.getPassword(), salt));
-        //insert auth
+        authCenter.setSalt(salt);
+        authCenter.setPassword(T6PasswordEncryptionUtil.getEncryptedPassword(registerParam.getPassword(), salt));
+        //insert authCenter
         try {
-            authMybatisDao.insertAuth(auth);
+            authCenterMybatisDao.insertAuth(authCenter);
         } catch (Exception e) {
             logger.info("插入登录信息异常，堆栈:", e);
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
@@ -113,17 +113,17 @@ public class UserServiceImpl implements UserService {
         //todo 加入登录日志
         String loginName = loginParam.getLoginName();
         String password = loginParam.getPassword();
-        Auth auth = authMybatisDao.findAuthByLoginName(loginName);
-        if (auth == null) {
+        AuthCenter authCenter = authCenterMybatisDao.findAuthByLoginName(loginName);
+        if (authCenter == null) {
             logger.info("通过登录名[{}]查询不到登录信息", loginName);
             throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_NO_USER));
         }
-        boolean success = T6PasswordEncryptionUtil.authenticate(password, auth.getPassword(), auth.getSalt());
+        boolean success = T6PasswordEncryptionUtil.authenticate(password, authCenter.getPassword(), authCenter.getSalt());
         if (!success) {
             logger.info("登录账号[{}]密码[{}]错误", loginName, password);
             throw new CoreException(ECodeUtil.getCommError(AuthErrorConstant.AUTH_PASSWORD_ERROR));
         }
-        User user = userMybatisDao.findByUid(auth.getUid());
+        User user = userMybatisDao.findByToken(authCenter.getUserId());
         return BeanMapper.map(user, UserDto.class);
     }
 
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserInfo(String uid) throws CoreException {
-        User user = userMybatisDao.findByUid(uid);
+        User user = userMybatisDao.findByToken(uid);
         if (user == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService {
 //    public void addUser(UserDto userDto) throws Exception {
 //        User user = BeanMapper.map(userDto, User.class);
 //        String uid = StringUtil.generate32uuid();
-//        user.setUid(uid);
+//        user.setToken(uid);
 //        //加入用户信息
 //        int res1 = userMybatisDao.updateUser(user);
 //        if (res1 != 1) {

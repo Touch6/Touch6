@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.system.AuthMenuMybatisDao">
+    <insert id="insertAuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
+        insert ignore into t_si_auth_menu(
+        auth_id,menu_id
+        )
+        values(
+        #{authId},#{menuId}
+        )
+    </insert>
+</mapper>

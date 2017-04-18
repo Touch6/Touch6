@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.system.MenuMybatisDao">
+    <insert id="insertMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true" keyProperty="menuId">
+        insert ignore into t_si_menu(
+        menu_id,name,create_time,update_time
+        )
+        values(
+        #{menuId},#{name},#{createTime},#{updateTime}
+        )
+    </insert>
+    <select id="findByMenuId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
+        select * from t_si_menu where menu_id=#{0}
+    </select>
+</mapper>

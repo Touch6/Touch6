@@ -51,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public ArticleDto writeArticle(ArticleDto articleDto) {
         //校验dto属性
-        User author = userMybatisDao.findByUid(articleDto.getUid());
+        User author = userMybatisDao.findByUserId(articleDto.getUserId());
         if (author == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
@@ -73,7 +73,7 @@ public class ArticleServiceImpl implements ArticleService {
                 logger.info("文章:[{}]插入[{}]个标签", article.getId() + "/" + article.getTitle(), tagcount);
             }
             Date date = new Date();
-            article.setUid(author.getUid());
+            article.setUserId(author.getId());
             article.setAuthor(author.getName());
             article.setCreateTime(date);
             article.setUpdateTime(date);
@@ -102,7 +102,7 @@ public class ArticleServiceImpl implements ArticleService {
                 logger.info("修改文章:[{}]插入[{}]个标签", article.getId() + "/" + article.getTitle(), tagcount);
             }
             Date date = new Date();
-            article.setUid(old.getUid());
+            article.setUserId(old.getUserId());
             article.setAuthor(old.getAuthor());
             article.setCreateTime(old.getCreateTime());
             article.setUpdateTime(date);

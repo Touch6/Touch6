@@ -4174,7 +4174,7 @@ CREATE TABLE `t_bi_cert_type` (
 DROP TABLE IF EXISTS `t_b_auth`;
 CREATE TABLE `t_b_auth` (
   `id` varchar(32) NOT NULL COMMENT '系统唯一号',
-  `uid` varchar(32) NOT NULL COMMENT '用户唯一标识',
+  `token` varchar(32) NOT NULL COMMENT '用户唯一标识',
   `login_name` varchar(32) NOT NULL COMMENT '登录名',
   `password` varchar(512) NOT NULL COMMENT '登录密码密文',
   `salt` varchar(32) NOT NULL COMMENT '盐值',
@@ -4359,7 +4359,7 @@ INSERT INTO `t_b_toutiao` VALUES ('f9f352aa4f25ff7cb3aa06681c513f0e', '美股暴
 -- ----------------------------
 DROP TABLE IF EXISTS `t_b_user`;
 CREATE TABLE `t_b_user` (
-  `uid` varchar(32) NOT NULL COMMENT '用户唯一标识',
+  `token` varchar(32) NOT NULL COMMENT '用户唯一标识',
   `name` varchar(32) DEFAULT NULL COMMENT '用户姓名',
   `nickname` varchar(32) DEFAULT NULL COMMENT '用户昵称',
   `gender` tinyint(1) DEFAULT NULL COMMENT '性别：0-男，1-女',
@@ -4381,7 +4381,7 @@ CREATE TABLE `t_b_user` (
   `reserve3` varchar(255) DEFAULT NULL COMMENT '预留字段',
   `reserve4` varchar(255) DEFAULT NULL COMMENT '预留字段',
   `reserve5` varchar(255) DEFAULT NULL COMMENT '预留字段',
-  PRIMARY KEY (`uid`)
+  PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

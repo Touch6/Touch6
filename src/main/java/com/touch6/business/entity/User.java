@@ -19,7 +19,8 @@ import java.util.Date;
  * ============================================================================		
  */
 public class User {
-    private String uid;
+    private Long id;
+    private String token;
     @NotNull
     @Size(max = 32,message = "姓名长度最大为32位")
     private String name;
@@ -44,12 +45,12 @@ public class User {
     private String reserve4;
     private String reserve5;
 
-    public String getUid() {
-        return uid;
+    public String getToken() {
+        return token;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {
@@ -218,5 +219,13 @@ public class User {
 
     public void setWeixin(String weixin) {
         this.weixin = weixin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

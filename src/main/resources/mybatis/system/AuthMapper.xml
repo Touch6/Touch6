@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.touch6.business.mybatis.system.AuthMybatisDao">
+    <insert id="insertAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true" keyProperty="authId">
+        insert ignore into t_si_auth(
+        auth_id,name,create_time,update_time
+        )
+        values(
+        #{authId},#{name},#{createTime},#{updateTime}
+        )
+    </insert>
+    <select id="findByAuthId" resultType="com.touch6.business.entity.system.Auth" parameterType="long">
+        select * from t_si_auth where auth_id=#{0}
+    </select>
+</mapper>
