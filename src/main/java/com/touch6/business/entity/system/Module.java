@@ -8,6 +8,8 @@ import java.util.Date;
 public class Module {
     private Long moduleId;
     private String name;
+    private String className;
+    private String attrLink;
     private Date createTime;
     private Date updateTime;
 
@@ -41,5 +43,21 @@ public class Module {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getAttrLink() {
+        return attrLink;
+    }
+
+    public void setAttrLink(String attrLink) {
+        this.attrLink = attrLink;
     }
 }

@@ -8,6 +8,9 @@ import java.util.Date;
 public class Menu {
     private Long menuId;
     private String name;
+    private String className;
+    private String uisref;
+    private String attrLink;
     private Long moduleId;
     private Date createTime;
     private Date updateTime;
@@ -50,5 +53,29 @@ public class Menu {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getUisref() {
+        return uisref;
+    }
+
+    public void setUisref(String uisref) {
+        this.uisref = uisref;
+    }
+
+    public String getAttrLink() {
+        return attrLink;
+    }
+
+    public void setAttrLink(String attrLink) {
+        this.attrLink = attrLink;
     }
 }

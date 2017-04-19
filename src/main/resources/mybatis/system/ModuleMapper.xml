@@ -6,10 +6,10 @@
 <mapper namespace="com.touch6.business.mybatis.system.ModuleMybatisDao">
     <insert id="insertModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true" keyProperty="moduleId">
         insert ignore into t_si_module(
-        module_id,name,create_time,update_time
+        module_id,name,class_name,attr_link,create_time,update_time
         )
         values(
-        #{moduleId},#{name},#{createTime},#{updateTime}
+        #{moduleId},#{name},#{className},#{attrLink},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByModuleId" resultType="com.touch6.business.entity.system.Module" parameterType="long">
