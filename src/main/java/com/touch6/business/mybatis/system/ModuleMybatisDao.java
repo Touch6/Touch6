@@ -4,6 +4,8 @@ import com.touch6.business.entity.system.Auth;
 import com.touch6.business.entity.system.Module;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -24,4 +26,8 @@ public interface ModuleMybatisDao {
     int insertModule(Module module);
 
     Module findByModuleId(Long moduleId);
+
+    List<Module> findCommonModules(long roleId);
+
+    List<Module> findModulesByLoginUserToken(String token);
 }

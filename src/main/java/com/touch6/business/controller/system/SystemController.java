@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by zhuxl@paxsz.com on 2016/7/27.
  */
@@ -79,7 +81,7 @@ public class SystemController {
                                   @RequestBody Menu menu) {
         try {
             logger.info("接收到菜单:[{}]", JSONObject.toJSONString(menu));
-            systemService.addMenu(moduleId,menu);
+            systemService.addMenu(moduleId, menu);
             Success ok = new Success(200, "添加成功", "添加菜单成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -94,7 +96,7 @@ public class SystemController {
     public ResponseEntity assignRoleAuth(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限配置:[{}]", JSONObject.toJSONString(authRole));
-            systemService.assignAuthRole(authRole.getAuthId(),authRole.getRoleId());
+            systemService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
             Success ok = new Success(200, "添加成功", "配置角色权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -109,8 +111,36 @@ public class SystemController {
     public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
-            systemService.assignAuthMenu(authMenu.getAuthId(),authMenu.getMenuId());
+            systemService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
             Success ok = new Success(200, "添加成功", "配置菜单权限成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/common/modules", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity findCommonModules(@RequestParam("roleId") long roleId) {
+        try {
+            logger.info("获取公共的模块roleId:[{}]", roleId);
+            List<Module> moduleList = systemService.findCommonModules(roleId);
+            Success ok = new Success(200, moduleList, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/loginuser/modules", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity findModulesByLoginUser(@RequestParam("token") String token) {
+        try {
+            logger.info("获取登录用户拥有的模块token:[{}]", token);
+            List<Module> moduleList = systemService.findModulesByLoginUser(token);
+            Success ok = new Success(200, moduleList, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

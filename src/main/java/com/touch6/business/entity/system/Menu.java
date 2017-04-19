@@ -1,5 +1,7 @@
 package com.touch6.business.entity.system;
 
+import com.touch6.business.enums.MenuStatus;
+
 import java.util.Date;
 
 /**
@@ -12,6 +14,8 @@ public class Menu {
     private String uisref;
     private String attrLink;
     private Long moduleId;
+    private MenuStatus status;
+    private Integer sort;
     private Date createTime;
     private Date updateTime;
 
@@ -77,5 +81,21 @@ public class Menu {
 
     public void setAttrLink(String attrLink) {
         this.attrLink = attrLink;
+    }
+
+    public MenuStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MenuStatus status) {
+        this.status = status;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

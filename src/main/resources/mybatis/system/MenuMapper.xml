@@ -6,10 +6,10 @@
 <mapper namespace="com.touch6.business.mybatis.system.MenuMybatisDao">
     <insert id="insertMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true" keyProperty="menuId">
         insert ignore into t_si_menu(
-        menu_id,name,class_name,uisref,attr_link,create_time,update_time
+        menu_id,name,class_name,uisref,attr_link,status,sort,create_time,update_time
         )
         values(
-        #{menuId},#{name},#{className},#{uisref},#{attrLink},#{createTime},#{updateTime}
+        #{menuId},#{name},#{className},#{uisref},#{attrLink},#{status},#{sort},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByMenuId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">

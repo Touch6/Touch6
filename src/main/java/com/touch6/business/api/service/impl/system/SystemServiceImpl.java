@@ -2,6 +2,7 @@ package com.touch6.business.api.service.impl.system;
 
 import com.touch6.business.api.service.system.SystemService;
 import com.touch6.business.entity.system.*;
+import com.touch6.business.enums.MenuStatus;
 import com.touch6.business.mybatis.system.*;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
@@ -12,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springside.modules.mapper.BeanMapper;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by LONG on 2017/4/18.
@@ -85,6 +88,7 @@ public class SystemServiceImpl implements SystemService {
         }
         menu.setModuleId(moduleId);
         Date time = new Date();
+        menu.setStatus(MenuStatus.CREATE);
         menu.setCreateTime(time);
         menu.setUpdateTime(time);
         int insertedMenu = menuMybatisDao.insertMenu(menu);
@@ -127,5 +131,17 @@ public class SystemServiceImpl implements SystemService {
         if (inserted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+    }
+
+    @Override
+    public List<Module> findCommonModules(long roleId) {
+        List<Module> modules = moduleMybatisDao.findCommonModules(roleId);
+        return modules;
+    }
+
+    @Override
+    public List<Module> findModulesByLoginUser(String token) {
+        List<Module> modules = moduleMybatisDao.findModulesByLoginUserToken(token);
+        return modules;
     }
 }

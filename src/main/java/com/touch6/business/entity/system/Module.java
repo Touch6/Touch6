@@ -1,6 +1,9 @@
 package com.touch6.business.entity.system;
 
+import com.google.common.collect.Lists;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by LONG on 2017/4/18.
@@ -10,8 +13,10 @@ public class Module {
     private String name;
     private String className;
     private String attrLink;
+    private Integer sort;
     private Date createTime;
     private Date updateTime;
+    private List<Menu> menuList= Lists.newArrayList();
 
     public Long getModuleId() {
         return moduleId;
@@ -59,5 +64,21 @@ public class Module {
 
     public void setAttrLink(String attrLink) {
         this.attrLink = attrLink;
+    }
+
+    public List<Menu> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

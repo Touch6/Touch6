@@ -5,6 +5,8 @@ import com.touch6.business.entity.system.Menu;
 import com.touch6.business.entity.system.Module;
 import com.touch6.business.entity.system.Role;
 
+import java.util.List;
+
 /**
  * Created by LONG on 2017/4/18.
  */
@@ -21,4 +23,7 @@ public interface SystemService {
 
     void assignAuthMenu(Long authId, Long menuId);
 
+    List<Module> findCommonModules(long roleId);
+
+    List<Module> findModulesByLoginUser(String token);
 }

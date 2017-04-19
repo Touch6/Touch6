@@ -4,15 +4,121 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.system.ModuleMybatisDao">
-    <insert id="insertModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true" keyProperty="moduleId">
+    <insert id="insertModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true"
+            keyProperty="moduleId">
         insert ignore into t_si_module(
-        module_id,name,class_name,attr_link,create_time,update_time
+        module_id,name,class_name,attr_link,sort,create_time,update_time
         )
         values(
-        #{moduleId},#{name},#{className},#{attrLink},#{createTime},#{updateTime}
+        #{moduleId},#{name},#{className},#{attrLink},#{sort},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByModuleId" resultType="com.touch6.business.entity.system.Module" parameterType="long">
         select * from t_si_module where module_id=#{0}
+    </select>
+    <resultMap id="moduleListMap" type="com.touch6.business.entity.system.Module">
+        <id property="moduleId" column="module_id"/>
+        <result property="name" column="name"/>
+        <result property="className" column="class_name"/>
+        <result property="attrLink" column="attr_link"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="menuList" resultMap="menuListMap"/>
+    </resultMap>
+    <resultMap id="menuListMap" type="com.touch6.business.entity.system.Menu">
+        <id property="menuId" column="me_menu_id"/>
+        <result property="name" column="me_name"/>
+        <result property="className" column="me_class_name"/>
+        <result property="uisref" column="me_uisref"/>
+        <result property="attrLink" column="me_attr_link"/>
+        <result property="moduleId" column="me_module_id"/>
+        <result property="status" column="me_status"/>
+        <result property="sort" column="me_sort"/>
+        <result property="createTime" column="me_create_time"/>
+        <result property="updateTime" column="me_update_time"/>
+    </resultMap>
+
+    <select id="findCommonModules" resultMap="moduleListMap" parameterType="long">
+        select
+                module.module_id,
+                module.name,
+                module.class_name,
+                module.attr_link,
+                module.create_time,
+                module.update_time,
+                menu.menu_id me_menu_id,
+                menu.name me_name,
+                menu.class_name me_class_name,
+                menu.uisref me_uisref,
+                menu.attr_link me_attr_link,
+                menu.module_id me_module_id,
+                menu.create_time me_create_time,
+                menu.update_time me_update_time
+        from t_si_module module
+        join t_si_menu menu on menu.module_id=module.module_id
+        join t_si_auth_menu am on am.menu_id=menu.menu_id
+        join t_si_auth auth on auth.auth_id=am.auth_id
+        join t_si_auth_role ar on ar.auth_id=auth.auth_id
+        join t_si_role role on role.role_id=ar.role_id
+        where role.role_id=#{0}
+        group by
+                module.module_id,
+                module.name,
+                module.class_name,
+                module.attr_link,
+                module.create_time,
+                module.update_time,
+                menu.menu_id,
+                menu.name,
+                menu.class_name,
+                menu.uisref,
+                menu.attr_link,
+                menu.module_id,
+                menu.create_time,
+                menu.update_time
+        order by module.sort,menu.sort asc
+    </select>
+    <select id="findModulesByLoginUserToken" resultMap="moduleListMap" parameterType="string">
+        select
+                module.module_id,
+                module.name,
+                module.class_name,
+                module.attr_link,
+                module.create_time,
+                module.update_time,
+                menu.menu_id me_menu_id,
+                menu.name me_name,
+                menu.class_name me_class_name,
+                menu.uisref me_uisref,
+                menu.attr_link me_attr_link,
+                menu.module_id me_module_id,
+                menu.create_time me_create_time,
+                menu.update_time me_update_time
+        from t_si_module module
+        join t_si_menu menu on menu.module_id=module.module_id
+        join t_si_auth_menu am on am.menu_id=menu.menu_id
+        join t_si_auth auth on auth.auth_id=am.auth_id
+        join t_si_auth_role ar on ar.auth_id=auth.auth_id
+        join t_si_role role on role.role_id=ar.role_id
+        join t_si_user_role ur on ur.role_id=role.role_id
+        join t_si_user u on u.id=ur.user_id
+        where u.token=#{0}
+        group by
+            module.module_id,
+            module.name,
+            module.class_name,
+            module.attr_link,
+            module.create_time,
+            module.update_time,
+            menu.menu_id,
+            menu.name,
+            menu.class_name,
+            menu.uisref,
+            menu.attr_link,
+            menu.module_id,
+            menu.create_time,
+            menu.update_time
+        order by module.sort,menu.sort asc
     </select>
 </mapper>

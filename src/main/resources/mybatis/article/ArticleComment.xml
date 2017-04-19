@@ -31,15 +31,15 @@
         <collection property="articleCommentReplyList" resultMap="commentReplyMap"/>
     </resultMap>
     <resultMap id="commentReplyMap" type="com.touch6.business.entity.article.ArticleCommentReply">
-        <id property="id"  column="id"/>
-        <result property="commentId" column="comment_id"/>
-        <result property="sponsorId" column="sponsor_id"/>
-        <result property="replierId" column="replier_id"/>
-        <result property="content" column="content"/>
-        <result property="approvalAmount" column="approval_amount"/>
-        <result property="opposeAmount" column="oppose_amount"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
+        <id property="id"  column="re_id"/>
+        <result property="commentId" column="re_comment_id"/>
+        <result property="sponsorId" column="re_sponsor_id"/>
+        <result property="replierId" column="re_replier_id"/>
+        <result property="content" column="re_content"/>
+        <result property="approvalAmount" column="re_approval_amount"/>
+        <result property="opposeAmount" column="re_oppose_amount"/>
+        <result property="createTime" column="re_create_time"/>
+        <result property="updateTime" column="re_update_time"/>
     </resultMap>
     <select id="commentList" resultMap="commentListMap" parameterType="string">
         SELECT
@@ -53,15 +53,15 @@
             c.oppose_amount,
             c.create_time,
             c.update_time,
-            re.id,
-            re.comment_id,
-            re.sponsor_id,
-            re.replier_id,
-            re.content,
-            re.approval_amount,
-            re.oppose_amount,
-            re.create_time,
-            re.update_time
+            re.id re_id,
+            re.comment_id re_comment_id,
+            re.sponsor_id re_sponsor_id,
+            re.replier_id re_replier_id,
+            re.content re_content,
+            re.approval_amount re_approval_amount,
+            re.oppose_amount re_oppose_amount,
+            re.create_time re_create_time,
+            re.update_time re_update_time
         FROM
             t_b_article_comment c
             left join t_b_article_comment_reply re on re.comment_id=c.id
