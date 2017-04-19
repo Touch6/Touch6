@@ -2,10 +2,7 @@ package com.touch6.business.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.system.SystemService;
-import com.touch6.business.entity.system.Auth;
-import com.touch6.business.entity.system.Menu;
-import com.touch6.business.entity.system.Module;
-import com.touch6.business.entity.system.Role;
+import com.touch6.business.entity.system.*;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import org.slf4j.Logger;
@@ -44,15 +41,14 @@ public class SystemController {
         }
     }
 
-    @RequestMapping(value = "/auth/{authId}/role", method = RequestMethod.POST,
+    @RequestMapping(value = "/role", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity addRole(@PathVariable("authId") Long authId,
-                                  @RequestBody Role role) {
+    public ResponseEntity addRole(@RequestBody Role role) {
         try {
             logger.info("接收到角色:[{}]", JSONObject.toJSONString(role));
-            systemService.addRole(authId, role);
+            systemService.addRole(role);
             Success ok = new Success(200, "添加成功", "添加角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -85,6 +81,36 @@ public class SystemController {
             logger.info("接收到菜单:[{}]", JSONObject.toJSONString(menu));
             systemService.addMenu(moduleId,menu);
             Success ok = new Success(200, "添加成功", "添加菜单成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/role/auth", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity assignRoleAuth(@RequestBody AuthRole authRole) {
+        try {
+            logger.info("接收到角色权限配置:[{}]", JSONObject.toJSONString(authRole));
+            systemService.assignAuthRole(authRole.getAuthId(),authRole.getRoleId());
+            Success ok = new Success(200, "添加成功", "配置角色权限成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/menu/auth", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
+        try {
+            logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
+            systemService.assignAuthMenu(authMenu.getAuthId(),authMenu.getMenuId());
+            Success ok = new Success(200, "添加成功", "配置菜单权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

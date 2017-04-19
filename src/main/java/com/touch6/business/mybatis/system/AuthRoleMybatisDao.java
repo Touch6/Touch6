@@ -1,6 +1,6 @@
 package com.touch6.business.mybatis.system;
 
-import com.touch6.business.entity.system.RoleAuth;
+import com.touch6.business.entity.system.AuthRole;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
 /*
@@ -19,6 +19,6 @@ import com.touch6.business.mybatis.common.MyBatisRepository;
  * ============================================================================		
  */
 @MyBatisRepository
-public interface RoleAuthMybatisDao {
-    int insertRoleAuth(RoleAuth roleAuth);
+public interface AuthRoleMybatisDao {
+    int insertAuthRole(AuthRole authRole);
 }

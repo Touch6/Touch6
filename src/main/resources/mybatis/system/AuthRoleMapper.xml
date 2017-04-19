@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.business.mybatis.system.RoleAuthMybatisDao">
-    <insert id="insertRoleAuth" parameterType="com.touch6.business.entity.system.RoleAuth">
-        insert ignore into t_si_role_auth(
+<mapper namespace="com.touch6.business.mybatis.system.AuthRoleMybatisDao">
+    <insert id="insertAuthRole" parameterType="com.touch6.business.entity.system.AuthRole">
+        insert ignore into t_si_auth_role(
         role_id,auth_id
         )
         values(

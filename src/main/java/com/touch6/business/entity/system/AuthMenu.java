@@ -7,6 +7,11 @@ public class AuthMenu {
     private Long authId;
     private Long menuId;
 
+    public AuthMenu(Long authId, Long menuId) {
+        this.authId=authId;
+        this.menuId=menuId;
+    }
+
     public Long getAuthId() {
         return authId;
     }

@@ -33,30 +33,20 @@ public class SystemServiceImpl implements SystemService {
     @Autowired
     private UserRoleMybatisDao userRoleMybatisDao;
     @Autowired
-    private RoleAuthMybatisDao roleAuthMybatisDao;
+    private AuthRoleMybatisDao authRoleMybatisDao;
     @Autowired
     private AuthMenuMybatisDao authMenuMybatisDao;
 
 
     @Override
     @Transactional
-    public void addRole(Long authId, Role role) {
-        Auth auth = authMybatisDao.findByAuthId(authId);
-        if (auth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
+    public void addRole(Role role) {
         Date time = new Date();
         role.setCreateTime(time);
         role.setUpdateTime(time);
         int insertedRole = roleMybatisDao.insertRole(role);
         if (insertedRole == 1) {
-//            RoleAuth roleAuth = new RoleAuth();
-//            roleAuth.setAuthId(authId);
-//            roleAuth.setRoleId(role.getRoleId());
-//            int insertedMap = roleAuthMybatisDao.insertRoleAuth(roleAuth);
-//            if (insertedMap == 0) {
-//                throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
-//            }
+
         } else {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
@@ -100,6 +90,42 @@ public class SystemServiceImpl implements SystemService {
         int insertedMenu = menuMybatisDao.insertMenu(menu);
         if (insertedMenu == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void assignAuthRole(Long authId, Long roleId) {
+        Auth auth = authMybatisDao.findByAuthId(authId);
+        if (auth == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+        Role role = roleMybatisDao.findByRoleId(roleId);
+        if (role == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+        AuthRole authRole = new AuthRole(authId, roleId);
+        int inserted = authRoleMybatisDao.insertAuthRole(authRole);
+        if (inserted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void assignAuthMenu(Long authId, Long menuId) {
+        Auth auth = authMybatisDao.findByAuthId(authId);
+        if (auth == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
+        if (menu == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+        AuthMenu authMenu = new AuthMenu(authId, menuId);
+        int inserted = authMenuMybatisDao.insertAuthMenu(authMenu);
+        if (inserted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
     }
 }

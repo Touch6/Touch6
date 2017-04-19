@@ -9,11 +9,16 @@ import com.touch6.business.entity.system.Role;
  * Created by LONG on 2017/4/18.
  */
 public interface SystemService {
-    void addRole(Long authId, Role role);
+    void addRole(Role role);
 
     void addAuth(Auth auth);
 
     void addModule(Module module);
 
-    void addMenu(Long moduleId,Menu menu);
+    void addMenu(Long moduleId, Menu menu);
+
+    void assignAuthRole(Long authId, Long roleId);
+
+    void assignAuthMenu(Long authId, Long menuId);
+
 }
