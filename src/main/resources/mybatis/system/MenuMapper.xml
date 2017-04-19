@@ -15,4 +15,24 @@
     <select id="findByMenuId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
         select * from t_si_menu where menu_id=#{0}
     </select>
+    <update id="updateMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true" keyProperty="menuId">
+        update t_si_menu
+        <set>
+            name=#{name},
+            class_name=#{className},
+            uisref=#{uisref},
+            attr_link=#{attrLink},
+            module_id=#{moduleId},
+            status=#{status},
+            sort=#{sort},
+            update_time=#{updateTime}
+        </set>
+        where menu_id=#{menuId}
+    </update>
+    <select id="findAll" resultType="com.touch6.business.entity.system.Menu">
+        select * from t_si_menu
+    </select>
+    <select id="findByModuleId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
+        select * from t_si_menu where module_id=#{0}
+    </select>
 </mapper>

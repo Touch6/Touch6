@@ -3,6 +3,8 @@ package com.touch6.business.mybatis.system;
 import com.touch6.business.entity.system.Role;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -23,4 +25,8 @@ public interface RoleMybatisDao {
     int insertRole(Role role);
 
     Role findByRoleId(Long roleId);
+
+    int updateRole(Role role);
+
+    List<Role> findAll();
 }

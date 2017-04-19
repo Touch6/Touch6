@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.touch6.business.mybatis.system.RoleMybatisDao">
+<mapper namespace="com.touch6.business.mybatis.system.UserRoleMybatisDao">
     <insert id="insertUserRole" parameterType="com.touch6.business.entity.system.UserRole">
         insert ignore into t_si_user_role(
         user_id,role_id
@@ -12,4 +12,16 @@
         #{userId},#{roleId}
         )
     </insert>
+    <select id="findByUserRole" resultType="com.touch6.business.entity.system.UserRole" parameterType="com.touch6.business.entity.system.UserRole">
+        select *
+        from t_si_user_role
+        where user_id=#{userId} and role_id=#{roleId}
+    </select>
+    <update id="updateUserRole" parameterType="hashMap">
+        update t_si_user_role
+        <set>
+            role_id=#{newRoleId}
+        </set>
+        where user_id=#{userId} and role_id=#{roleId}
+    </update>
 </mapper>

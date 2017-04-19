@@ -12,4 +12,16 @@
         #{authId},#{menuId}
         )
     </insert>
+    <select id="findByAuthMenu" resultType="com.touch6.business.entity.system.AuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
+        select *
+        from t_si_auth_menu
+        where auth_id=#{authId} and menu_id=#{menuId}
+    </select>
+    <update id="updateAuthMenu" parameterType="hashMap">
+        update t_si_auth_menu
+        <set>
+            auth_id=#{newAuthId}
+        </set>
+        where auth_id=#{authId} and menu_id=#{menuId}
+    </update>
 </mapper>

@@ -6,7 +6,9 @@ package com.touch6.business.entity.system;
 public class AuthMenu {
     private Long authId;
     private Long menuId;
+    private Long newAuthId;
 
+    public AuthMenu(){}
     public AuthMenu(Long authId, Long menuId) {
         this.authId=authId;
         this.menuId=menuId;
@@ -26,5 +28,13 @@ public class AuthMenu {
 
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
+    }
+
+    public Long getNewAuthId() {
+        return newAuthId;
+    }
+
+    public void setNewAuthId(Long newAuthId) {
+        this.newAuthId = newAuthId;
     }
 }

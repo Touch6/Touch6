@@ -121,4 +121,18 @@
             menu.update_time
         order by module.sort,menu.sort asc
     </select>
+    <update id="updateModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true" keyProperty="moduleId">
+        update t_si_module
+        <set>
+            name=#{name},
+            class_name=#{className},
+            attr_link=#{attrLink},
+            sort=#{sort},
+            update_time=#{updateTime}
+        </set>
+        where module_id=#{moduleId}
+    </update>
+    <select id="findAll" resultType="com.touch6.business.entity.system.Module">
+        select * from t_si_module
+    </select>
 </mapper>

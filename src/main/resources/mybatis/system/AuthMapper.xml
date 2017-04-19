@@ -15,4 +15,15 @@
     <select id="findByAuthId" resultType="com.touch6.business.entity.system.Auth" parameterType="long">
         select * from t_si_auth where auth_id=#{0}
     </select>
+    <update id="updateAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true" keyProperty="authId">
+        update t_si_auth
+        <set>
+            name=#{name},
+            update_time=#{updateTime}
+        </set>
+        where auth_id=#{authId}
+    </update>
+    <select id="findAll" resultType="com.touch6.business.entity.system.Auth">
+        select * from t_si_auth
+    </select>
 </mapper>

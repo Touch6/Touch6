@@ -4,6 +4,8 @@ import com.touch6.business.entity.AuthCenter;
 import com.touch6.business.entity.system.Auth;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -24,4 +26,8 @@ public interface AuthMybatisDao {
     int insertAuth(Auth auth);
 
     Auth findByAuthId(Long authId);
+
+    int updateAuth(Auth auth);
+
+    List<Auth> findAll();
 }

@@ -27,7 +27,11 @@ public interface ModuleMybatisDao {
 
     Module findByModuleId(Long moduleId);
 
+    int updateModule(Module module);
+
     List<Module> findCommonModules(Long roleId);
 
     List<Module> findModulesByLoginUserToken(String token);
+
+    List<Module> findAll();
 }

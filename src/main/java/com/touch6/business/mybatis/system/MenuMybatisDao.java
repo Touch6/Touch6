@@ -4,6 +4,8 @@ import com.touch6.business.entity.system.Menu;
 import com.touch6.business.entity.system.Module;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -24,4 +26,10 @@ public interface MenuMybatisDao {
     int insertMenu(Menu menu);
 
     Menu findByMenuId(Long menuId);
+
+    int updateMenu(Menu menu);
+
+    List<Menu> findAll();
+
+    List<Menu> findByModuleId(Long moduleId);
 }

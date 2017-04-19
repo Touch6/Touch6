@@ -3,6 +3,8 @@ package com.touch6.business.mybatis.system;
 import com.touch6.business.entity.system.AuthMenu;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.Map;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -21,4 +23,8 @@ import com.touch6.business.mybatis.common.MyBatisRepository;
 @MyBatisRepository
 public interface AuthMenuMybatisDao {
     int insertAuthMenu(AuthMenu authMenu);
+
+    AuthMenu findByAuthMenu(AuthMenu authMenu);
+
+    int updateAuthMenu(Map params);
 }

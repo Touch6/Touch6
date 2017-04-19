@@ -15,4 +15,15 @@
     <select id="findByRoleId" resultType="com.touch6.business.entity.system.Role" parameterType="long">
         select * from t_si_role where role_id=#{0}
     </select>
+    <update id="updateRole" parameterType="com.touch6.business.entity.system.Role" useGeneratedKeys="true" keyProperty="roleId">
+        update t_si_role
+        <set>
+            name=#{name},
+            update_time=#{updateTime}
+        </set>
+        where role_id=#{roleId}
+    </update>
+    <select id="findAll" resultType="com.touch6.business.entity.system.Role">
+        select * from t_si_role
+    </select>
 </mapper>

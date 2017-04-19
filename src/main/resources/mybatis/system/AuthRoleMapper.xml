@@ -12,4 +12,16 @@
         #{roleId},#{authId}
         )
     </insert>
+    <select id="findByAuthRole" resultType="com.touch6.business.entity.system.AuthRole" parameterType="com.touch6.business.entity.system.AuthRole">
+        select *
+        from t_si_auth_role
+        where auth_id=#{authId} and role_id=#{roleId}
+    </select>
+    <update id="updateAuthRole" parameterType="hashMap">
+        update t_si_auth_role
+        <set>
+            auth_id=#{newAuthId}
+        </set>
+        where auth_id=#{authId} and role_id=#{roleId}
+    </update>
 </mapper>

@@ -30,14 +30,32 @@ public interface SystemService {
 
     Menu updateMenu(Menu menu);
 
-    UserRole updateUserRole(Long userId, Long roleId);
+    void updateUserRole(Long userId, Long roleId, Long newRoleId);
 
-    AuthRole updateAuthRole(Long authId, Long roleId);
+    void updateAuthRole(Long authId, Long roleId, Long newAuthId);
 
-    AuthMenu updateAuthMenu(Long authId, Long menuId);
+    void updateAuthMenu(Long authId, Long menuId, Long newAuthId);
 
     List<Module> findCommonModules(Long roleId);
 
     List<Module> findModulesByLoginUser(String token);
+
+    List<Role> roleList();
+
+    List<Auth> authList();
+
+    List<Menu> menuList();
+
+    List<Module> moduleList();
+
+    Role findByRoleId(Long roleId);
+
+    Auth findByAuthId(Long authId);
+
+    Module findByModuleId(Long moduleId);
+
+    Menu findByMenuId(Long menuId);
+
+    List<Menu> findMenusByModuleId(Long moduleId);
 
 }

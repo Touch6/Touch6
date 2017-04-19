@@ -3,6 +3,8 @@ package com.touch6.business.mybatis.system;
 import com.touch6.business.entity.system.UserRole;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.Map;
+
 /*
  * ============================================================================		
  * = COPYRIGHT		
@@ -21,4 +23,8 @@ import com.touch6.business.mybatis.common.MyBatisRepository;
 @MyBatisRepository
 public interface UserRoleMybatisDao {
     int insertUserRole(UserRole userRole);
+
+    UserRole findByUserRole(UserRole userRole);
+
+    int updateUserRole(Map params);
 }
