@@ -1,5 +1,6 @@
 package com.touch6.business.entity.system;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Date;
  */
 public class Role {
     private Long roleId;
+    @NotNull(message = "请指明角色名称")
     private String name;
     private Date createTime;
     private Date updateTime;

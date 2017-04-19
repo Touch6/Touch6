@@ -6,8 +6,10 @@ import com.touch6.business.enums.MenuStatus;
 import com.touch6.business.mybatis.system.*;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
+import com.touch6.core.exception.Error;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
 import com.touch6.core.exception.error.constant.SystemErrorConstant;
+import com.touch6.utils.T6ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.BeanMapper;
 
+import javax.validation.Validator;
 import java.util.Date;
 import java.util.List;
 
@@ -39,11 +42,18 @@ public class SystemServiceImpl implements SystemService {
     private AuthRoleMybatisDao authRoleMybatisDao;
     @Autowired
     private AuthMenuMybatisDao authMenuMybatisDao;
-
+    @Autowired
+    private Validator validator;
 
     @Override
     @Transactional
     public void addRole(Role role) {
+        String error = T6ValidatorUtil.validate(validator, role);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
         Date time = new Date();
         role.setCreateTime(time);
         role.setUpdateTime(time);
@@ -58,6 +68,12 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addAuth(Auth auth) {
+        String error = T6ValidatorUtil.validate(validator, auth);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
         Date time = new Date();
         auth.setCreateTime(time);
         auth.setUpdateTime(time);
@@ -70,6 +86,12 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addModule(Module module) {
+        String error = T6ValidatorUtil.validate(validator, module);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
         Date time = new Date();
         module.setCreateTime(time);
         module.setUpdateTime(time);
@@ -82,19 +104,31 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addMenu(Long moduleId, Menu menu) {
+        menu.setModuleId(moduleId);
+        String error = T6ValidatorUtil.validate(validator, menu);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
+
         Module module = moduleMybatisDao.findByModuleId(moduleId);
         if (module == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
-        menu.setModuleId(moduleId);
         Date time = new Date();
-        menu.setStatus(MenuStatus.CREATE);
         menu.setCreateTime(time);
         menu.setUpdateTime(time);
         int insertedMenu = menuMybatisDao.insertMenu(menu);
         if (insertedMenu == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+    }
+
+    @Override
+    @Transactional
+    public void assignUserRole(Long userId, Long roleId) {
+
     }
 
     @Override
@@ -134,12 +168,57 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public List<Module> findCommonModules(long roleId) {
+    @Transactional
+    public Role updateRole(Role role) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Auth updateAuth(Auth auth) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Module updateModule(Module module) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Menu updateMenu(Menu menu) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public UserRole updateUserRole(Long userId, Long roleId) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public AuthRole updateAuthRole(Long authId, Long roleId) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public AuthMenu updateAuthMenu(Long authId, Long menuId) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public List<Module> findCommonModules(Long roleId) {
         List<Module> modules = moduleMybatisDao.findCommonModules(roleId);
         return modules;
     }
 
+
     @Override
+    @Transactional
     public List<Module> findModulesByLoginUser(String token) {
         List<Module> modules = moduleMybatisDao.findModulesByLoginUserToken(token);
         return modules;

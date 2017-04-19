@@ -2,6 +2,7 @@ package com.touch6.business.entity.system;
 
 import com.google.common.collect.Lists;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,11 @@ import java.util.List;
  */
 public class Module {
     private Long moduleId;
+    @NotNull(message = "请指明模块名称")
     private String name;
     private String className;
     private String attrLink;
+    @NotNull(message = "请指明排序序号")
     private Integer sort;
     private Date createTime;
     private Date updateTime;

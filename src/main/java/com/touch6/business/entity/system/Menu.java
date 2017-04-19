@@ -2,6 +2,7 @@ package com.touch6.business.entity.system;
 
 import com.touch6.business.enums.MenuStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -9,12 +10,15 @@ import java.util.Date;
  */
 public class Menu {
     private Long menuId;
+    @NotNull(message = "请指明菜单名称")
     private String name;
     private String className;
     private String uisref;
     private String attrLink;
+    @NotNull(message = "请指明所属模块")
     private Long moduleId;
-    private MenuStatus status;
+    private MenuStatus status=MenuStatus.CREATE;
+    @NotNull(message = "请指明排序序号")
     private Integer sort;
     private Date createTime;
     private Date updateTime;
