@@ -58,4 +58,18 @@ public interface SystemService {
 
     List<Menu> findMenusByModuleId(Long moduleId);
 
+    void deleteRole(Long roleId);
+
+    void deleteAuth(Long authId);
+
+    void deleteModule(Long moduleId);
+
+    void deleteMenu(Long menuId);
+
+    void deleteAuthMenu(AuthMenu authMenu);
+
+    void deleteAuthRole(AuthRole authRole);
+
+    void deleteUserRole(UserRole userRole);
+
 }

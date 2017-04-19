@@ -24,4 +24,7 @@
         </set>
         where auth_id=#{authId} and menu_id=#{menuId}
     </update>
+    <delete id="deleteAuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
+        delete from t_si_auth_menu where auth_id=#{authId} and menu_id=#{menuId}
+    </delete>
 </mapper>

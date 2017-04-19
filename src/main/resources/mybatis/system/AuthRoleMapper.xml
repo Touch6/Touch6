@@ -24,4 +24,7 @@
         </set>
         where auth_id=#{authId} and role_id=#{roleId}
     </update>
+    <delete id="deleteAuthRole" parameterType="com.touch6.business.entity.system.AuthRole">
+        delete from t_si_auth_role where auth_id=#{authId} and role_id=#{roleId}
+    </delete>
 </mapper>

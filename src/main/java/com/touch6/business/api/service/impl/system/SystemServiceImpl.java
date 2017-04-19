@@ -197,7 +197,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public Role updateRole(Role role) {
-        Date time=new Date();
+        Date time = new Date();
         role.setUpdateTime(time);
         int updated = roleMybatisDao.updateRole(role);
         if (updated == 0) {
@@ -209,7 +209,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public Auth updateAuth(Auth auth) {
-        Date time=new Date();
+        Date time = new Date();
         auth.setUpdateTime(time);
         int updated = authMybatisDao.updateAuth(auth);
         if (updated == 0) {
@@ -221,7 +221,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public Module updateModule(Module module) {
-        Date time=new Date();
+        Date time = new Date();
         module.setUpdateTime(time);
         int updated = moduleMybatisDao.updateModule(module);
         if (updated == 0) {
@@ -233,7 +233,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public Menu updateMenu(Menu menu) {
-        Date time=new Date();
+        Date time = new Date();
         menu.setUpdateTime(time);
         int updated = menuMybatisDao.updateMenu(menu);
         if (updated == 0) {
@@ -388,5 +388,68 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public List<Menu> findMenusByModuleId(Long moduleId) {
         return menuMybatisDao.findByModuleId(moduleId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteRole(Long roleId) {
+        int deleted = roleMybatisDao.deleteRole(roleId);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuth(Long authId) {
+        int deleted = authMybatisDao.deleteAuth(authId);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteModule(Long moduleId) {
+        int deleted = moduleMybatisDao.deleteModule(moduleId);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteMenu(Long menuId) {
+        int deleted = menuMybatisDao.deleteMenu(menuId);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthMenu(AuthMenu authMenu) {
+        int deleted = authMenuMybatisDao.deleteAuthMenu(authMenu);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthRole(AuthRole authRole) {
+        int deleted = authRoleMybatisDao.deleteAuthRole(authRole);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserRole(UserRole userRole) {
+        int deleted = userRoleMybatisDao.deleteUserRole(userRole);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
     }
 }

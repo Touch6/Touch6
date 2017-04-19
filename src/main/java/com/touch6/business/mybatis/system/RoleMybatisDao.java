@@ -29,4 +29,6 @@ public interface RoleMybatisDao {
     int updateRole(Role role);
 
     List<Role> findAll();
+
+    int deleteRole(Long roleId);
 }

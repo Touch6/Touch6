@@ -26,4 +26,7 @@
     <select id="findAll" resultType="com.touch6.business.entity.system.Role">
         select * from t_si_role
     </select>
+    <delete id="deleteRole" parameterType="long">
+        delete from t_si_role where role_id=#{0}
+    </delete>
 </mapper>

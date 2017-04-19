@@ -391,4 +391,105 @@ public class SystemController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteRole(@PathVariable("roleId")Long roleId) {
+        try {
+            logger.info("删除角色:[{}]",roleId);
+            systemService.deleteRole(roleId);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/auth/{authId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteAuth(@PathVariable("authId")Long authId) {
+        try {
+            logger.info("删除权限:[{}]",authId);
+            systemService.deleteAuth(authId);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/module/{moduleId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteModule(@PathVariable("moduleId")Long moduleId) {
+        try {
+            logger.info("删除模块:[{}]",moduleId);
+            systemService.deleteModule(moduleId);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteMenu(@PathVariable("menuId")Long menuId) {
+        try {
+            logger.info("删除菜单:[{}]",menuId);
+            systemService.deleteMenu(menuId);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/auth/role", method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteAuthRole(@RequestBody AuthRole authRole) {
+        try {
+            logger.info("删除角色权限:[{}]",JSONObject.toJSONString(authRole));
+            systemService.deleteAuthRole(authRole);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/auth/menu", method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteAuthMenu(@RequestBody AuthMenu authMenu) {
+        try {
+            logger.info("删除菜单权限:[{}]",JSONObject.toJSONString(authMenu));
+            systemService.deleteAuthMenu(authMenu);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/user/role", method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteUserRole(@RequestBody UserRole userRole) {
+        try {
+            logger.info("删除用户角色:[{}]",JSONObject.toJSONString(userRole));
+            systemService.deleteUserRole(userRole);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

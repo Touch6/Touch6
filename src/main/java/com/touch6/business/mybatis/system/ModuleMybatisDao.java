@@ -34,4 +34,6 @@ public interface ModuleMybatisDao {
     List<Module> findModulesByLoginUserToken(String token);
 
     List<Module> findAll();
+
+    int deleteModule(Long moduleId);
 }

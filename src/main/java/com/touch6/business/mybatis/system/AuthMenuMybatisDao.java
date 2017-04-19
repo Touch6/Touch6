@@ -27,4 +27,6 @@ public interface AuthMenuMybatisDao {
     AuthMenu findByAuthMenu(AuthMenu authMenu);
 
     int updateAuthMenu(Map params);
+
+    int deleteAuthMenu(AuthMenu authMenu);
 }

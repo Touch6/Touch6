@@ -30,4 +30,6 @@ public interface AuthMybatisDao {
     int updateAuth(Auth auth);
 
     List<Auth> findAll();
+
+    int deleteAuth(Long authId);
 }

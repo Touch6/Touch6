@@ -27,4 +27,6 @@ public interface AuthRoleMybatisDao {
     AuthRole findByAuthRole(AuthRole authRole);
 
     int updateAuthRole(Map params);
+
+    int deleteAuthRole(AuthRole authRole);
 }

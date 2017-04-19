@@ -27,4 +27,6 @@ public interface UserRoleMybatisDao {
     UserRole findByUserRole(UserRole userRole);
 
     int updateUserRole(Map params);
+
+    int deleteUserRole(UserRole userRole);
 }
