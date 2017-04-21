@@ -6,10 +6,10 @@
 <mapper namespace="com.touch6.business.mybatis.system.RouteMybatisDao">
     <insert id="insertRoute" parameterType="com.touch6.business.entity.system.Route" useGeneratedKeys="true" keyProperty="routeId">
         insert ignore into t_si_route(
-        route_id,rank,super_id,name,value,desc,create_time,update_time
+        rank,super_id,name,value,desc,create_time,update_time
         )
         values(
-        #{routeId},#{rank},#{superId},#{name},#{value},#{desc},#{createTime},#{updateTime}
+        #{rank},#{superId},#{name},#{value},#{desc},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByRouteId" resultType="com.touch6.business.entity.system.Route" parameterType="long">
