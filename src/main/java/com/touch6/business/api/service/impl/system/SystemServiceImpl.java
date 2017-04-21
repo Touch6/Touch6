@@ -518,6 +518,9 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void deleteRoute(Long routeId) {
-        routeMybatisDao.deleteRoute(routeId);
+        int deleted=routeMybatisDao.deleteRoute(routeId);
+        if (deleted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
     }
 }

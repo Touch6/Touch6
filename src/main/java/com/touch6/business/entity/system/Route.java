@@ -14,7 +14,7 @@ public class Route {
     @NotNull(message = "请指明路由的名称")
     private String name;
     @NotNull(message = "请指明具体的路由")
-    private String value;
+    private String uisref;
     @NotNull(message = "路由的描述信息不能为空")
     private String description;
     private Date createTime;
@@ -44,12 +44,12 @@ public class Route {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getUisref() {
+        return uisref;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUisref(String uisref) {
+        this.uisref = uisref;
     }
 
     public Date getCreateTime() {
