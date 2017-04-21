@@ -16,7 +16,7 @@ public class Route {
     @NotNull(message = "请指明具体的路由")
     private String value;
     @NotNull(message = "路由的描述信息不能为空")
-    private String desc;
+    private String description;
     private Date createTime;
     private Date updateTime;
 
@@ -76,11 +76,11 @@ public class Route {
         this.superId = superId;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
