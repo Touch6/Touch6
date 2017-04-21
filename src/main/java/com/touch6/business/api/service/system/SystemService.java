@@ -72,4 +72,13 @@ public interface SystemService {
 
     void deleteUserRole(UserRole userRole);
 
+    Route addRoute(Route route);
+
+    Route findByRouteId(Long routeId);
+
+    Route updateRoute(Route route);
+
+    List<Route> findBySuperId(Long superId);
+
+    void deleteRoute(Long routeId);
 }

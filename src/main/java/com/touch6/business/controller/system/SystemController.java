@@ -88,6 +88,7 @@ public class SystemController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @RequestMapping(value = "/user/role", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -228,7 +229,7 @@ public class SystemController {
     public ResponseEntity updateUserRole(@RequestBody UserRole userRole) {
         try {
             logger.info("接收到用户角色修改:[{}]", JSONObject.toJSONString(userRole));
-            systemService.updateUserRole(userRole.getUserId(),userRole.getRoleId(),userRole.getNewRoleId());
+            systemService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
             Success ok = new Success(200, "修改成功", "修改用户角色信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -243,7 +244,7 @@ public class SystemController {
     public ResponseEntity updateAuthRole(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限修改:[{}]", JSONObject.toJSONString(authRole));
-            systemService.updateAuthRole(authRole.getAuthId(),authRole.getRoleId(),authRole.getNewAuthId());
+            systemService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
             Success ok = new Success(200, "修改成功", "修改角色权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -258,7 +259,7 @@ public class SystemController {
     public ResponseEntity updateAuthMenu(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限修改:[{}]", JSONObject.toJSONString(authMenu));
-            systemService.updateAuthMenu(authMenu.getAuthId(),authMenu.getMenuId(),authMenu.getNewAuthId());
+            systemService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
             Success ok = new Success(200, "修改成功", "修改菜单权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -272,7 +273,7 @@ public class SystemController {
     public ResponseEntity roleList() {
         try {
             logger.info("获取角色列表");
-            List<Role> roles=systemService.roleList();
+            List<Role> roles = systemService.roleList();
             Success ok = new Success(200, roles, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -286,7 +287,7 @@ public class SystemController {
     public ResponseEntity authList() {
         try {
             logger.info("获取权限列表");
-            List<Auth> auths=systemService.authList();
+            List<Auth> auths = systemService.authList();
             Success ok = new Success(200, auths, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -300,7 +301,7 @@ public class SystemController {
     public ResponseEntity moduleList() {
         try {
             logger.info("获取模块列表");
-            List<Module> modules=systemService.moduleList();
+            List<Module> modules = systemService.moduleList();
             Success ok = new Success(200, modules, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -314,7 +315,7 @@ public class SystemController {
     public ResponseEntity menuList() {
         try {
             logger.info("获取菜单列表");
-            List<Menu> menus=systemService.menuList();
+            List<Menu> menus = systemService.menuList();
             Success ok = new Success(200, menus, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -325,10 +326,10 @@ public class SystemController {
     @RequestMapping(value = "/role/{roleId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findRoleById(@PathVariable("roleId")Long roleId) {
+    public ResponseEntity findRoleById(@PathVariable("roleId") Long roleId) {
         try {
-            logger.info("获取角色:[{}]列表",roleId);
-            Role role=systemService.findByRoleId(roleId);
+            logger.info("获取角色:[{}]列表", roleId);
+            Role role = systemService.findByRoleId(roleId);
             Success ok = new Success(200, role, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -339,10 +340,10 @@ public class SystemController {
     @RequestMapping(value = "/auth/{authId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findAuthById(@PathVariable("authId")Long authId) {
+    public ResponseEntity findAuthById(@PathVariable("authId") Long authId) {
         try {
-            logger.info("获取权限:[{}]信息",authId);
-            Auth auth=systemService.findByAuthId(authId);
+            logger.info("获取权限:[{}]信息", authId);
+            Auth auth = systemService.findByAuthId(authId);
             Success ok = new Success(200, auth, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -353,10 +354,10 @@ public class SystemController {
     @RequestMapping(value = "/module/{moduleId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findModuleById(@PathVariable("moduleId")Long moduleId) {
+    public ResponseEntity findModuleById(@PathVariable("moduleId") Long moduleId) {
         try {
-            logger.info("获取模块:[{}]信息",moduleId);
-            Module module=systemService.findByModuleId(moduleId);
+            logger.info("获取模块:[{}]信息", moduleId);
+            Module module = systemService.findByModuleId(moduleId);
             Success ok = new Success(200, module, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -367,10 +368,10 @@ public class SystemController {
     @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findMenuById(@PathVariable("menuId")Long menuId) {
+    public ResponseEntity findMenuById(@PathVariable("menuId") Long menuId) {
         try {
-            logger.info("获取菜单:[{}]信息",menuId);
-            Menu menu=systemService.findByMenuId(menuId);
+            logger.info("获取菜单:[{}]信息", menuId);
+            Menu menu = systemService.findByMenuId(menuId);
             Success ok = new Success(200, menu, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -381,10 +382,10 @@ public class SystemController {
     @RequestMapping(value = "/module/{moduleId}/menus", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findMenusById(@PathVariable("moduleId")Long moduleId) {
+    public ResponseEntity findMenusById(@PathVariable("moduleId") Long moduleId) {
         try {
-            logger.info("获取模块:[{}]菜单列表信息",moduleId);
-            List<Menu> menus=systemService.findMenusByModuleId(moduleId);
+            logger.info("获取模块:[{}]菜单列表信息", moduleId);
+            List<Menu> menus = systemService.findMenusByModuleId(moduleId);
             Success ok = new Success(200, menus, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -395,9 +396,9 @@ public class SystemController {
     @RequestMapping(value = "/role/{roleId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity deleteRole(@PathVariable("roleId")Long roleId) {
+    public ResponseEntity deleteRole(@PathVariable("roleId") Long roleId) {
         try {
-            logger.info("删除角色:[{}]",roleId);
+            logger.info("删除角色:[{}]", roleId);
             systemService.deleteRole(roleId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -409,9 +410,9 @@ public class SystemController {
     @RequestMapping(value = "/auth/{authId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity deleteAuth(@PathVariable("authId")Long authId) {
+    public ResponseEntity deleteAuth(@PathVariable("authId") Long authId) {
         try {
-            logger.info("删除权限:[{}]",authId);
+            logger.info("删除权限:[{}]", authId);
             systemService.deleteAuth(authId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -423,9 +424,9 @@ public class SystemController {
     @RequestMapping(value = "/module/{moduleId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity deleteModule(@PathVariable("moduleId")Long moduleId) {
+    public ResponseEntity deleteModule(@PathVariable("moduleId") Long moduleId) {
         try {
-            logger.info("删除模块:[{}]",moduleId);
+            logger.info("删除模块:[{}]", moduleId);
             systemService.deleteModule(moduleId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -437,9 +438,9 @@ public class SystemController {
     @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity deleteMenu(@PathVariable("menuId")Long menuId) {
+    public ResponseEntity deleteMenu(@PathVariable("menuId") Long menuId) {
         try {
-            logger.info("删除菜单:[{}]",menuId);
+            logger.info("删除菜单:[{}]", menuId);
             systemService.deleteMenu(menuId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -454,7 +455,7 @@ public class SystemController {
     @ResponseBody
     public ResponseEntity deleteAuthRole(@RequestBody AuthRole authRole) {
         try {
-            logger.info("删除角色权限:[{}]",JSONObject.toJSONString(authRole));
+            logger.info("删除角色权限:[{}]", JSONObject.toJSONString(authRole));
             systemService.deleteAuthRole(authRole);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -469,7 +470,7 @@ public class SystemController {
     @ResponseBody
     public ResponseEntity deleteAuthMenu(@RequestBody AuthMenu authMenu) {
         try {
-            logger.info("删除菜单权限:[{}]",JSONObject.toJSONString(authMenu));
+            logger.info("删除菜单权限:[{}]", JSONObject.toJSONString(authMenu));
             systemService.deleteAuthMenu(authMenu);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
@@ -484,8 +485,79 @@ public class SystemController {
     @ResponseBody
     public ResponseEntity deleteUserRole(@RequestBody UserRole userRole) {
         try {
-            logger.info("删除用户角色:[{}]",JSONObject.toJSONString(userRole));
+            logger.info("删除用户角色:[{}]", JSONObject.toJSONString(userRole));
             systemService.deleteUserRole(userRole);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/route", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity addRoute(@RequestBody Route route) {
+        try {
+            logger.info("接收到新增路由:[{}]", JSONObject.toJSONString(route));
+            Route r = systemService.addRoute(route);
+            Success ok = new Success(200, r, "新增成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/route", method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity updateRoute(@RequestBody Route route) {
+        try {
+            logger.info("接收到修改路由:[{}]", JSONObject.toJSONString(route));
+            Route r = systemService.updateRoute(route);
+            Success ok = new Success(200, r, "修改成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/routes", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity findRoutesBySuperId(@RequestParam(value = "superId", defaultValue = "") Long superId) {
+        try {
+            logger.info("superId:[{}]下路由列表:[{}]", superId);
+            List<Route> routes = systemService.findBySuperId(superId);
+            Success ok = new Success(200, routes, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "/route/{routeId}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity findRouteByRouteId(@PathVariable("routeId") Long routeId) {
+        try {
+            logger.info("路由:[{}]详情", routeId);
+            Route route = systemService.findByRouteId(routeId);
+            Success ok = new Success(200, route, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/route/{routeId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteByRouteId(@PathVariable("routeId") Long routeId) {
+        try {
+            logger.info("删除路由:[{}]", routeId);
+            systemService.deleteRoute(routeId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {

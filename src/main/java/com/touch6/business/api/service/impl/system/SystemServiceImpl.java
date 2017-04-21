@@ -3,7 +3,6 @@ package com.touch6.business.api.service.impl.system;
 import com.touch6.business.api.service.system.SystemService;
 import com.touch6.business.entity.User;
 import com.touch6.business.entity.system.*;
-import com.touch6.business.enums.MenuStatus;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.business.mybatis.system.*;
 import com.touch6.core.exception.CoreException;
@@ -12,12 +11,12 @@ import com.touch6.core.exception.Error;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
 import com.touch6.core.exception.error.constant.SystemErrorConstant;
 import com.touch6.utils.T6ValidatorUtil;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
 import java.util.Date;
@@ -48,6 +47,8 @@ public class SystemServiceImpl implements SystemService {
     private AuthMenuMybatisDao authMenuMybatisDao;
     @Autowired
     private UserMybatisDao userMybatisDao;
+    @Autowired
+    private RouteMybatisDao routeMybatisDao;
     @Autowired
     private Validator validator;
 
@@ -451,5 +452,72 @@ public class SystemServiceImpl implements SystemService {
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+    }
+
+    @Override
+    @Transactional
+    public Route addRoute(Route route) {
+        String error = T6ValidatorUtil.validate(validator, route);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
+        Date time = new Date();
+        if (route.getSuperId() == null) {
+            route.setRank(1);
+        } else {
+            int superRank = routeMybatisDao.findSuperRankByRouteId(route.getSuperId());
+            route.setRank(superRank + 1);
+        }
+        route.setCreateTime(time);
+        route.setUpdateTime(time);
+        int inserted = routeMybatisDao.insertRoute(route);
+        if (inserted == 0) {
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
+        return route;
+    }
+
+    @Override
+    public Route findByRouteId(Long routeId) {
+        return routeMybatisDao.findByRouteId(routeId);
+    }
+
+    @Override
+    @Transactional
+    public Route updateRoute(Route route) {
+        String error = T6ValidatorUtil.validate(validator, route);
+        if (error != null) {
+            Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
+            err.setDes(error);
+            throw new CoreException(err);
+        }
+        Date time = new Date();
+        if (route.getSuperId() == null) {
+            route.setRank(1);
+        } else {
+            int superRank = routeMybatisDao.findSuperRankByRouteId(route.getSuperId());
+            route.setRank(superRank + 1);
+        }
+        route.setUpdateTime(time);
+        int updated = routeMybatisDao.updateRoute(route);
+        if (updated == 0) {
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
+        }
+        return route;
+    }
+
+    @Override
+    public List<Route> findBySuperId(Long superId) {
+        Map params = new HashMap();
+        params.put("superId", superId);
+        return routeMybatisDao.findBySuperId(params);
+    }
+
+    @Override
+    @Transactional
+    public void deleteRoute(Long routeId) {
+        routeMybatisDao.deleteRoute(routeId);
     }
 }
