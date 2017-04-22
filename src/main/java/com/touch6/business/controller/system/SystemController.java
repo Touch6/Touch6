@@ -647,7 +647,7 @@ public class SystemController {
         try {
             PageObject<UserDto> pageObject = systemService.findAllUsers(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(pageObject, HttpStatus.OK);
+            return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
@@ -661,7 +661,7 @@ public class SystemController {
         try {
             PageObject<UserRole> pageObject = systemService.findUserRoles(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(pageObject, HttpStatus.OK);
+            return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
@@ -675,7 +675,7 @@ public class SystemController {
         try {
             PageObject<AuthRole> pageObject = systemService.findAuthRoles(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(pageObject, HttpStatus.OK);
+            return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
@@ -689,7 +689,7 @@ public class SystemController {
         try {
             PageObject<AuthMenu> pageObject = systemService.findAuthMenus(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(pageObject, HttpStatus.OK);
+            return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
