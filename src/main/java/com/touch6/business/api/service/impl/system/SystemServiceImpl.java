@@ -620,4 +620,49 @@ public class SystemServiceImpl implements SystemService {
 
         return pageObject;
     }
+
+    @Override
+    public PageObject<UserRole> findUserRoles(int page, int pageSize) {
+        logger.info("获取所有用户角色page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<UserRole> userRoles = userRoleMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<UserRole> pageInfo = new PageInfo<UserRole>(userRoles);
+
+        PageObject<UserRole> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(userRoles);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<AuthRole> findAuthRoles(int page, int pageSize) {
+        logger.info("获取所有权限角色page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<AuthRole> authRoles = authRoleMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<AuthRole> pageInfo = new PageInfo<AuthRole>(authRoles);
+
+        PageObject<AuthRole> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(authRoles);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<AuthMenu> findAuthMenus(int page, int pageSize) {
+        logger.info("获取所有权限菜单page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<AuthMenu> authMenus = authMenuMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<AuthMenu> pageInfo = new PageInfo<AuthMenu>(authMenus);
+
+        PageObject<AuthMenu> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(authMenus);
+        return pageObject;
+    }
 }

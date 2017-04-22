@@ -27,4 +27,17 @@
     <delete id="deleteAuthRole" parameterType="com.touch6.business.entity.system.AuthRole">
         delete from t_si_auth_role where auth_id=#{authId} and role_id=#{roleId}
     </delete>
+    <select id="findAll" resultType="com.touch6.business.entity.system.AuthRole">
+        select
+            ar.auth_id,a.name authName,
+            ar.role_id,r.name roleName
+        from t_si_auth_role ar
+        left join t_si_auth a on a.auth_id=ar.auth_id
+        left join t_si_role r on r.role_id=ar.role_id
+        group by
+            ar.auth_id,a.name,
+            ar.role_id,r.name
+        order by
+            a.auth_id asc
+    </select>
 </mapper>

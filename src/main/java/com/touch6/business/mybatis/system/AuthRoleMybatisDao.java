@@ -3,6 +3,7 @@ package com.touch6.business.mybatis.system;
 import com.touch6.business.entity.system.AuthRole;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -29,4 +30,6 @@ public interface AuthRoleMybatisDao {
     int updateAuthRole(Map params);
 
     int deleteAuthRole(AuthRole authRole);
+
+    List<AuthRole> findAll();
 }

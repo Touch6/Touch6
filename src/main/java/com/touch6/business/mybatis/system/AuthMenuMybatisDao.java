@@ -3,6 +3,7 @@ package com.touch6.business.mybatis.system;
 import com.touch6.business.entity.system.AuthMenu;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -29,4 +30,6 @@ public interface AuthMenuMybatisDao {
     int updateAuthMenu(Map params);
 
     int deleteAuthMenu(AuthMenu authMenu);
+
+    List<AuthMenu> findAll();
 }

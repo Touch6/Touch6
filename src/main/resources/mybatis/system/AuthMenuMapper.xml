@@ -27,4 +27,17 @@
     <delete id="deleteAuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
         delete from t_si_auth_menu where auth_id=#{authId} and menu_id=#{menuId}
     </delete>
+    <select id="findAll" resultType="com.touch6.business.entity.system.AuthMenu">
+        select
+            am.auth_id,a.name authName,
+            am.menu_id,m.name menuName
+        from t_si_auth_menu am
+        left join t_si_auth a on a.auth_id=am.auth_id
+        left join t_si_menu m on m.menu_id=am.menu_id
+        group by
+            am.auth_id,a.name,
+            am.menu_id,m.name
+        order by
+            a.auth_id asc
+    </select>
 </mapper>

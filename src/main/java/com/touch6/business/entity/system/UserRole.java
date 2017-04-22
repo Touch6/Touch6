@@ -5,7 +5,9 @@ package com.touch6.business.entity.system;
  */
 public class UserRole {
     private Long userId;
+    private String userName;
     private Long roleId;
+    private String roleName;
     private Long newRoleId;
 
     public UserRole(){}
@@ -36,5 +38,21 @@ public class UserRole {
 
     public void setNewRoleId(Long newRoleId) {
         this.newRoleId = newRoleId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

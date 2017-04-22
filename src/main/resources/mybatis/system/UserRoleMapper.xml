@@ -27,4 +27,17 @@
     <delete id="deleteUserRole" parameterType="com.touch6.business.entity.system.UserRole">
         delete from t_si_user_role where user_id=#{userId} and role_id=#{roleId}
     </delete>
+    <select id="findAll" resultType="com.touch6.business.entity.system.UserRole">
+        select
+            ur.user_id,u.name userName,
+            ur.role_id,r.name roleName
+        from t_si_user_role ur
+        left join t_si_user u on u.id=ur.user_id
+        left join t_si_role r on r.role_id=ur.role_id
+        group by
+            ur.user_id,u.name,
+            ur.role_id,r.name
+        order by
+            r.role_id
+    </select>
 </mapper>

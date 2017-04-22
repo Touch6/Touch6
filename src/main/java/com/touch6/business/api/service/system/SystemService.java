@@ -95,4 +95,13 @@ public interface SystemService {
     PageObject<Route> findAllRoutes(int page, int pageSize);
 
     PageObject<UserDto> findAllUsers(int page, int pageSize);
+
+    PageObject<UserRole> findUserRoles(int page, int pageSize);
+
+    PageObject<AuthRole> findAuthRoles(int page, int pageSize);
+
+    PageObject<AuthMenu> findAuthMenus(int page, int pageSize);
+
+
+
 }
