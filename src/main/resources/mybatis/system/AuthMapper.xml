@@ -24,7 +24,7 @@
         where auth_id=#{authId}
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Auth">
-        select * from t_si_auth
+        select * from t_si_auth order by auth_id asc
     </select>
     <delete id="deleteAuth" parameterType="long">
         delete from t_si_auth where auth_id=#{0}

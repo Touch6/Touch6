@@ -4,6 +4,7 @@ package com.touch6.business.mybatis;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 import com.touch6.business.entity.User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +26,6 @@ public interface UserMybatisDao {
     int checkIsRegisteredByPhone(String phone);
 
     User findByUserId(Long userId);
+
+    List<User> findAllUsers();
 }

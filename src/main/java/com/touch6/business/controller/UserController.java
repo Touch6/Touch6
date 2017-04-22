@@ -2,6 +2,7 @@ package com.touch6.business.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.UserService;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import com.touch6.business.dto.UserDto;
@@ -79,7 +80,8 @@ public class UserController {
     @ResponseBody
     public ResponseEntity userInfo(@RequestBody UniqueParam uniqueParam) {
         try {
-            UserDto userDto=userService.getUserInfo(uniqueParam.getUid());
+            UserDto userDto = userService.getUserInfo(uniqueParam.getUid());
+            Success ok = new Success(200, userDto, "查询成功");
             return new ResponseEntity(userDto, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

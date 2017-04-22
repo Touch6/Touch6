@@ -1,10 +1,14 @@
 package com.touch6.business.api.service.impl.system;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.touch6.business.api.service.system.SystemService;
+import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.User;
 import com.touch6.business.entity.system.*;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.business.mybatis.system.*;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.Error;
@@ -17,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
 import java.util.Date;
@@ -518,9 +523,101 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void deleteRoute(Long routeId) {
-        int deleted=routeMybatisDao.deleteRoute(routeId);
+        int deleted = routeMybatisDao.deleteRoute(routeId);
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+    }
+
+    @Override
+    public PageObject<Module> findAllModules(int page, int pageSize) {
+        logger.info("获取所有模块page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Module> modules = moduleMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Module> pageInfo = new PageInfo<Module>(modules);
+
+        PageObject<Module> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(modules);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<Menu> findAllMenus(int page, int pageSize) {
+        logger.info("获取所有菜单page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Menu> menus = menuMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Menu> pageInfo = new PageInfo<Menu>(menus);
+
+        PageObject<Menu> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(menus);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<Role> findAllRoles(int page, int pageSize) {
+        logger.info("获取所有角色page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Role> roles = roleMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Role> pageInfo = new PageInfo<Role>(roles);
+
+        PageObject<Role> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(roles);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<Auth> findAllAuths(int page, int pageSize) {
+        logger.info("获取所有权限page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Auth> auths = authMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Auth> pageInfo = new PageInfo<Auth>(auths);
+
+        PageObject<Auth> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(auths);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<Route> findAllRoutes(int page, int pageSize) {
+        logger.info("获取所有路由page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Route> routes = routeMybatisDao.findAll();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Route> pageInfo = new PageInfo<Route>(routes);
+
+        PageObject<Route> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(routes);
+        return pageObject;
+    }
+
+    @Override
+    public PageObject<UserDto> findAllUsers(int page, int pageSize) {
+        logger.info("所有用户信息page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<User> users = userMybatisDao.findAllUsers();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<User> pageInfo = new PageInfo<User>(users);
+
+        List<UserDto> userDtos = BeanMapper.mapList(pageInfo.getList(), UserDto.class);
+        PageObject<UserDto> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(userDtos);
+
+        return pageObject;
     }
 }

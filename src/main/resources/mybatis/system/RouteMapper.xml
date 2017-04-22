@@ -13,7 +13,7 @@
         )
     </insert>
     <select id="findByRouteId" resultType="com.touch6.business.entity.system.Route" parameterType="long">
-        select * from t_si_route where route_id=#{0}
+        select * from t_si_route where route_id=#{0} order by route_id asc
     </select>
     <update id="updateRoute" parameterType="com.touch6.business.entity.system.Route" useGeneratedKeys="true" keyProperty="routeId">
         update t_si_route
@@ -25,7 +25,7 @@
             description=#{description},
             update_time=#{updateTime}
         </set>
-        where route_id=#{routeId}
+        where route_id=#{routeId} order by route_id asc
     </update>
     <select id="findBySuperId" resultType="com.touch6.business.entity.system.Route" parameterType="hashMap">
         select * from t_si_route r
@@ -38,11 +38,15 @@
                 and r.super_id=#{superId}
             </otherwise>
         </choose>
+        order by super_id asc
     </select>
     <delete id="deleteRoute" parameterType="long">
         delete from t_si_route where route_id=#{0}
     </delete>
     <select id="findSuperRankByRouteId" resultType="int" parameterType="long">
         select r.rank from t_si_route r where r.route_id=#{0}
+    </select>
+    <select id="findAll" resultType="com.touch6.business.entity.system.Route">
+        select * from t_si_route order by route_id asc
     </select>
 </mapper>

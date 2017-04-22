@@ -31,4 +31,7 @@
     <select id="checkIsRegisteredByPhone" resultType="int" parameterType="string">
         select count(1) from t_si_user where phone=#{0}
     </select>
+    <select id="findAllUsers" resultType="com.touch6.business.entity.User">
+        select * from t_si_user u order by u.create_time desc
+    </select>
 </mapper>

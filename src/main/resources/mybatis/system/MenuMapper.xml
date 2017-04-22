@@ -30,10 +30,10 @@
         where menu_id=#{menuId}
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Menu">
-        select * from t_si_menu
+        select * from t_si_menu order by sort asc
     </select>
     <select id="findByModuleId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
-        select * from t_si_menu where module_id=#{0}
+        select * from t_si_menu where module_id=#{0} order by sort asc
     </select>
     <delete id="deleteMenu" parameterType="long">
         delete from t_si_menu where menu_id=#{0}

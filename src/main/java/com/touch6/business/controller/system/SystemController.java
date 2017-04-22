@@ -2,7 +2,9 @@ package com.touch6.business.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.system.SystemService;
+import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.system.*;
+import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
 import org.slf4j.Logger;
@@ -560,6 +562,91 @@ public class SystemController {
             systemService.deleteRoute(routeId);
             Success ok = new Success(200, "删除成功", "删除成功");
             return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/modules", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageModules(@RequestParam(value = "page", defaultValue = "1") int page,
+                               @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Module> modulePageObject = systemService.findAllModules(page, pageSize);
+            Success ok = new Success(200, modulePageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/menus", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageMenus(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Menu> menuPageObject = systemService.findAllMenus(page, pageSize);
+            Success ok = new Success(200, menuPageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/roles", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageRoles(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Role> rolePageObject = systemService.findAllRoles(page, pageSize);
+            Success ok = new Success(200, rolePageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/auths", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageAuths(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Auth> authPageObject = systemService.findAllAuths(page, pageSize);
+            Success ok = new Success(200, authPageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/routes", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageRoutes(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Route> routePageObject = systemService.findAllRoutes(page, pageSize);
+            Success ok = new Success(200, routePageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(value = "page/users", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        try {
+            PageObject<UserDto> pageObject = systemService.findAllUsers(page, pageSize);
+            Success ok = new Success(200, pageObject, "查询成功");
+            return new ResponseEntity(pageObject, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }

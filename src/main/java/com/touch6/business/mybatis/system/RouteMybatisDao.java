@@ -34,4 +34,7 @@ public interface RouteMybatisDao {
     int deleteRoute(Long routeId);
 
     int findSuperRankByRouteId(Long superId);
+
+    List<Route> findAll();
+
 }

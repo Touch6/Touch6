@@ -133,7 +133,7 @@
         where module_id=#{moduleId}
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Module">
-        select * from t_si_module
+        select * from t_si_module order by sort asc
     </select>
     <delete id="deleteModule" parameterType="long">
         delete from t_si_module where module_id=#{0}
