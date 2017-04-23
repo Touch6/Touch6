@@ -692,6 +692,18 @@ public class SystemServiceImpl implements SystemService {
         PageInfo<Module> pageInfo = new PageInfo<Module>(modules);
 
         PageObject<Module> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        if (modules.size() > 0) {
+            for (int i = 0; i < modules.size(); i++) {
+                Module module = modules.get(i);
+                PageHelper.startPage(page, pageSize, true);
+                List<Menu> menus=menuMybatisDao.findByModuleId(module.getModuleId());
+                PageInfo<Menu> menuPageInfo = new PageInfo<Menu>(menus);
+
+                PageObject<Menu> menuPageObject = BeanMapper.map(menuPageInfo, PageObject.class);
+                menuPageObject.setList(menus);
+                modules.get(i).setMenuPageObj(menuPageObject);
+            }
+        }
         pageObject.setList(modules);
         return pageObject;
     }

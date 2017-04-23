@@ -1,6 +1,7 @@
 package com.touch6.business.entity.system;
 
 import com.google.common.collect.Lists;
+import com.touch6.commons.PageObject;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Module {
     private Integer sort;
     private Date createTime;
     private Date updateTime;
+    private PageObject<Menu> menuPageObj=new PageObject<>();
     private List<Menu> menuList= Lists.newArrayList();
 
     public Long getModuleId() {
@@ -83,5 +85,13 @@ public class Module {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public PageObject<Menu> getMenuPageObj() {
+        return menuPageObj;
+    }
+
+    public void setMenuPageObj(PageObject<Menu> menuPageObj) {
+        this.menuPageObj = menuPageObj;
     }
 }
