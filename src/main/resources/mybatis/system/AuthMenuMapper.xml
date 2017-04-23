@@ -13,9 +13,16 @@
         )
     </insert>
     <select id="findByAuthMenu" resultType="com.touch6.business.entity.system.AuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
-        select *
-        from t_si_auth_menu
-        where auth_id=#{authId} and menu_id=#{menuId}
+        select
+            am.auth_id,a.name authName,
+            am.menu_id,m.name menuName
+        from t_si_auth_menu am
+        left join t_si_auth a on a.auth_id=am.auth_id
+        left join t_si_menu m on m.menu_id=am.menu_id
+        where am.auth_id=#{authId} and am.menu_id=#{menuId}
+        group by
+            am.auth_id,a.name,
+            am.menu_id,m.name
     </select>
     <update id="updateAuthMenu" parameterType="hashMap">
         update t_si_auth_menu

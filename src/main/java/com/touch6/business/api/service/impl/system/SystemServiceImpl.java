@@ -8,6 +8,7 @@ import com.touch6.business.entity.User;
 import com.touch6.business.entity.system.*;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.business.mybatis.system.*;
+import com.touch6.business.output.system.ModuleSelectList;
 import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
@@ -59,7 +60,7 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     @Transactional
-    public void addRole(Role role) {
+    public Role addRole(Role role) {
         String error = T6ValidatorUtil.validate(validator, role);
         if (error != null) {
             Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
@@ -71,7 +72,7 @@ public class SystemServiceImpl implements SystemService {
         role.setUpdateTime(time);
         int insertedRole = roleMybatisDao.insertRole(role);
         if (insertedRole == 1) {
-
+            return role;
         } else {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
@@ -79,7 +80,7 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     @Transactional
-    public void addAuth(Auth auth) {
+    public Auth addAuth(Auth auth) {
         String error = T6ValidatorUtil.validate(validator, auth);
         if (error != null) {
             Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
@@ -93,11 +94,12 @@ public class SystemServiceImpl implements SystemService {
         if (insert == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+        return auth;
     }
 
     @Override
     @Transactional
-    public void addModule(Module module) {
+    public Module addModule(Module module) {
         String error = T6ValidatorUtil.validate(validator, module);
         if (error != null) {
             Error err = ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR);
@@ -111,11 +113,12 @@ public class SystemServiceImpl implements SystemService {
         if (insert == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+        return module;
     }
 
     @Override
     @Transactional
-    public void addMenu(Long moduleId, Menu menu) {
+    public Menu addMenu(Long moduleId, Menu menu) {
         menu.setModuleId(moduleId);
         String error = T6ValidatorUtil.validate(validator, menu);
         if (error != null) {
@@ -135,11 +138,12 @@ public class SystemServiceImpl implements SystemService {
         if (insertedMenu == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+        return menu;
     }
 
     @Override
     @Transactional
-    public void assignUserRole(Long userId, Long roleId) {
+    public UserRole assignUserRole(Long userId, Long roleId) {
         User user = userMybatisDao.findByUserId(userId);
         if (user == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -156,11 +160,12 @@ public class SystemServiceImpl implements SystemService {
         if (inserted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+        return userRole;
     }
 
     @Override
     @Transactional
-    public void assignAuthRole(Long authId, Long roleId) {
+    public AuthRole assignAuthRole(Long authId, Long roleId) {
         Auth auth = authMybatisDao.findByAuthId(authId);
         if (auth == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -177,11 +182,12 @@ public class SystemServiceImpl implements SystemService {
         if (inserted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+        return authRole;
     }
 
     @Override
     @Transactional
-    public void assignAuthMenu(Long authId, Long menuId) {
+    public AuthMenu assignAuthMenu(Long authId, Long menuId) {
         Auth auth = authMybatisDao.findByAuthId(authId);
         if (auth == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -198,6 +204,7 @@ public class SystemServiceImpl implements SystemService {
         if (inserted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
+        return authMenu;
     }
 
     @Override
@@ -250,7 +257,7 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     @Transactional
-    public void updateUserRole(Long userId, Long roleId, Long newRoleId) {
+    public UserRole updateUserRole(Long userId, Long roleId, Long newRoleId) {
         User user = userMybatisDao.findByUserId(userId);
         if (user == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -275,11 +282,12 @@ public class SystemServiceImpl implements SystemService {
         if (updated == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+        return userRole;
     }
 
     @Override
     @Transactional
-    public void updateAuthRole(Long authId, Long roleId, Long newAuthId) {
+    public AuthRole updateAuthRole(Long authId, Long roleId, Long newAuthId) {
         Auth auth = authMybatisDao.findByAuthId(authId);
         if (auth == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -304,12 +312,12 @@ public class SystemServiceImpl implements SystemService {
         if (updated == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
-
+        return authRole;
     }
 
     @Override
     @Transactional
-    public void updateAuthMenu(Long authId, Long menuId, Long newAuthId) {
+    public AuthMenu updateAuthMenu(Long authId, Long menuId, Long newAuthId) {
         Auth auth = authMybatisDao.findByAuthId(authId);
         if (auth == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -334,6 +342,7 @@ public class SystemServiceImpl implements SystemService {
         if (updated == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+        return authMenu;
     }
 
     @Override
@@ -664,5 +673,11 @@ public class SystemServiceImpl implements SystemService {
         PageObject<AuthMenu> pageObject = BeanMapper.map(pageInfo, PageObject.class);
         pageObject.setList(authMenus);
         return pageObject;
+    }
+
+    @Override
+    public List<ModuleSelectList> findList() {
+        List<Module> modules = moduleMybatisDao.findModuleSelectList();
+        return BeanMapper.mapList(modules, ModuleSelectList.class);
     }
 }

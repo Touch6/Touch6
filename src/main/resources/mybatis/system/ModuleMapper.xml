@@ -135,6 +135,14 @@
     <select id="findAll" resultType="com.touch6.business.entity.system.Module">
         select * from t_si_module order by sort asc
     </select>
+    <select id="findModuleSelectList" resultType="com.touch6.business.entity.system.Module">
+        select
+            m.module_id,
+            m.sort,
+            m.name
+        from t_si_module m
+        order by m.sort asc
+    </select>
     <delete id="deleteModule" parameterType="long">
         delete from t_si_module where module_id=#{0}
     </delete>

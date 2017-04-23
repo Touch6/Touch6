@@ -2,6 +2,7 @@ package com.touch6.business.api.service.system;
 
 import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.system.*;
+import com.touch6.business.output.system.ModuleSelectList;
 import com.touch6.commons.PageObject;
 
 import java.util.List;
@@ -10,19 +11,19 @@ import java.util.List;
  * Created by LONG on 2017/4/18.
  */
 public interface SystemService {
-    void addRole(Role role);
+    Role addRole(Role role);
 
-    void addAuth(Auth auth);
+    Auth addAuth(Auth auth);
 
-    void addModule(Module module);
+    Module addModule(Module module);
 
-    void addMenu(Long moduleId, Menu menu);
+    Menu addMenu(Long moduleId, Menu menu);
 
-    void assignUserRole(Long userId, Long roleId);
+    UserRole assignUserRole(Long userId, Long roleId);
 
-    void assignAuthRole(Long authId, Long roleId);
+    AuthRole assignAuthRole(Long authId, Long roleId);
 
-    void assignAuthMenu(Long authId, Long menuId);
+    AuthMenu assignAuthMenu(Long authId, Long menuId);
 
     Role updateRole(Role role);
 
@@ -32,11 +33,11 @@ public interface SystemService {
 
     Menu updateMenu(Menu menu);
 
-    void updateUserRole(Long userId, Long roleId, Long newRoleId);
+    UserRole updateUserRole(Long userId, Long roleId, Long newRoleId);
 
-    void updateAuthRole(Long authId, Long roleId, Long newAuthId);
+    AuthRole updateAuthRole(Long authId, Long roleId, Long newAuthId);
 
-    void updateAuthMenu(Long authId, Long menuId, Long newAuthId);
+    AuthMenu updateAuthMenu(Long authId, Long menuId, Long newAuthId);
 
     List<Module> findCommonModules(Long roleId);
 
@@ -102,6 +103,6 @@ public interface SystemService {
 
     PageObject<AuthMenu> findAuthMenus(int page, int pageSize);
 
-
+    List<ModuleSelectList> findList();
 
 }

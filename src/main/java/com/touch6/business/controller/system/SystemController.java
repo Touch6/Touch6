@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.api.service.system.SystemService;
 import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.system.*;
+import com.touch6.business.output.system.ModuleSelectList;
 import com.touch6.commons.PageObject;
 import com.touch6.core.exception.CoreException;
 import com.touch6.core.info.Success;
@@ -37,8 +38,8 @@ public class SystemController {
     public ResponseEntity addAuth(@RequestBody Auth auth) {
         try {
             logger.info("接收到权限:[{}]", JSONObject.toJSONString(auth));
-            systemService.addAuth(auth);
-            Success ok = new Success(200, "添加成功", "添加权限成功");
+            Auth a=systemService.addAuth(auth);
+            Success ok = new Success(200, a, "添加权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -52,8 +53,8 @@ public class SystemController {
     public ResponseEntity addRole(@RequestBody Role role) {
         try {
             logger.info("接收到角色:[{}]", JSONObject.toJSONString(role));
-            systemService.addRole(role);
-            Success ok = new Success(200, "添加成功", "添加角色成功");
+            Role r=systemService.addRole(role);
+            Success ok = new Success(200, r, "添加角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -67,8 +68,8 @@ public class SystemController {
     public ResponseEntity addModule(@RequestBody Module module) {
         try {
             logger.info("接收到模块:[{}]", JSONObject.toJSONString(module));
-            systemService.addModule(module);
-            Success ok = new Success(200, "添加成功", "添加模块成功");
+            Module m=systemService.addModule(module);
+            Success ok = new Success(200, m, "添加模块成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -83,8 +84,8 @@ public class SystemController {
                                   @RequestBody Menu menu) {
         try {
             logger.info("接收到菜单:[{}]", JSONObject.toJSONString(menu));
-            systemService.addMenu(moduleId, menu);
-            Success ok = new Success(200, "添加成功", "添加菜单成功");
+            Menu m=systemService.addMenu(moduleId, menu);
+            Success ok = new Success(200, m, "添加菜单成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -98,8 +99,8 @@ public class SystemController {
     public ResponseEntity assignUserRole(@RequestBody UserRole userRole) {
         try {
             logger.info("接收到用户角色配置:[{}]", JSONObject.toJSONString(userRole));
-            systemService.assignUserRole(userRole.getUserId(), userRole.getRoleId());
-            Success ok = new Success(200, "添加成功", "配置用户角色成功");
+            UserRole ur=systemService.assignUserRole(userRole.getUserId(), userRole.getRoleId());
+            Success ok = new Success(200, ur, "配置用户角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -113,8 +114,8 @@ public class SystemController {
     public ResponseEntity assignRoleAuth(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限配置:[{}]", JSONObject.toJSONString(authRole));
-            systemService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
-            Success ok = new Success(200, "添加成功", "配置角色权限成功");
+            AuthRole ar=systemService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
+            Success ok = new Success(200, ar, "配置角色权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -128,8 +129,8 @@ public class SystemController {
     public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
-            systemService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
-            Success ok = new Success(200, "添加成功", "配置菜单权限成功");
+            AuthMenu am=systemService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
+            Success ok = new Success(200, am, "配置菜单权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -171,8 +172,8 @@ public class SystemController {
     public ResponseEntity updateRole(@RequestBody Role role) {
         try {
             logger.info("接收到角色修改:[{}]", JSONObject.toJSONString(role));
-            systemService.updateRole(role);
-            Success ok = new Success(200, "修改成功", "修改角色信息成功");
+            Role r=systemService.updateRole(role);
+            Success ok = new Success(200, r, "修改角色信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -186,8 +187,8 @@ public class SystemController {
     public ResponseEntity updateAuth(@RequestBody Auth auth) {
         try {
             logger.info("接收到权限修改:[{}]", JSONObject.toJSONString(auth));
-            systemService.updateAuth(auth);
-            Success ok = new Success(200, "修改成功", "修改权限信息成功");
+            Auth a=systemService.updateAuth(auth);
+            Success ok = new Success(200, a, "修改权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -201,8 +202,8 @@ public class SystemController {
     public ResponseEntity updateModule(@RequestBody Module module) {
         try {
             logger.info("接收到模块修改:[{}]", JSONObject.toJSONString(module));
-            systemService.updateModule(module);
-            Success ok = new Success(200, "修改成功", "修改模块信息成功");
+            Module m=systemService.updateModule(module);
+            Success ok = new Success(200, m, "修改模块信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -216,8 +217,8 @@ public class SystemController {
     public ResponseEntity updateMenu(@RequestBody Menu menu) {
         try {
             logger.info("接收到菜单修改:[{}]", JSONObject.toJSONString(menu));
-            systemService.updateMenu(menu);
-            Success ok = new Success(200, "修改成功", "修改菜单信息成功");
+            Menu m=systemService.updateMenu(menu);
+            Success ok = new Success(200, m, "修改菜单信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -231,8 +232,8 @@ public class SystemController {
     public ResponseEntity updateUserRole(@RequestBody UserRole userRole) {
         try {
             logger.info("接收到用户角色修改:[{}]", JSONObject.toJSONString(userRole));
-            systemService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
-            Success ok = new Success(200, "修改成功", "修改用户角色信息成功");
+            UserRole ur=systemService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
+            Success ok = new Success(200, ur, "修改用户角色信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -246,8 +247,8 @@ public class SystemController {
     public ResponseEntity updateAuthRole(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限修改:[{}]", JSONObject.toJSONString(authRole));
-            systemService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
-            Success ok = new Success(200, "修改成功", "修改角色权限信息成功");
+            AuthRole ar=systemService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
+            Success ok = new Success(200, ar, "修改角色权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -261,8 +262,8 @@ public class SystemController {
     public ResponseEntity updateAuthMenu(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限修改:[{}]", JSONObject.toJSONString(authMenu));
-            systemService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
-            Success ok = new Success(200, "修改成功", "修改菜单权限信息成功");
+            AuthMenu am=systemService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
+            Success ok = new Success(200, am, "修改菜单权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
@@ -689,6 +690,19 @@ public class SystemController {
         try {
             PageObject<AuthMenu> pageObject = systemService.findAuthMenus(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "module/selectlist", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moduleSelectList() {
+        try {
+            List<ModuleSelectList> list = systemService.findList();
+            Success ok = new Success(200, list, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
