@@ -121,7 +121,8 @@
             menu.update_time
         order by module.sort,menu.sort asc
     </select>
-    <update id="updateModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true" keyProperty="moduleId">
+    <update id="updateModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true"
+            keyProperty="moduleId">
         update t_si_module
         <set>
             name=#{name},
@@ -181,4 +182,32 @@
     <delete id="deleteModule" parameterType="long">
         delete from t_si_module where module_id=#{0}
     </delete>
+    <update id="moveTop" parameterType="long">
+        update t_si_module m1,t_si_module m2
+        <set>
+            m1.sort=1,
+            m2.sort=m2.sort+1
+        </set>
+        where m1.module_id=#{0} and m2.module_id!=#{0}
+    </update>
+
+    <update id="moveUp" parameterType="long">
+        update t_si_module m1,t_si_module m2
+        <set>
+            m1.sort=m1.sort-1,
+            m2.sort=m1.sort
+        </set>
+        where m1.module_id=#{0} and m2.sort=m1.sort-1
+    </update>
+    <select id="findMaxSort" resultType="int" >
+        select max(sort) from t_si_module
+    </select>
+    <update id="moveDown" parameterType="long">
+        update t_si_module m1,t_si_module m2
+        <set>
+            m1.sort=m1.sort+1,
+            m2.sort=m1.sort
+        </set>
+        where m1.module_id=#{0} and m2.sort=m1.sort+1
+    </update>
 </mapper>

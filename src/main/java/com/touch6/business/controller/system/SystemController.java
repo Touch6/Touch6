@@ -722,4 +722,43 @@ public class SystemController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "module/top", method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveTop(@RequestParam("moduleId")Long moduleId) {
+        try {
+            systemService.moveTop(moduleId);
+            Success ok = new Success(200, "置顶成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "module/up", method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveUp(@RequestParam("moduleId")Long moduleId) {
+        try {
+            systemService.moveUp(moduleId);
+            Success ok = new Success(200, "上移成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "module/down", method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveDown(@RequestParam("moduleId")Long moduleId) {
+        try {
+            systemService.moveDown(moduleId);
+            Success ok = new Success(200, "下移成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -106,4 +106,10 @@ public interface SystemService {
     List<ModuleSelectList> findList();
 
     PageObject<Module> findAllWithMenus(int page,int pageSize);
+
+    void moveTop(Long moduleId);
+
+    void moveUp(Long moduleId);
+
+    void moveDown(Long moduleId);
 }

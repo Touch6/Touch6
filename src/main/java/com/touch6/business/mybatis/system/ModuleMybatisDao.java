@@ -40,4 +40,12 @@ public interface ModuleMybatisDao {
     int deleteModule(Long moduleId);
 
     List<Module> findModuleSelectList();
+
+    int moveTop(Long moduleId);
+
+    int moveUp(Long moduleId);
+
+    int findMaxSort();
+
+    int moveDown(Long moduleId);
 }

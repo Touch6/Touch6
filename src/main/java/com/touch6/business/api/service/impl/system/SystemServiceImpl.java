@@ -686,7 +686,7 @@ public class SystemServiceImpl implements SystemService {
         logger.info("获取所有模块包括菜单page:[{}],pageSize:[{}]", page, pageSize);
         PageHelper.startPage(page, pageSize, true);//查询出总数
 
-        List<Module> modules = moduleMybatisDao.findAllWithMenus();
+        List<Module> modules = moduleMybatisDao.findAll();
         //分页实现
         //或者使用PageInfo类（下面的例子有介绍）
         PageInfo<Module> pageInfo = new PageInfo<Module>(modules);
@@ -696,7 +696,7 @@ public class SystemServiceImpl implements SystemService {
             for (int i = 0; i < modules.size(); i++) {
                 Module module = modules.get(i);
                 PageHelper.startPage(page, pageSize, true);
-                List<Menu> menus=menuMybatisDao.findByModuleId(module.getModuleId());
+                List<Menu> menus = menuMybatisDao.findByModuleId(module.getModuleId());
                 PageInfo<Menu> menuPageInfo = new PageInfo<Menu>(menus);
 
                 PageObject<Menu> menuPageObject = BeanMapper.map(menuPageInfo, PageObject.class);
@@ -706,5 +706,41 @@ public class SystemServiceImpl implements SystemService {
         }
         pageObject.setList(modules);
         return pageObject;
+    }
+
+    @Override
+    @Transactional
+    public void moveTop(Long moduleId) {
+        //判定当前模块是否为置顶，若是则取消操作
+        Module module = moduleMybatisDao.findByModuleId(moduleId);
+        if (module.getSort() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        //当前模块sort设置为1,
+        int updated = moduleMybatisDao.moveTop(moduleId);
+        //其他模块sort++
+    }
+
+    @Override
+    @Transactional
+    public void moveUp(Long moduleId) {
+        //判定当前模块是否为置顶，若是则取消操作
+        Module module = moduleMybatisDao.findByModuleId(moduleId);
+        if (module.getSort() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        int updated = moduleMybatisDao.moveUp(moduleId);
+    }
+
+    @Override
+    @Transactional
+    public void moveDown(Long moduleId) {
+//判定当前模块是否为置顶，若是则取消操作
+        Module module = moduleMybatisDao.findByModuleId(moduleId);
+        int maxSort = moduleMybatisDao.findMaxSort();
+        if (maxSort == module.getSort()) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        int updated = moduleMybatisDao.moveDown(moduleId);
     }
 }
