@@ -135,6 +135,41 @@
     <select id="findAll" resultType="com.touch6.business.entity.system.Module">
         select * from t_si_module order by sort asc
     </select>
+    <select id="findAllWithMenus" resultMap="moduleListMap">
+        select
+            module.module_id,
+            module.name,
+            module.class_name,
+            module.attr_link,
+            module.create_time,
+            module.update_time,
+            menu.menu_id me_menu_id,
+            menu.name me_name,
+            menu.class_name me_class_name,
+            menu.uisref me_uisref,
+            menu.attr_link me_attr_link,
+            menu.module_id me_module_id,
+            menu.create_time me_create_time,
+            menu.update_time me_update_time
+        from t_si_module module
+        join t_si_menu menu on menu.module_id=module.module_id
+        group by
+            module.module_id,
+            module.name,
+            module.class_name,
+            module.attr_link,
+            module.create_time,
+            module.update_time,
+            menu.menu_id,
+            menu.name,
+            menu.class_name,
+            menu.uisref,
+            menu.attr_link,
+            menu.module_id,
+            menu.create_time,
+            menu.update_time
+        order by module.sort,menu.sort asc
+    </select>
     <select id="findModuleSelectList" resultType="com.touch6.business.entity.system.Module">
         select
             m.module_id,

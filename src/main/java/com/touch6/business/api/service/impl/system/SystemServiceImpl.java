@@ -680,4 +680,19 @@ public class SystemServiceImpl implements SystemService {
         List<Module> modules = moduleMybatisDao.findModuleSelectList();
         return BeanMapper.mapList(modules, ModuleSelectList.class);
     }
+
+    @Override
+    public PageObject<Module> findAllWithMenus(int page, int pageSize) {
+        logger.info("获取所有模块包括菜单page:[{}],pageSize:[{}]", page, pageSize);
+        PageHelper.startPage(page, pageSize, true);//查询出总数
+
+        List<Module> modules = moduleMybatisDao.findAllWithMenus();
+        //分页实现
+        //或者使用PageInfo类（下面的例子有介绍）
+        PageInfo<Module> pageInfo = new PageInfo<Module>(modules);
+
+        PageObject<Module> pageObject = BeanMapper.map(pageInfo, PageObject.class);
+        pageObject.setList(modules);
+        return pageObject;
+    }
 }

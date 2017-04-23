@@ -35,6 +35,8 @@ public interface ModuleMybatisDao {
 
     List<Module> findAll();
 
+    List<Module> findAllWithMenus();
+
     int deleteModule(Long moduleId);
 
     List<Module> findModuleSelectList();

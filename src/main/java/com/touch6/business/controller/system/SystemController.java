@@ -38,7 +38,7 @@ public class SystemController {
     public ResponseEntity addAuth(@RequestBody Auth auth) {
         try {
             logger.info("接收到权限:[{}]", JSONObject.toJSONString(auth));
-            Auth a=systemService.addAuth(auth);
+            Auth a = systemService.addAuth(auth);
             Success ok = new Success(200, a, "添加权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -53,7 +53,7 @@ public class SystemController {
     public ResponseEntity addRole(@RequestBody Role role) {
         try {
             logger.info("接收到角色:[{}]", JSONObject.toJSONString(role));
-            Role r=systemService.addRole(role);
+            Role r = systemService.addRole(role);
             Success ok = new Success(200, r, "添加角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -68,7 +68,7 @@ public class SystemController {
     public ResponseEntity addModule(@RequestBody Module module) {
         try {
             logger.info("接收到模块:[{}]", JSONObject.toJSONString(module));
-            Module m=systemService.addModule(module);
+            Module m = systemService.addModule(module);
             Success ok = new Success(200, m, "添加模块成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -84,7 +84,7 @@ public class SystemController {
                                   @RequestBody Menu menu) {
         try {
             logger.info("接收到菜单:[{}]", JSONObject.toJSONString(menu));
-            Menu m=systemService.addMenu(moduleId, menu);
+            Menu m = systemService.addMenu(moduleId, menu);
             Success ok = new Success(200, m, "添加菜单成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -99,7 +99,7 @@ public class SystemController {
     public ResponseEntity assignUserRole(@RequestBody UserRole userRole) {
         try {
             logger.info("接收到用户角色配置:[{}]", JSONObject.toJSONString(userRole));
-            UserRole ur=systemService.assignUserRole(userRole.getUserId(), userRole.getRoleId());
+            UserRole ur = systemService.assignUserRole(userRole.getUserId(), userRole.getRoleId());
             Success ok = new Success(200, ur, "配置用户角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -114,7 +114,7 @@ public class SystemController {
     public ResponseEntity assignRoleAuth(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限配置:[{}]", JSONObject.toJSONString(authRole));
-            AuthRole ar=systemService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
+            AuthRole ar = systemService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
             Success ok = new Success(200, ar, "配置角色权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -129,7 +129,7 @@ public class SystemController {
     public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
-            AuthMenu am=systemService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
+            AuthMenu am = systemService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
             Success ok = new Success(200, am, "配置菜单权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -172,7 +172,7 @@ public class SystemController {
     public ResponseEntity updateRole(@RequestBody Role role) {
         try {
             logger.info("接收到角色修改:[{}]", JSONObject.toJSONString(role));
-            Role r=systemService.updateRole(role);
+            Role r = systemService.updateRole(role);
             Success ok = new Success(200, r, "修改角色信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -187,7 +187,7 @@ public class SystemController {
     public ResponseEntity updateAuth(@RequestBody Auth auth) {
         try {
             logger.info("接收到权限修改:[{}]", JSONObject.toJSONString(auth));
-            Auth a=systemService.updateAuth(auth);
+            Auth a = systemService.updateAuth(auth);
             Success ok = new Success(200, a, "修改权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -202,7 +202,7 @@ public class SystemController {
     public ResponseEntity updateModule(@RequestBody Module module) {
         try {
             logger.info("接收到模块修改:[{}]", JSONObject.toJSONString(module));
-            Module m=systemService.updateModule(module);
+            Module m = systemService.updateModule(module);
             Success ok = new Success(200, m, "修改模块信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -217,7 +217,7 @@ public class SystemController {
     public ResponseEntity updateMenu(@RequestBody Menu menu) {
         try {
             logger.info("接收到菜单修改:[{}]", JSONObject.toJSONString(menu));
-            Menu m=systemService.updateMenu(menu);
+            Menu m = systemService.updateMenu(menu);
             Success ok = new Success(200, m, "修改菜单信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -232,7 +232,7 @@ public class SystemController {
     public ResponseEntity updateUserRole(@RequestBody UserRole userRole) {
         try {
             logger.info("接收到用户角色修改:[{}]", JSONObject.toJSONString(userRole));
-            UserRole ur=systemService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
+            UserRole ur = systemService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
             Success ok = new Success(200, ur, "修改用户角色信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -247,7 +247,7 @@ public class SystemController {
     public ResponseEntity updateAuthRole(@RequestBody AuthRole authRole) {
         try {
             logger.info("接收到角色权限修改:[{}]", JSONObject.toJSONString(authRole));
-            AuthRole ar=systemService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
+            AuthRole ar = systemService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
             Success ok = new Success(200, ar, "修改角色权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -262,7 +262,7 @@ public class SystemController {
     public ResponseEntity updateAuthMenu(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限修改:[{}]", JSONObject.toJSONString(authMenu));
-            AuthMenu am=systemService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
+            AuthMenu am = systemService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
             Success ok = new Success(200, am, "修改菜单权限信息成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -576,6 +576,20 @@ public class SystemController {
                                       @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         try {
             PageObject<Module> modulePageObject = systemService.findAllModules(page, pageSize);
+            Success ok = new Success(200, modulePageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "page/modules/menus", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity pageModulesMenus(@RequestParam(value = "page", defaultValue = "1") int page,
+                                           @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        try {
+            PageObject<Module> modulePageObject = systemService.findAllWithMenus(page, pageSize);
             Success ok = new Success(200, modulePageObject, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {

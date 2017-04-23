@@ -105,4 +105,5 @@ public interface SystemService {
 
     List<ModuleSelectList> findList();
 
+    PageObject<Module> findAllWithMenus(int page,int pageSize);
 }
