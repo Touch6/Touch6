@@ -199,7 +199,7 @@
         </set>
         where m1.module_id=#{0} and m2.sort=m1.sort-1
     </update>
-    <select id="findMaxSort" resultType="int" >
+    <select id="findMaxSort" resultType="int">
         select max(sort) from t_si_module
     </select>
     <update id="moveDown" parameterType="long">
@@ -209,5 +209,12 @@
             m2.sort=m1.sort
         </set>
         where m1.module_id=#{0} and m2.sort=m1.sort+1
+    </update>
+    <update id="moveDownExceptThis" parameterType="hashMap">
+        update t_si_module m
+        <set>
+            m.sort=m.sort+1
+        </set>
+        where m.module_id!=#{moduleId} and m.sort <![CDATA[>=]> #{sort}
     </update>
 </mapper>

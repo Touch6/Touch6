@@ -5,6 +5,7 @@ import com.touch6.business.entity.system.Module;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
 import java.util.List;
+import java.util.Map;
 
 /*
  * ============================================================================		
@@ -48,4 +49,6 @@ public interface ModuleMybatisDao {
     int findMaxSort();
 
     int moveDown(Long moduleId);
+
+    int moveDownExceptThis(Map params);
 }

@@ -23,7 +23,9 @@ import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LONG on 2017/4/18.
@@ -66,6 +68,14 @@ public class ModuleServiceImpl implements ModuleService {
         module.setCreateTime(time);
         module.setUpdateTime(time);
         int insert = moduleMybatisDao.insertModule(module);
+        if (insert == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        //设置其他module sort
+        Map params = new HashMap();
+        params.put("moduleId", module.getModuleId());
+        params.put("sort", module.getSort());
+        int updated = moduleMybatisDao.moveDownExceptThis(params);
         if (insert == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
