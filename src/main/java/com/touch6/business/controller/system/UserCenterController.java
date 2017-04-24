@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @SuppressWarnings("ALL")
 @Controller
-@RequestMapping(value = "/system")
+@RequestMapping(value = "/system/usercenter")
 public class UserCenterController {
     private static final Logger logger = LoggerFactory.getLogger(UserCenterController.class);
 
