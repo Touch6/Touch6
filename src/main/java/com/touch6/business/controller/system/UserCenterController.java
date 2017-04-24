@@ -29,7 +29,7 @@ public class UserCenterController {
     @Autowired
     private UserCenterService userCenterService;
 
-    @RequestMapping(value = "page/users", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageUsers(@RequestParam(value = "page", defaultValue = "1") int page,

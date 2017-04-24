@@ -29,15 +29,14 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @RequestMapping(value = "/module/{moduleId}/menu", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity addMenu(@PathVariable("moduleId") Long moduleId,
-                                  @RequestBody Menu menu) {
+    public ResponseEntity addMenu(@RequestBody Menu menu) {
         try {
             logger.info("接收到菜单:[{}]", JSONObject.toJSONString(menu));
-            Menu m = menuService.addMenu(moduleId, menu);
+            Menu m = menuService.addMenu(menu.getModuleId(), menu);
             Success ok = new Success(200, m, "添加菜单成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
@@ -45,7 +44,7 @@ public class MenuController {
         }
     }
 
-    @RequestMapping(value = "/menu", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -60,7 +59,7 @@ public class MenuController {
         }
     }
 
-    @RequestMapping(value = "/menu/{menuId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{menuId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findMenuById(@PathVariable("menuId") Long menuId) {
@@ -74,10 +73,10 @@ public class MenuController {
         }
     }
 
-    @RequestMapping(value = "/module/{moduleId}/menus", method = RequestMethod.GET,
+    @RequestMapping(value = "/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity findMenusById(@PathVariable("moduleId") Long moduleId) {
+    public ResponseEntity findMenusById(@RequestParam("moduleId") Long moduleId) {
         try {
             logger.info("获取模块:[{}]菜单列表信息", moduleId);
             List<Menu> menus = menuService.findMenusByModuleId(moduleId);
@@ -88,7 +87,7 @@ public class MenuController {
         }
     }
 
-    @RequestMapping(value = "page/menus", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageMenus(@RequestParam(value = "page", defaultValue = "1") int page,

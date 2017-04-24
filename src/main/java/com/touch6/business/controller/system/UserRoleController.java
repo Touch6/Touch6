@@ -26,7 +26,7 @@ public class UserRoleController {
 
     @Autowired
     private UserRoleService userRoleService;
-    @RequestMapping(value = "/user/role", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -40,7 +40,7 @@ public class UserRoleController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-    @RequestMapping(value = "/user/role", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -56,7 +56,7 @@ public class UserRoleController {
     }
 
 
-    @RequestMapping(value = "page/userroles", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageUserRoles(@RequestParam(value = "page", defaultValue = "1") int page,

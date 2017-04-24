@@ -30,7 +30,7 @@ public class ModuleController {
     @Autowired
     private ModuleService moduleService;
 
-    @RequestMapping(value = "/module", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -45,7 +45,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/common/modules", method = RequestMethod.GET,
+    @RequestMapping(value = "/common/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findCommonModules(@RequestParam("roleId") long roleId) {
@@ -59,7 +59,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/loginuser/modules", method = RequestMethod.GET,
+    @RequestMapping(value = "/loginuser/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findModulesByLoginUser(@RequestParam("token") String token) {
@@ -73,7 +73,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/module", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -88,7 +88,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/modules", method = RequestMethod.GET,
+    @RequestMapping(value = "/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moduleList() {
@@ -102,7 +102,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/module/{moduleId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findModuleById(@PathVariable("moduleId") Long moduleId) {
@@ -116,7 +116,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "/module/{moduleId}", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{moduleId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity deleteModule(@PathVariable("moduleId") Long moduleId) {
@@ -130,7 +130,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "page/modules", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageModules(@RequestParam(value = "page", defaultValue = "1") int page,
@@ -144,7 +144,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "page/modules/menus", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable/withmenus", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageModulesMenus(@RequestParam(value = "page", defaultValue = "1") int page,
@@ -158,7 +158,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "module/selectlist", method = RequestMethod.GET,
+    @RequestMapping(value = "/selectlist", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moduleSelectList() {
@@ -171,7 +171,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "module/top", method = RequestMethod.GET,
+    @RequestMapping(value = "/top", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveTop(@RequestParam("moduleId") Long moduleId) {
@@ -184,7 +184,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "module/up", method = RequestMethod.GET,
+    @RequestMapping(value = "/up", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveUp(@RequestParam("moduleId") Long moduleId) {
@@ -197,7 +197,7 @@ public class ModuleController {
         }
     }
 
-    @RequestMapping(value = "module/down", method = RequestMethod.GET,
+    @RequestMapping(value = "/down", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveDown(@RequestParam("moduleId") Long moduleId) {

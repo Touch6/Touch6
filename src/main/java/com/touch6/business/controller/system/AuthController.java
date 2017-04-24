@@ -28,7 +28,7 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
-    @RequestMapping(value = "/auth", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -42,7 +42,7 @@ public class AuthController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-    @RequestMapping(value = "/auth", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -57,7 +57,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/auths", method = RequestMethod.GET,
+    @RequestMapping(value = "/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity authList() {
@@ -71,7 +71,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/auth/{authId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{authId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findAuthById(@PathVariable("authId") Long authId) {
@@ -85,7 +85,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/auth/{authId}", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{authId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity deleteAuth(@PathVariable("authId") Long authId) {
@@ -99,7 +99,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "page/auths", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageAuths(@RequestParam(value = "page", defaultValue = "1") int page,

@@ -27,7 +27,7 @@ public class AuthMenuController {
     @Autowired
     private AuthMenuService authMenuService;
 
-    @RequestMapping(value = "/menu/auth", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -42,7 +42,7 @@ public class AuthMenuController {
         }
     }
 
-    @RequestMapping(value = "/auth/menu", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -56,7 +56,7 @@ public class AuthMenuController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-    @RequestMapping(value = "/auth/menu", method = RequestMethod.DELETE,
+    @RequestMapping(value = "", method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -71,7 +71,7 @@ public class AuthMenuController {
         }
     }
 
-    @RequestMapping(value = "page/authmenus", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageAuthMenus(@RequestParam(value = "page", defaultValue = "1") int page,

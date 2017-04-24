@@ -28,7 +28,7 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
-    @RequestMapping(value = "/role", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -43,7 +43,7 @@ public class RoleController {
         }
     }
 
-    @RequestMapping(value = "/role", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -58,7 +58,7 @@ public class RoleController {
         }
     }
 
-    @RequestMapping(value = "/roles", method = RequestMethod.GET,
+    @RequestMapping(value = "/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity roleList() {
@@ -71,7 +71,7 @@ public class RoleController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{roleId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findRoleById(@PathVariable("roleId") Long roleId) {
@@ -85,7 +85,7 @@ public class RoleController {
         }
     }
 
-    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{roleId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity deleteRole(@PathVariable("roleId") Long roleId) {
@@ -99,7 +99,7 @@ public class RoleController {
         }
     }
 
-    @RequestMapping(value = "page/roles", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageRoles(@RequestParam(value = "page", defaultValue = "1") int page,

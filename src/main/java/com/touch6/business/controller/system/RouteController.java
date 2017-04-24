@@ -31,7 +31,7 @@ public class RouteController {
 
 
 
-    @RequestMapping(value = "/route", method = RequestMethod.POST,
+    @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -46,7 +46,7 @@ public class RouteController {
         }
     }
 
-    @RequestMapping(value = "/route", method = RequestMethod.PUT,
+    @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -61,7 +61,7 @@ public class RouteController {
         }
     }
 
-    @RequestMapping(value = "/routes", method = RequestMethod.GET,
+    @RequestMapping(value = "/list", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findRoutesBySuperId(@RequestParam(value = "superId", defaultValue = "") Long superId) {
@@ -75,7 +75,7 @@ public class RouteController {
         }
     }
 
-    @RequestMapping(value = "/route/{routeId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{routeId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findRouteByRouteId(@PathVariable("routeId") Long routeId) {
@@ -89,7 +89,7 @@ public class RouteController {
         }
     }
 
-    @RequestMapping(value = "/route/{routeId}", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{routeId}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity deleteByRouteId(@PathVariable("routeId") Long routeId) {
@@ -104,7 +104,7 @@ public class RouteController {
     }
 
 
-    @RequestMapping(value = "page/routes", method = RequestMethod.GET,
+    @RequestMapping(value = "pageable", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity pageRoutes(@RequestParam(value = "page", defaultValue = "1") int page,
