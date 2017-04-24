@@ -723,7 +723,7 @@ public class SystemController {
         }
     }
 
-    @RequestMapping(value = "module/top", method = RequestMethod.PUT,
+    @RequestMapping(value = "module/top", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveTop(@RequestParam("moduleId")Long moduleId) {
@@ -736,7 +736,7 @@ public class SystemController {
         }
     }
 
-    @RequestMapping(value = "module/up", method = RequestMethod.PUT,
+    @RequestMapping(value = "module/up", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveUp(@RequestParam("moduleId")Long moduleId) {
@@ -749,7 +749,7 @@ public class SystemController {
         }
     }
 
-    @RequestMapping(value = "module/down", method = RequestMethod.PUT,
+    @RequestMapping(value = "module/down", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity moveDown(@RequestParam("moduleId")Long moduleId) {

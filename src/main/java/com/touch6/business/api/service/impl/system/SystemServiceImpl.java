@@ -716,9 +716,8 @@ public class SystemServiceImpl implements SystemService {
         if (module.getSort() == 1) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
         }
-        //当前模块sort设置为1,
+        //当前模块sort设置为1,小于当前sort++
         int updated = moduleMybatisDao.moveTop(moduleId);
-        //其他模块sort++
     }
 
     @Override

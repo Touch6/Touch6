@@ -188,7 +188,7 @@
             m1.sort=1,
             m2.sort=m2.sort+1
         </set>
-        where m1.module_id=#{0} and m2.module_id!=#{0}
+        where m1.module_id=#{0} and m2.module_id!=#{0} and m2.sort &lt; m1.sort
     </update>
 
     <update id="moveUp" parameterType="long">
