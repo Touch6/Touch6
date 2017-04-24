@@ -51,4 +51,6 @@ public interface ModuleMybatisDao {
     int moveDown(Long moduleId);
 
     int moveDownExceptThis(Map params);
+
+    int moveUpExceptThis(Map params);
 }

@@ -215,6 +215,13 @@
         <set>
             m.sort=m.sort+1
         </set>
-        where m.module_id!=#{moduleId} and m.sort <![CDATA[>=]> #{sort}
+        where m.module_id!=#{moduleId} and m.sort <![CDATA[>=]]> #{sort}
+    </update>
+    <update id="moveUpExceptThis" parameterType="hashMap">
+        update t_si_module m
+        <set>
+            m.sort=m.sort-1
+        </set>
+        where m.module_id!=#{moduleId} and m.sort <![CDATA[>=]]> #{sort}
     </update>
 </mapper>

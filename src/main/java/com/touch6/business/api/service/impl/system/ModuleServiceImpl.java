@@ -13,6 +13,7 @@ import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.Error;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
+import com.touch6.core.exception.error.constant.SystemErrorConstant;
 import com.touch6.utils.T6ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,10 +123,18 @@ public class ModuleServiceImpl implements ModuleService {
     @Override
     @Transactional
     public void deleteModule(Long moduleId) {
+        Module module = moduleMybatisDao.findByModuleId(moduleId);
+        if (module == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        }
         int deleted = moduleMybatisDao.deleteModule(moduleId);
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+        Map params = new HashMap();
+        params.put("moduleId", module.getModuleId());
+        params.put("sort", module.getSort());
+        int updated = moduleMybatisDao.moveUpExceptThis(params);
     }
 
     @Override
