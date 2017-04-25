@@ -13,6 +13,7 @@ import com.touch6.core.exception.CoreException;
 import com.touch6.core.exception.ECodeUtil;
 import com.touch6.core.exception.Error;
 import com.touch6.core.exception.error.constant.CommonErrorConstant;
+import com.touch6.core.exception.error.constant.MenuErrorConstant;
 import com.touch6.core.exception.error.constant.SystemErrorConstant;
 import com.touch6.utils.T6ValidatorUtil;
 import org.slf4j.Logger;
@@ -129,6 +130,11 @@ public class ModuleServiceImpl implements ModuleService {
         }
         if (module.getLocked() == 1) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
+        }
+        //是否还有关联的menu
+        int count = menuMybatisDao.findCountByModuleId(moduleId);
+        if (count > 0) {
+            throw new CoreException(ECodeUtil.getCommError(MenuErrorConstant.MENU_IS_NOT_DELETED));
         }
         int deleted = moduleMybatisDao.deleteModule(moduleId);
         if (deleted == 0) {

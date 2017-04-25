@@ -1,7 +1,5 @@
 package com.touch6.business.entity.system;
 
-import com.touch6.business.enums.MenuStatus;
-
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -17,6 +15,7 @@ public class Menu {
     private String attrLink;
     @NotNull(message = "请指明所属模块")
     private Long moduleId;
+    private String moduleName;
     @NotNull(message = "请指明排序序号")
     private Integer sort;
     private Integer progress = 0;
@@ -110,5 +109,13 @@ public class Menu {
 
     public void setLocked(Integer locked) {
         this.locked = locked;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 }

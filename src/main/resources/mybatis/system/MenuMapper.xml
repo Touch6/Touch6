@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.system.MenuMybatisDao">
-    <insert id="insertMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true" keyProperty="menuId">
+    <insert id="insertMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true"
+            keyProperty="menuId">
         insert ignore into t_si_menu(
         menu_id,name,class_name,uisref,attr_link,module_id,progress,sort,locked,create_time,update_time
         )
@@ -15,7 +16,8 @@
     <select id="findByMenuId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
         select * from t_si_menu where menu_id=#{0}
     </select>
-    <update id="updateMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true" keyProperty="menuId">
+    <update id="updateMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true"
+            keyProperty="menuId">
         update t_si_menu
         <set>
             name=#{name},
@@ -30,10 +32,23 @@
         where menu_id=#{menuId} and locked=0
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Menu">
-        select * from t_si_menu order by module_id asc,sort asc
+        select
+          m.*,
+          mo.name moduleName
+        from t_si_menu m
+        left join t_si_module mo on m.module_id=mo.module_id
+        order by m.module_id asc,m.sort asc
     </select>
     <select id="findByModuleId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
-        select * from t_si_menu where module_id=#{0} order by module_id asc,sort asc
+        select
+          m.*,
+          mo.name moduleName
+        from t_si_menu m
+        left join t_si_module mo on m.module_id=mo.module_id
+        where m.module_id=#{0} order by m.module_id asc,m.sort asc
+    </select>
+    <select id="findCountByModuleId" resultType="int" parameterType="long">
+        select count(1) from t_si_menu m where m.module_id=#{0}
     </select>
     <delete id="deleteMenu" parameterType="long">
         delete from t_si_menu where menu_id=#{0} and locked=0

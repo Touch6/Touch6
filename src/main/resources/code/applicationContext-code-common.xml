@@ -70,6 +70,9 @@
                     <error:error code="200107" info="验证码已失效" des="验证码只允许验证一次"/>
                 </entry>
                 <!--200100 手机验证异常end-->
+                <entry key="menu.is.not.deleted">
+                    <error:error code="300100" info="菜单未删除" des="操作失败"/>
+                </entry>
 
                 <!--500200 用户信息start-->
                 <entry key="user.info.password.confirm.error">
