@@ -23,4 +23,7 @@ public interface RoleService {
 
     PageObject<Role> findAllRoles(int page, int pageSize);
 
+    void lock(Long roleId);
+
+    void unlock(Long roleId);
 }

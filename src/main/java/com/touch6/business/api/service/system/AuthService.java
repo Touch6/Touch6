@@ -22,4 +22,8 @@ public interface AuthService {
     void deleteAuth(Long authId);
 
     PageObject<Auth> findAllAuths(int page, int pageSize);
+
+    void lock(Long authId);
+
+    void unlock(Long authId);
 }

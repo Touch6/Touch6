@@ -142,4 +142,21 @@ public class RouteServiceImpl implements RouteService {
         return pageObject;
     }
 
+    @Override
+    @Transactional
+    public void lock(Long routeId) {
+        int locked = routeMybatisDao.lock(routeId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unlock(Long routeId) {
+        int locked = routeMybatisDao.unlock(routeId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
 }

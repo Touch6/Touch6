@@ -219,4 +219,22 @@ public class ModuleServiceImpl implements ModuleService {
         }
         int updated = moduleMybatisDao.moveDown(moduleId);
     }
+
+    @Override
+    @Transactional
+    public void lock(Long moduleId) {
+        int locked = moduleMybatisDao.lock(moduleId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unlock(Long moduleId) {
+        int locked = moduleMybatisDao.unlock(moduleId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
 }

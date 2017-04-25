@@ -128,4 +128,22 @@ public class MenuServiceImpl implements MenuService {
         pageObject.setList(menus);
         return pageObject;
     }
+
+    @Override
+    @Transactional
+    public void lock(Long menuId) {
+        int locked = menuMybatisDao.lock(menuId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unlock(Long menuId) {
+        int locked = menuMybatisDao.unlock(menuId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
 }

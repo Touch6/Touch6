@@ -32,4 +32,8 @@ public interface AuthMybatisDao {
     List<Auth> findAll();
 
     int deleteAuth(Long authId);
+
+    int lock(Long authId);
+
+    int unlock(Long authId);
 }

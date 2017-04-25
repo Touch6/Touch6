@@ -117,4 +117,22 @@ public class RoleServiceImpl implements RoleService {
         pageObject.setList(roles);
         return pageObject;
     }
+
+    @Override
+    @Transactional
+    public void lock(Long roleId) {
+        int locked = roleMybatisDao.lock(roleId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unlock(Long roleId) {
+        int locked = roleMybatisDao.unlock(roleId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
 }

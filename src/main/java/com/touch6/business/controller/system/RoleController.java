@@ -113,4 +113,29 @@ public class RoleController {
         }
     }
 
+    @RequestMapping(value = "/lock", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity lock(@RequestParam("roleId") Long roleId) {
+        try {
+            roleService.lock(roleId);
+            Success ok = new Success(200, "锁定成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/unlock", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity unlock(@RequestParam("roleId") Long roleId) {
+        try {
+            roleService.unlock(roleId);
+            Success ok = new Success(200, "解锁成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

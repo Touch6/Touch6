@@ -38,4 +38,19 @@
     <delete id="deleteMenu" parameterType="long">
         delete from t_si_menu where menu_id=#{0} and locked=0
     </delete>
+    <update id="lock" parameterType="long">
+        update t_si_menu
+        <set>
+            locked=1
+        </set>
+        where menu_id=#{0} and locked=0
+    </update>
+
+    <update id="unlock" parameterType="long">
+        update t_si_module
+        <set>
+            locked=0
+        </set>
+        where menu_id=#{0} and locked=1
+    </update>
 </mapper>

@@ -34,4 +34,8 @@ public interface MenuMybatisDao {
     List<Menu> findByModuleId(Long moduleId);
 
     int deleteMenu(Long menuId);
+
+    int lock(Long menuId);
+
+    int unlock(Long menuId);
 }

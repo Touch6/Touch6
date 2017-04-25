@@ -49,4 +49,19 @@
     <select id="findAll" resultType="com.touch6.business.entity.system.Route">
         select * from t_si_route order by route_id asc
     </select>
+    <update id="lock" parameterType="long">
+        update t_si_route
+        <set>
+            locked=1
+        </set>
+        where route_id=#{0} and locked=0
+    </update>
+
+    <update id="unlock" parameterType="long">
+        update t_si_route
+        <set>
+            locked=0
+        </set>
+        where route_id=#{0} and locked=1
+    </update>
 </mapper>

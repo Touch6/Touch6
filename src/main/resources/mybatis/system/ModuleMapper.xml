@@ -224,4 +224,20 @@
         </set>
         where m.module_id!=#{moduleId} and m.sort <![CDATA[>=]]> #{sort}
     </update>
+
+    <update id="lock" parameterType="long">
+        update t_si_module
+        <set>
+            locked=1
+        </set>
+        where module_id=#{0} and locked=0
+    </update>
+
+    <update id="unlock" parameterType="long">
+        update t_si_module
+        <set>
+            locked=0
+        </set>
+        where module_id=#{0} and locked=1
+    </update>
 </mapper>

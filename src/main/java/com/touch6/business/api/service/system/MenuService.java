@@ -25,4 +25,7 @@ public interface MenuService {
 
     PageObject<Menu> findAllMenus(int page, int pageSize);
 
+    void lock(Long menuId);
+
+    void unlock(Long menuId);
 }

@@ -23,4 +23,7 @@ public interface RouteService {
 
     PageObject<Route> findAllRoutes(int page, int pageSize);
 
+    void lock(Long routeId);
+
+    void unlock(Long routeId);
 }

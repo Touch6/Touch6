@@ -37,4 +37,7 @@ public interface RouteMybatisDao {
 
     List<Route> findAll();
 
+    int lock(Long routeId);
+
+    int unlock(Long routeId);
 }

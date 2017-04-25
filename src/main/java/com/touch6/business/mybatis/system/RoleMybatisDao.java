@@ -31,4 +31,8 @@ public interface RoleMybatisDao {
     List<Role> findAll();
 
     int deleteRole(Long roleId);
+
+    int lock(Long roleId);
+
+    int unlock(Long roleId);
 }

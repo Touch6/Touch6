@@ -100,4 +100,30 @@ public class MenuController {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/lock", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity lock(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.lock(menuId);
+            Success ok = new Success(200, "锁定成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/unlock", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity unlock(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.unlock(menuId);
+            Success ok = new Success(200, "解锁成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

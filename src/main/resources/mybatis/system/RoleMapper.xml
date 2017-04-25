@@ -29,4 +29,19 @@
     <delete id="deleteRole" parameterType="long">
         delete from t_si_role where role_id=#{0} and locked=0
     </delete>
+    <update id="lock" parameterType="long">
+        update t_si_role
+        <set>
+            locked=1
+        </set>
+        where role_id=#{0} and locked=0
+    </update>
+
+    <update id="unlock" parameterType="long">
+        update t_si_role
+        <set>
+            locked=0
+        </set>
+        where role_id=#{0} and locked=1
+    </update>
 </mapper>

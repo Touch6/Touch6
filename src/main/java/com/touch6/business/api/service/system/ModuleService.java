@@ -35,4 +35,8 @@ public interface ModuleService {
     void moveUp(Long moduleId);
 
     void moveDown(Long moduleId);
+
+    void lock(Long moduleId);
+
+    void unlock(Long moduleId);
 }

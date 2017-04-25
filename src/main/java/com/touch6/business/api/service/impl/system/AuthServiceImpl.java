@@ -122,4 +122,22 @@ public class AuthServiceImpl implements AuthService {
         pageObject.setList(auths);
         return pageObject;
     }
+
+    @Override
+    @Transactional
+    public void lock(Long authId) {
+        int locked = authMybatisDao.lock(authId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unlock(Long authId) {
+        int locked = authMybatisDao.unlock(authId);
+        if (locked == 0) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+    }
 }
