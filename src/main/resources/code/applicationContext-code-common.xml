@@ -32,6 +32,15 @@
                 <entry key="common.oper.repeat">
                     <error:error code="200001" info="重复请求" des="请勿重复操作"/>
                 </entry>
+                <entry key="common.resource.locked">
+                    <error:error code="200002" info="资源已经被锁定" des="请勿重复操作"/>
+                </entry>
+                <entry key="common.resource.unlocked">
+                    <error:error code="200003" info="资源已经解锁" des="请勿重复操作"/>
+                </entry>
+                <entry key="common.resource.not.existed">
+                    <error:error code="200004" info="资源不存在" des="资源不存在"/>
+                </entry>
                 <!--200000 共同异常end-->
 
 
@@ -46,7 +55,7 @@
                     <error:error code="200102" info="手机验证码不正确" des="手机验证码错误，请重新获取后验证"/>
                 </entry>
                 <!--<entry key="phone.code.times.too.many">-->
-                    <!--<error:error code="200103" info="请求过于频繁" des="手机验证码1天内最多获取10次，请次日再试"/>-->
+                <!--<error:error code="200103" info="请求过于频繁" des="手机验证码1天内最多获取10次，请次日再试"/>-->
                 <!--</entry>-->
                 <entry key="phone.code.sms.gateway.error">
                     <error:error code="200104" info="短信网关错误" des="短信网关错误，请联系管理员"/>

@@ -102,6 +102,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void deleteAuth(Long authId) {
+        Auth auth=authMybatisDao.findByAuthId(authId);
+        if(auth==null){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
+        }
+        if (auth.getLocked() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
+        }
         int deleted = authMybatisDao.deleteAuth(authId);
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -128,7 +135,7 @@ public class AuthServiceImpl implements AuthService {
     public void lock(Long authId) {
         int locked = authMybatisDao.lock(authId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
     }
 
@@ -137,7 +144,7 @@ public class AuthServiceImpl implements AuthService {
     public void unlock(Long authId) {
         int locked = authMybatisDao.unlock(authId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_UNLOCKED));
         }
     }
 }

@@ -125,11 +125,14 @@ public class ModuleServiceImpl implements ModuleService {
     public void deleteModule(Long moduleId) {
         Module module = moduleMybatisDao.findByModuleId(moduleId);
         if (module == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
+        }
+        if (module.getLocked() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
         int deleted = moduleMybatisDao.deleteModule(moduleId);
         if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
         Map params = new HashMap();
         params.put("moduleId", module.getModuleId());
@@ -225,7 +228,7 @@ public class ModuleServiceImpl implements ModuleService {
     public void lock(Long moduleId) {
         int locked = moduleMybatisDao.lock(moduleId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
     }
 
@@ -234,7 +237,7 @@ public class ModuleServiceImpl implements ModuleService {
     public void unlock(Long moduleId) {
         int locked = moduleMybatisDao.unlock(moduleId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_UNLOCKED));
         }
     }
 }

@@ -121,9 +121,16 @@ public class RouteServiceImpl implements RouteService {
     @Override
     @Transactional
     public void deleteRoute(Long routeId) {
+        Route route = routeMybatisDao.findByRouteId(routeId);
+        if (route == null) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
+        }
+        if (route.getLocked() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
+        }
         int deleted = routeMybatisDao.deleteRoute(routeId);
         if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
     }
 
@@ -147,7 +154,7 @@ public class RouteServiceImpl implements RouteService {
     public void lock(Long routeId) {
         int locked = routeMybatisDao.lock(routeId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
     }
 
@@ -156,7 +163,7 @@ public class RouteServiceImpl implements RouteService {
     public void unlock(Long routeId) {
         int locked = routeMybatisDao.unlock(routeId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_UNLOCKED));
         }
     }
 }

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.touch6.business.api.service.system.MenuService;
 import com.touch6.business.entity.system.Menu;
 import com.touch6.business.entity.system.Module;
+import com.touch6.business.entity.system.Role;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.business.mybatis.system.*;
 import com.touch6.commons.PageObject;
@@ -108,9 +109,16 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public void deleteMenu(Long menuId) {
+        Menu menu=menuMybatisDao.findByMenuId(menuId);
+        if(menu==null){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
+        }
+        if(menu.getLocked()==1){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
+        }
         int deleted = menuMybatisDao.deleteMenu(menuId);
         if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
     }
 
@@ -134,7 +142,7 @@ public class MenuServiceImpl implements MenuService {
     public void lock(Long menuId) {
         int locked = menuMybatisDao.lock(menuId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
     }
 
@@ -143,7 +151,7 @@ public class MenuServiceImpl implements MenuService {
     public void unlock(Long menuId) {
         int locked = menuMybatisDao.unlock(menuId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_UNLOCKED));
         }
     }
 }
