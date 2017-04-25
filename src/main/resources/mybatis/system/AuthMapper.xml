@@ -6,10 +6,10 @@
 <mapper namespace="com.touch6.business.mybatis.system.AuthMybatisDao">
     <insert id="insertAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true" keyProperty="authId">
         insert ignore into t_si_auth(
-        auth_id,name,create_time,update_time
+        auth_id,name,locked,create_time,update_time
         )
         values(
-        #{authId},#{name},#{createTime},#{updateTime}
+        #{authId},#{name},#{locked},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByAuthId" resultType="com.touch6.business.entity.system.Auth" parameterType="long">
@@ -21,12 +21,12 @@
             name=#{name},
             update_time=#{updateTime}
         </set>
-        where auth_id=#{authId}
+        where auth_id=#{authId} and locked=0
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Auth">
         select * from t_si_auth order by auth_id asc
     </select>
     <delete id="deleteAuth" parameterType="long">
-        delete from t_si_auth where auth_id=#{0}
+        delete from t_si_auth where auth_id=#{0} and locked=0
     </delete>
 </mapper>

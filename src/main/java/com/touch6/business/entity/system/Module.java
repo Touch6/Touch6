@@ -18,6 +18,7 @@ public class Module {
     private String attrLink;
     @NotNull(message = "请指明排序序号")
     private Integer sort;
+    private Integer locked = 0;
     private Date createTime;
     private Date updateTime;
     private PageObject<Menu> menuPageObj=new PageObject<>();
@@ -93,5 +94,13 @@ public class Module {
 
     public void setMenuPageObj(PageObject<Menu> menuPageObj) {
         this.menuPageObj = menuPageObj;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 }

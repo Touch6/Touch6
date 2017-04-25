@@ -17,9 +17,10 @@ public class Menu {
     private String attrLink;
     @NotNull(message = "请指明所属模块")
     private Long moduleId;
-    private MenuStatus status=MenuStatus.CREATE;
     @NotNull(message = "请指明排序序号")
     private Integer sort;
+    private Integer progress = 0;
+    private Integer locked = 0;
     private Date createTime;
     private Date updateTime;
 
@@ -87,19 +88,27 @@ public class Menu {
         this.attrLink = attrLink;
     }
 
-    public MenuStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MenuStatus status) {
-        this.status = status;
-    }
-
     public Integer getSort() {
         return sort;
     }
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 }

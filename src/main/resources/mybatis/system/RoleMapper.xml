@@ -6,10 +6,10 @@
 <mapper namespace="com.touch6.business.mybatis.system.RoleMybatisDao">
     <insert id="insertRole" parameterType="com.touch6.business.entity.system.Role" useGeneratedKeys="true" keyProperty="roleId">
         insert ignore into t_si_role(
-        role_id,name,create_time,update_time
+        role_id,name,locked,create_time,update_time
         )
         values(
-        #{roleId},#{name},#{createTime},#{updateTime}
+        #{roleId},#{name},#{locked},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByRoleId" resultType="com.touch6.business.entity.system.Role" parameterType="long">
@@ -21,12 +21,12 @@
             name=#{name},
             update_time=#{updateTime}
         </set>
-        where role_id=#{roleId}
+        where role_id=#{roleId} and locked=0
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Role">
         select * from t_si_role
     </select>
     <delete id="deleteRole" parameterType="long">
-        delete from t_si_role where role_id=#{0}
+        delete from t_si_role where role_id=#{0} and locked=0
     </delete>
 </mapper>

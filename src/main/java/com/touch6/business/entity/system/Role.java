@@ -10,6 +10,7 @@ public class Role {
     private Long roleId;
     @NotNull(message = "请指明角色名称")
     private String name;
+    private Integer locked = 0;
     private Date createTime;
     private Date updateTime;
 
@@ -43,5 +44,13 @@ public class Role {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 }

@@ -17,6 +17,7 @@ public class Route {
     private String uisref;
     @NotNull(message = "路由的描述信息不能为空")
     private String description;
+    private Integer locked = 0;
     private Date createTime;
     private Date updateTime;
 
@@ -82,5 +83,13 @@ public class Route {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 }

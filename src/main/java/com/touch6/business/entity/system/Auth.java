@@ -10,6 +10,7 @@ public class Auth {
     private Long authId;
     @NotNull(message = "请指明权限名称")
     private String name;
+    private Integer locked=0;
     private Date createTime;
     private Date updateTime;
 
@@ -43,5 +44,13 @@ public class Auth {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 }

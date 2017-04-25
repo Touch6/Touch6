@@ -7,10 +7,10 @@
     <insert id="insertModule" parameterType="com.touch6.business.entity.system.Module" useGeneratedKeys="true"
             keyProperty="moduleId">
         insert ignore into t_si_module(
-        module_id,name,class_name,attr_link,sort,create_time,update_time
+        module_id,name,class_name,attr_link,sort,locked,create_time,update_time
         )
         values(
-        #{moduleId},#{name},#{className},#{attrLink},#{sort},#{createTime},#{updateTime}
+        #{moduleId},#{name},#{className},#{attrLink},#{sort},#{locked},#{createTime},#{updateTime}
         )
     </insert>
     <select id="findByModuleId" resultType="com.touch6.business.entity.system.Module" parameterType="long">
@@ -131,7 +131,7 @@
             sort=#{sort},
             update_time=#{updateTime}
         </set>
-        where module_id=#{moduleId}
+        where module_id=#{moduleId} and locked=0
     </update>
     <select id="findAll" resultType="com.touch6.business.entity.system.Module">
         select * from t_si_module order by sort asc
@@ -180,7 +180,7 @@
         order by m.sort asc
     </select>
     <delete id="deleteModule" parameterType="long">
-        delete from t_si_module where module_id=#{0}
+        delete from t_si_module where module_id=#{0} and locked=0
     </delete>
     <update id="moveTop" parameterType="long">
         update t_si_module m1,t_si_module m2
