@@ -97,9 +97,16 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public void deleteRole(Long roleId) {
+        Role role=roleMybatisDao.findByRoleId(roleId);
+        if(role==null){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
+        }
+        if(role.getLocked()==1){
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
+        }
         int deleted = roleMybatisDao.deleteRole(roleId);
         if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+            throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
     }
 
@@ -123,7 +130,7 @@ public class RoleServiceImpl implements RoleService {
     public void lock(Long roleId) {
         int locked = roleMybatisDao.lock(roleId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
     }
 
@@ -132,7 +139,7 @@ public class RoleServiceImpl implements RoleService {
     public void unlock(Long roleId) {
         int locked = roleMybatisDao.unlock(roleId);
         if (locked == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_UNLOCKED));
         }
     }
 }

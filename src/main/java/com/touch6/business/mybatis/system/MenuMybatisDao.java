@@ -38,4 +38,6 @@ public interface MenuMybatisDao {
     int lock(Long menuId);
 
     int unlock(Long menuId);
+
+    int findCountByModuleId(Long moduleId);
 }
