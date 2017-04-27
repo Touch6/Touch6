@@ -19,6 +19,7 @@
         update t_si_auth
         <set>
             name=#{name},
+            locked=#{locked},
             update_time=#{updateTime}
         </set>
         where auth_id=#{authId} and locked=0
