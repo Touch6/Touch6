@@ -14,7 +14,9 @@
         )
     </insert>
     <select id="findByMenuId" resultType="com.touch6.business.entity.system.Menu" parameterType="long">
-        select * from t_si_menu where menu_id=#{0}
+        select m.*,mo.name moduleName from t_si_menu m
+        left join t_si_module mo on m.module_id=mo.module_id
+        where menu_id=#{0}
     </select>
     <update id="updateMenu" parameterType="com.touch6.business.entity.system.Menu" useGeneratedKeys="true"
             keyProperty="menuId">
@@ -27,6 +29,7 @@
             module_id=#{moduleId},
             progress=#{progress},
             sort=#{sort},
+            locked=#{locked},
             update_time=#{updateTime}
         </set>
         where menu_id=#{menuId} and locked=0
@@ -53,6 +56,48 @@
     <delete id="deleteMenu" parameterType="long">
         delete from t_si_menu where menu_id=#{0} and locked=0
     </delete>
+    <update id="moveTop" parameterType="hashMap">
+        update t_si_menu m1,t_si_menu m2
+        <set>
+            m1.sort=1,
+            m2.sort=m2.sort+1
+        </set>
+        where m1.menu_id=#{menuId} and m2.menu_id!=#{menuId} and m2.sort &lt; m1.sort and m1.module_id=#{moduleId} and m2.module_id=#{moduleId}
+    </update>
+
+    <update id="moveUp" parameterType="hashMap">
+        update t_si_menu m1,t_si_menu m2
+        <set>
+            m1.sort=m1.sort-1,
+            m2.sort=m1.sort
+        </set>
+        where m1.menu_id=#{menuId} and m2.sort=m1.sort-1 and m1.module_id=#{moduleId} and m2.module_id=#{moduleId}
+    </update>
+    <select id="findMaxSort" resultType="int" parameterType="long">
+        select max(sort) from t_si_menu where module_id=#{0}
+    </select>
+    <update id="moveDown" parameterType="hashMap">
+        update t_si_menu m1,t_si_menu m2
+        <set>
+            m1.sort=m1.sort+1,
+            m2.sort=m1.sort
+        </set>
+        where m1.menu_id=#{menuId} and m2.sort=m1.sort+1 and m1.module_id=#{moduleId} and m2.module_id=#{moduleId}
+    </update>
+    <update id="moveDownExceptThis" parameterType="hashMap">
+        update t_si_menu m
+        <set>
+            m.sort=m.sort+1
+        </set>
+        where m.menu_id!=#{menuId} and m.sort <![CDATA[>=]]> #{sort} and m.module_id=#{moduleId}
+    </update>
+    <update id="moveUpExceptThis" parameterType="hashMap">
+        update t_si_menu m
+        <set>
+            m.sort=m.sort-1
+        </set>
+        where m.menu_id!=#{menuId} and m.sort <![CDATA[>=]]> #{sort} and m.module_id=#{moduleId}
+    </update>
     <update id="lock" parameterType="long">
         update t_si_menu
         <set>
@@ -62,7 +107,7 @@
     </update>
 
     <update id="unlock" parameterType="long">
-        update t_si_module
+        update t_si_menu
         <set>
             locked=0
         </set>

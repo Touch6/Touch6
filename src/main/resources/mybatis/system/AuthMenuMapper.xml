@@ -34,6 +34,9 @@
     <delete id="deleteAuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
         delete from t_si_auth_menu where auth_id=#{authId} and menu_id=#{menuId}
     </delete>
+    <delete id="deleteAuthMenuByMenuId" parameterType="long">
+        delete from t_si_auth_menu where menu_id=#{menuId}
+    </delete>
     <select id="findAll" resultType="com.touch6.business.entity.system.AuthMenu">
         select
             am.auth_id,a.name authName,

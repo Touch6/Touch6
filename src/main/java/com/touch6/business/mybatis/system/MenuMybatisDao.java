@@ -5,6 +5,7 @@ import com.touch6.business.entity.system.Module;
 import com.touch6.business.mybatis.common.MyBatisRepository;
 
 import java.util.List;
+import java.util.Map;
 
 /*
  * ============================================================================		
@@ -40,4 +41,16 @@ public interface MenuMybatisDao {
     int unlock(Long menuId);
 
     int findCountByModuleId(Long moduleId);
+
+    int moveUp(Map params);
+
+    int findMaxSort(Long moduleId);
+
+    int moveDown(Map params);
+
+    int moveDownExceptThis(Map params);
+
+    int moveUpExceptThis(Map params);
+
+    int moveTop(Map params);
 }

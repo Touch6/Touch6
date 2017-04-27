@@ -78,9 +78,6 @@ public class ModuleServiceImpl implements ModuleService {
         params.put("moduleId", module.getModuleId());
         params.put("sort", module.getSort());
         int updated = moduleMybatisDao.moveDownExceptThis(params);
-        if (insert == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
-        }
         return module;
     }
 

@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.touch6.business.api.service.system.MenuService;
 import com.touch6.business.entity.system.Menu;
 import com.touch6.business.entity.system.Module;
-import com.touch6.business.entity.system.Role;
 import com.touch6.business.mybatis.UserMybatisDao;
 import com.touch6.business.mybatis.system.*;
 import com.touch6.commons.PageObject;
@@ -24,7 +23,9 @@ import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LONG on 2017/4/18.
@@ -76,6 +77,10 @@ public class MenuServiceImpl implements MenuService {
         if (insertedMenu == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+        Map params = new HashMap();
+        params.put("moduleId", module.getModuleId());
+        params.put("sort", module.getSort());
+        int updated = menuMybatisDao.moveUpExceptThis(params);
         return menu;
     }
 
@@ -109,17 +114,24 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public void deleteMenu(Long menuId) {
-        Menu menu=menuMybatisDao.findByMenuId(menuId);
-        if(menu==null){
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
+        if (menu == null) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_NOT_EXISTED));
         }
-        if(menu.getLocked()==1){
+        if (menu.getLocked() == 1) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_RESOURCE_LOCKED));
         }
         int deleted = menuMybatisDao.deleteMenu(menuId);
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+        int deleted2 = authMenuMybatisDao.deleteAuthMenuByMenuId(menuId);
+        //模块内菜单sort大于当前的--
+        Map params = new HashMap();
+        params.put("menuId", menuId);
+        params.put("sort", menu.getSort());
+        params.put("moduleId", menu.getModuleId());
+        int moved = menuMybatisDao.moveUpExceptThis(params);
     }
 
     @Override
@@ -135,6 +147,50 @@ public class MenuServiceImpl implements MenuService {
         PageObject<Menu> pageObject = BeanMapper.map(pageInfo, PageObject.class);
         pageObject.setList(menus);
         return pageObject;
+    }
+
+    @Override
+    @Transactional
+    public void moveTop(Long menuId) {
+        //判定当前是否为置顶，若是则取消操作
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
+        if (menu.getSort() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        //当前sort设置为1,小于当前sort++
+        Map params = new HashMap();
+        params.put("menuId", menuId);
+        params.put("moduleId", menu.getModuleId());
+        int updated = menuMybatisDao.moveTop(params);
+    }
+
+    @Override
+    @Transactional
+    public void moveUp(Long menuId) {
+        //判定当前是否为置顶，若是则取消操作
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
+        if (menu.getSort() == 1) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        Map params = new HashMap();
+        params.put("menuId", menuId);
+        params.put("moduleId", menu.getModuleId());
+        int updated = menuMybatisDao.moveUp(params);
+    }
+
+    @Override
+    @Transactional
+    public void moveDown(Long menuId) {
+        //判定当前是否为置顶，若是则取消操作
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
+        int maxSort = menuMybatisDao.findMaxSort(menu.getModuleId());
+        if (maxSort == menu.getSort()) {
+            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+        }
+        Map params = new HashMap();
+        params.put("menuId", menuId);
+        params.put("moduleId", menu.getModuleId());
+        int updated = menuMybatisDao.moveDown(params);
     }
 
     @Override

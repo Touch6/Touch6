@@ -44,6 +44,20 @@ public class MenuController {
         }
     }
 
+    @RequestMapping(value = "/{menuId}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity deleteMenu(@PathVariable("menuId") Long menuId) {
+        try {
+            logger.info("删除菜单:[{}]", menuId);
+            menuService.deleteMenu(menuId);
+            Success ok = new Success(200, "删除成功", "删除成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -121,6 +135,45 @@ public class MenuController {
         try {
             menuService.unlock(menuId);
             Success ok = new Success(200, "解锁成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/top", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveTop(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.moveTop(menuId);
+            Success ok = new Success(200, "置顶成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/up", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveUp(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.moveUp(menuId);
+            Success ok = new Success(200, "上移成功", "操作成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/down", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity moveDown(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.moveDown(menuId);
+            Success ok = new Success(200, "下移成功", "操作成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
