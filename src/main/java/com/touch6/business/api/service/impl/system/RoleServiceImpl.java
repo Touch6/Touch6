@@ -108,6 +108,10 @@ public class RoleServiceImpl implements RoleService {
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(SystemErrorConstant.SYSTEM_EXCEPTION));
         }
+        //删除authrole
+        int deleted2=authRoleMybatisDao.deleteAuthRoleByRoleId(roleId);
+        //删除userrole
+        int deleted3=userRoleMybatisDao.deleteUserRoleByRoleId(roleId);
     }
 
     @Override

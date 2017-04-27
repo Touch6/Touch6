@@ -32,4 +32,6 @@ public interface AuthRoleMybatisDao {
     int deleteAuthRole(AuthRole authRole);
 
     List<AuthRole> findAll();
+
+    int deleteAuthRoleByRoleId(Long roleId);
 }

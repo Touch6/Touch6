@@ -34,6 +34,9 @@
     <delete id="deleteUserRole" parameterType="com.touch6.business.entity.system.UserRole">
         delete from t_si_user_role where user_id=#{userId} and role_id=#{roleId}
     </delete>
+    <delete id="deleteUserRoleByRoleId" parameterType="com.touch6.business.entity.system.UserRole">
+        delete from t_si_user_role where role_id=#{roleId}
+    </delete>
     <select id="findAll" resultType="com.touch6.business.entity.system.UserRole">
         select
             ur.user_id,u.name userName,
