@@ -36,7 +36,10 @@
         delete from t_si_auth_role where auth_id=#{authId} and role_id=#{roleId}
     </delete>
     <delete id="deleteAuthRoleByRoleId" parameterType="long">
-        delete from t_si_auth_role where role_id=#{roleId}
+        delete from t_si_auth_role where role_id=#{0}
+    </delete>
+    <delete id="deleteAuthMenuByAuthId" parameterType="long">
+        delete from t_si_auth_role where auth_id=#{0}
     </delete>
     <select id="findAll" resultType="com.touch6.business.entity.system.AuthRole">
         select

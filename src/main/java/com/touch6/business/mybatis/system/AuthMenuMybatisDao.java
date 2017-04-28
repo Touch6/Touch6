@@ -34,4 +34,6 @@ public interface AuthMenuMybatisDao {
     List<AuthMenu> findAll();
 
     int deleteAuthMenuByMenuId(Long menuId);
+
+    int deleteAuthMenuByAuthId(Long authId);
 }

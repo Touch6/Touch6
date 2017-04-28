@@ -113,6 +113,10 @@ public class AuthServiceImpl implements AuthService {
         if (deleted == 0) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
+        //删除authmenu
+        int deleted2=authMenuMybatisDao.deleteAuthMenuByAuthId(authId);
+        //authrole
+        int deleted3=authRoleMybatisDao.deleteAuthRoleByAuthId(authId);
     }
 
     @Override
