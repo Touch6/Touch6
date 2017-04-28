@@ -8,6 +8,8 @@ import java.util.Date;
  */
 public class Route {
     private Long routeId;
+    @NotNull(message = "请指明路由所属菜单")
+    private Long menuId;
     @NotNull(message = "请指明路由等级")
     private Integer rank;
     private Long superId;
@@ -91,5 +93,13 @@ public class Route {
 
     public void setLocked(Integer locked) {
         this.locked = locked;
+    }
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 }
