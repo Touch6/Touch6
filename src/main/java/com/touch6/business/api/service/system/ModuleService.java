@@ -30,6 +30,8 @@ public interface ModuleService {
 
     PageObject<Module> findAllWithMenus(int page, int pageSize);
 
+    List<Module> findModuleListWithMenus();
+
     void moveTop(Long moduleId);
 
     void moveUp(Long moduleId);

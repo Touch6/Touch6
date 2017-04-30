@@ -50,6 +50,12 @@
         left join t_si_module mo on m.module_id=mo.module_id
         where m.module_id=#{0} order by m.module_id asc,m.sort asc
     </select>
+    <select id="findCountByMenuIds" resultType="int" parameterType="list">
+        select count(1) from t_si_menu where menu_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
     <select id="findCountByModuleId" resultType="int" parameterType="long">
         select count(1) from t_si_menu m where m.module_id=#{0}
     </select>

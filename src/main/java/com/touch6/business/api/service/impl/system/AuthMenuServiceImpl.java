@@ -2,6 +2,7 @@ package com.touch6.business.api.service.impl.system;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.touch6.business.api.service.system.AuthMenuService;
 import com.touch6.business.entity.system.Auth;
 import com.touch6.business.entity.system.AuthMenu;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.BeanMapper;
 
 import javax.validation.Validator;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,24 +56,27 @@ public class AuthMenuServiceImpl implements AuthMenuService {
 
     @Override
     @Transactional
-    public AuthMenu assignAuthMenu(Long authId, Long menuId) {
-        Auth auth = authMybatisDao.findByAuthId(authId);
-        if (auth == null) {
+    public void assignAuthMenu(Long[] authIdArray, Long[] menuIdArray) {
+        List authIds= Arrays.asList(authIdArray);
+        List menuIds= Arrays.asList(menuIdArray);
+        int authCount = authMybatisDao.findCountByAuthIds(authIds);
+        if (authCount != authIds.size()) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
-        Menu menu = menuMybatisDao.findByMenuId(menuId);
-        if (menu == null) {
+        int menuCount = menuMybatisDao.findCountByMenuIds(menuIds);
+        if (menuCount != menuIds.size()) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
         }
-        AuthMenu authMenu = authMenuMybatisDao.findByAuthMenu(new AuthMenu(authId, menuId));
-        if (authMenu != null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+        for (int i = 0; i < authIds.size(); i++) {
+            Map params = new HashMap();
+            params.put("authId", authIds.get(i));
+            params.put("menuIds",menuIds);
+            int inserted = authMenuMybatisDao.insertAuthMenuInBatch(params);
+            if (inserted == 0) {
+                throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+            }
+            logger.info("添加authId:[{}]配置:[{}]个",authIds.get(i),menuIds.size());
         }
-        int inserted = authMenuMybatisDao.insertAuthMenu(authMenu);
-        if (inserted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
-        }
-        return authMenu;
     }
 
 

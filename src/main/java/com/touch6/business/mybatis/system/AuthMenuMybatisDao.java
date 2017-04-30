@@ -36,4 +36,6 @@ public interface AuthMenuMybatisDao {
     int deleteAuthMenuByMenuId(Long menuId);
 
     int deleteAuthMenuByAuthId(Long authId);
+
+    int insertAuthMenuInBatch(Map params);
 }

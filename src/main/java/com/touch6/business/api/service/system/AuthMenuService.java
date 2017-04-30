@@ -11,7 +11,7 @@ import java.util.List;
  * Created by LONG on 2017/4/18.
  */
 public interface AuthMenuService {
-    AuthMenu assignAuthMenu(Long authId, Long menuId);
+    void assignAuthMenu(Long[] authIds, Long[] menuIds);
 
     AuthMenu updateAuthMenu(Long authId, Long menuId, Long newAuthId);
 

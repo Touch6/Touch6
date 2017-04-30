@@ -34,8 +34,8 @@ public class AuthMenuController {
     public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
         try {
             logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
-            AuthMenu am = authMenuService.assignAuthMenu(authMenu.getAuthId(), authMenu.getMenuId());
-            Success ok = new Success(200, am, "配置菜单权限成功");
+            authMenuService.assignAuthMenu(authMenu.getAuthIds(), authMenu.getMenuIds());
+            Success ok = new Success(200, "添加成功", "配置菜单权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

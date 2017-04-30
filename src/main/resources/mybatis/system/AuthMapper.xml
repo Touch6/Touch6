@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.system.AuthMybatisDao">
-    <insert id="insertAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true" keyProperty="authId">
+    <insert id="insertAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true"
+            keyProperty="authId">
         insert ignore into t_si_auth(
         auth_id,name,locked,create_time,update_time
         )
@@ -15,7 +16,14 @@
     <select id="findByAuthId" resultType="com.touch6.business.entity.system.Auth" parameterType="long">
         select * from t_si_auth where auth_id=#{0}
     </select>
-    <update id="updateAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true" keyProperty="authId">
+    <select id="findCountByAuthIds" resultType="int" parameterType="list">
+        select count(1) from t_si_auth where auth_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateAuth" parameterType="com.touch6.business.entity.system.Auth" useGeneratedKeys="true"
+            keyProperty="authId">
         update t_si_auth
         <set>
             name=#{name},

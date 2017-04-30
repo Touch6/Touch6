@@ -36,4 +36,6 @@ public interface AuthMybatisDao {
     int lock(Long authId);
 
     int unlock(Long authId);
+
+    int findCountByAuthIds(List<Long> authIds);
 }

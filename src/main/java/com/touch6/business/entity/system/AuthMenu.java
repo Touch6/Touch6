@@ -1,12 +1,16 @@
 package com.touch6.business.entity.system;
 
+import java.util.List;
+
 /**
  * Created by LONG on 2017/4/18.
  */
 public class AuthMenu {
     private Long authId;
+    private Long[] authIds;
     private String authName;
     private Long menuId;
+    private Long[] menuIds;
     private String menuName;
     private Long newAuthId;
 
@@ -54,5 +58,21 @@ public class AuthMenu {
 
     public void setMenuName(String menuName) {
         this.menuName = menuName;
+    }
+
+    public Long[] getAuthIds() {
+        return authIds;
+    }
+
+    public void setAuthIds(Long[] authIds) {
+        this.authIds = authIds;
+    }
+
+    public Long[] getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(Long[] menuIds) {
+        this.menuIds = menuIds;
     }
 }

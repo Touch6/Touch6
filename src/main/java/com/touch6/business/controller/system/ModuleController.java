@@ -158,6 +158,19 @@ public class ModuleController {
         }
     }
 
+    @RequestMapping(value = "list/withmenus", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity listAllWithMenus() {
+        try {
+            List<Module> list = moduleService.findModuleListWithMenus();
+            Success ok = new Success(200, list, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/selectlist", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

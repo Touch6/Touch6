@@ -192,6 +192,14 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
+    public List<Module> findModuleListWithMenus() {
+        logger.info("获取所有模块包括菜单");
+
+        List<Module> modules = moduleMybatisDao.findAllWithMenus();
+        return modules;
+    }
+
+    @Override
     @Transactional
     public void moveTop(Long moduleId) {
         //判定当前模块是否为置顶，若是则取消操作

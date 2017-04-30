@@ -12,6 +12,15 @@
         #{authId},#{menuId}
         )
     </insert>
+    <insert id="insertAuthMenuInBatch" parameterType="hashMap">
+        insert ignore into t_si_auth_menu(
+        auth_id,menu_id
+        )
+        values
+        <foreach collection="menuIds" item="menuId" separator=",">
+            (#{authId},#{menuId})
+        </foreach>
+    </insert>
     <select id="findByAuthMenu" resultType="com.touch6.business.entity.system.AuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
         select
             am.auth_id,a.name authName,

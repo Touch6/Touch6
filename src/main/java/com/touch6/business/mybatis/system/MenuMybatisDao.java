@@ -53,4 +53,6 @@ public interface MenuMybatisDao {
     int moveUpExceptThis(Map params);
 
     int moveTop(Map params);
+
+    int findCountByMenuIds(List<Long> menuIds);
 }
