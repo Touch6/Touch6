@@ -18,4 +18,6 @@ public interface AuthMenuService {
     void deleteAuthMenu(AuthMenu authMenu);
 
     PageObject<AuthMenu> findAuthMenus(int page, int pageSize);
+
+    List<AuthMenu> findAllAuthmenuByMenuId(Long menuId);
 }

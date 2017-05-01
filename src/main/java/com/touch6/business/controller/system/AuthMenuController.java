@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by zhuxl@paxsz.com on 2016/7/27.
  */
@@ -79,6 +81,19 @@ public class AuthMenuController {
         try {
             PageObject<AuthMenu> pageObject = authMenuService.findAuthMenus(page, pageSize);
             Success ok = new Success(200, pageObject, "查询成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "list/{menuId}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity findAllAuthmenuByMenuId(@PathVariable("menuId")Long menuId) {
+        try {
+            List<AuthMenu> list = authMenuService.findAllAuthmenuByMenuId(menuId);
+            Success ok = new Success(200, list, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

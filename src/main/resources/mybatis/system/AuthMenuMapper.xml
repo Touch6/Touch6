@@ -62,4 +62,22 @@
         order by
             a.auth_id asc
     </select>
+    <select id="findAllAuthmenuByMenuId" resultType="com.touch6.business.entity.system.AuthMenu" parameterType="long">
+        SELECT
+            a.auth_id,
+            a.name authName,
+            t.menu_id
+        FROM
+            t_si_auth a
+        LEFT JOIN (
+            SELECT
+                auth.auth_id,
+                am.menu_id
+            FROM
+                t_si_auth auth
+            JOIN t_si_auth_menu am ON am.auth_id = auth.auth_id
+            WHERE
+                am.menu_id = #{0}
+        ) t ON t.auth_id = a.auth_id
+    </select>
 </mapper>

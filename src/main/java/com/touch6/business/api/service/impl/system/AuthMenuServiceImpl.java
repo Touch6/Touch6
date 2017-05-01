@@ -134,4 +134,9 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         pageObject.setList(authMenus);
         return pageObject;
     }
+
+    @Override
+    public List<AuthMenu> findAllAuthmenuByMenuId(Long menuId) {
+        return authMenuMybatisDao.findAllAuthmenuByMenuId(menuId);
+    }
 }
