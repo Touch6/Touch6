@@ -4,13 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.system.AuthRoleMybatisDao">
-    <insert id="insertAuthRole" parameterType="com.touch6.business.entity.system.AuthRole">
+    <insert id="insertAuthRoleInBatch" parameterType="hashMap">
         insert ignore into t_si_auth_role(
-        role_id,auth_id
+        auth_id,role_id
         )
-        values(
-        #{roleId},#{authId}
-        )
+        values
+        <foreach collection="authIds" item="authId" separator=",">
+            (#{authId},#{roleId})
+        </foreach>
     </insert>
     <select id="findByAuthRole" resultType="com.touch6.business.entity.system.AuthRole"
             parameterType="com.touch6.business.entity.system.AuthRole">
@@ -38,7 +39,7 @@
     <delete id="deleteAuthRoleByRoleId" parameterType="long">
         delete from t_si_auth_role where role_id=#{0}
     </delete>
-    <delete id="deleteAuthMenuByAuthId" parameterType="long">
+    <delete id="deleteAuthRoleByAuthId" parameterType="long">
         delete from t_si_auth_role where auth_id=#{0}
     </delete>
     <select id="findAll" resultType="com.touch6.business.entity.system.AuthRole">
@@ -53,5 +54,23 @@
             ar.role_id,r.name
         order by
             a.auth_id asc
+    </select>
+    <select id="findAllAuthroleByRoleId" resultType="com.touch6.business.entity.system.AuthRole" parameterType="long">
+        SELECT
+        a.auth_id,
+        a.name authName,
+        t.role_id
+        FROM
+        t_si_auth a
+        LEFT JOIN (
+        SELECT
+        auth.auth_id,
+        ar.role_id
+        FROM
+        t_si_auth auth
+        JOIN t_si_auth_role ar ON ar.auth_id = auth.auth_id
+        WHERE
+        ar.role_id = #{0}
+        ) t ON t.auth_id = a.auth_id
     </select>
 </mapper>

@@ -4,13 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.touch6.business.mybatis.system.UserRoleMybatisDao">
-    <insert id="insertUserRole" parameterType="com.touch6.business.entity.system.UserRole">
+    <insert id="insertUserRoleInBatch" parameterType="hashMap">
         insert ignore into t_si_user_role(
         user_id,role_id
         )
-        values(
-        #{userId},#{roleId}
-        )
+        values
+        <foreach collection="roleIds" item="roleId" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
     </insert>
     <select id="findByUserRole" resultType="com.touch6.business.entity.system.UserRole" parameterType="com.touch6.business.entity.system.UserRole">
         select
@@ -37,6 +38,9 @@
     <delete id="deleteUserRoleByRoleId" parameterType="com.touch6.business.entity.system.UserRole">
         delete from t_si_user_role where role_id=#{roleId}
     </delete>
+    <delete id="deleteUserRoleByUserId" parameterType="long">
+        delete from t_si_user_role where user_id=#{0}
+    </delete>
     <select id="findAll" resultType="com.touch6.business.entity.system.UserRole">
         select
             ur.user_id,u.name userName,
@@ -49,5 +53,23 @@
             ur.role_id,r.name
         order by
             r.role_id
+    </select>
+    <select id="findAllUserroleByUserId" resultType="com.touch6.business.entity.system.UserRole" parameterType="long">
+        SELECT
+        r.role_id,
+        r.name roleName,
+        t.user_id
+        FROM
+        t_si_role r
+        LEFT JOIN (
+        SELECT
+        user.id user_id,
+        ur.role_id
+        FROM
+        t_si_user user
+        JOIN t_si_user_role ur ON ur.user_id = user.id
+        WHERE
+        ur.user_id = #{0}
+        ) t ON t.role_id = r.role_id
     </select>
 </mapper>

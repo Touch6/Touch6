@@ -1,7 +1,10 @@
 package com.touch6.business.api.service.impl.system;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.touch6.business.api.service.system.AuthRoleService;
 import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.User;
@@ -59,79 +62,53 @@ public class AuthRoleServiceImpl implements AuthRoleService {
 
     @Override
     @Transactional
-    public AuthRole assignAuthRole(Long authId, Long roleId) {
-        Auth auth = authMybatisDao.findByAuthId(authId);
-        if (auth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+    public void assignAuthRole(JSONObject authrole) {
+        Long roleId = authrole.getLong("roleId");
+        List<Long> authIds = Lists.newArrayList();
+        JSONArray authList = authrole.getJSONArray("authList");
+        if (authList.size() > 0) {
+            for (int i = 0; i < authList.size(); i++) {
+                JSONObject obj = authList.getJSONObject(i);
+                boolean checked = obj.getBoolean("checked");
+                Long authId = obj.getLong("authId");
+                if (checked) {
+                    authIds.add(authId);
+                }
+            }
         }
-        Role role = roleMybatisDao.findByRoleId(roleId);
-        if (role == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        AuthRole authRole = authRoleMybatisDao.findByAuthRole(new AuthRole(authId, roleId));
-        if (authRole != null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        int inserted = authRoleMybatisDao.insertAuthRole(authRole);
-        if (inserted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
-        }
-        return authRole;
-    }
-
-
-    @Override
-    @Transactional
-    public AuthRole updateAuthRole(Long authId, Long roleId, Long newAuthId) {
-        Auth auth = authMybatisDao.findByAuthId(authId);
-        if (auth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        Auth newAuth = authMybatisDao.findByAuthId(newAuthId);
-        if (newAuth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        Role role = roleMybatisDao.findByRoleId(roleId);
-        if (role == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        AuthRole authRole = authRoleMybatisDao.findByAuthRole(new AuthRole(authId, roleId));
-        if (authRole == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
+        //先删除原来的配置
+        int deleted = authRoleMybatisDao.deleteAuthRoleByRoleId(roleId);
+        logger.info("删除原配置:[{}]", deleted);
+        //然后插入新的配置
         Map params = new HashMap();
-        params.put("authId", authId);
         params.put("roleId", roleId);
-        params.put("newAuthId", newAuthId);
-        int updated = authRoleMybatisDao.updateAuthRole(params);
-        if (updated == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        return authRole;
+        params.put("authIds", authIds);
+        int inserted = authRoleMybatisDao.insertAuthRoleInBatch(params);
+        logger.info("新插入配置:[{}]", inserted);
     }
 
     @Override
-    @Transactional
-    public void deleteAuthRole(AuthRole authRole) {
-        int deleted = authRoleMybatisDao.deleteAuthRole(authRole);
-        if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
+    public JSONObject findAllAuthroleByRoleId(Long roleId) {
+        Role role = roleMybatisDao.findByRoleId(roleId);
+        List<AuthRole> authRoleList = authRoleMybatisDao.findAllAuthroleByRoleId(roleId);
+        JSONObject out = new JSONObject();
+        out.put("roleId", roleId);
+        out.put("roleName", role.getName());
+        List<JSONObject> list = Lists.newArrayList();
+        if (authRoleList.size() > 0) {
+            for (AuthRole ar : authRoleList) {
+                JSONObject obj = new JSONObject();
+                obj.put("authId", ar.getAuthId());
+                obj.put("authName", ar.getAuthName());
+                if (ar.getRoleId() == null) {
+                    obj.put("checked", false);
+                } else {
+                    obj.put("checked", true);
+                }
+                list.add(obj);
+            }
         }
-    }
-
-
-    @Override
-    public PageObject<AuthRole> findAuthRoles(int page, int pageSize) {
-        logger.info("获取所有权限角色page:[{}],pageSize:[{}]", page, pageSize);
-        PageHelper.startPage(page, pageSize, true);//查询出总数
-
-        List<AuthRole> authRoles = authRoleMybatisDao.findAll();
-        //分页实现
-        //或者使用PageInfo类（下面的例子有介绍）
-        PageInfo<AuthRole> pageInfo = new PageInfo<AuthRole>(authRoles);
-
-        PageObject<AuthRole> pageObject = BeanMapper.map(pageInfo, PageObject.class);
-        pageObject.setList(authRoles);
-        return pageObject;
+        out.put("authList", list);
+        return out;
     }
 }

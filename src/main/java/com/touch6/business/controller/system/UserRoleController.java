@@ -26,50 +26,32 @@ public class UserRoleController {
 
     @Autowired
     private UserRoleService userRoleService;
+
     @RequestMapping(value = "", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity assignUserRole(@RequestBody UserRole userRole) {
+    public ResponseEntity assignUserRole(@RequestBody JSONObject userrole) {
         try {
-            logger.info("接收到用户角色配置:[{}]", JSONObject.toJSONString(userRole));
-            UserRole ur = userRoleService.assignUserRole(userRole.getUserId(), userRole.getRoleId());
-            Success ok = new Success(200, ur, "配置用户角色成功");
+            logger.info("接收到用户角色配置:[{}]", userrole.toJSONString());
+            userRoleService.assignUserRole(userrole);
+            Success ok = new Success(200, "配置成功", "配置用户角色成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-    @RequestMapping(value = "", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+
+    @RequestMapping(value = "list/{userId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity updateUserRole(@RequestBody UserRole userRole) {
+    public ResponseEntity findAllAuthroleByRoleId(@PathVariable("userId") Long userId) {
         try {
-            logger.info("接收到用户角色修改:[{}]", JSONObject.toJSONString(userRole));
-            UserRole ur = userRoleService.updateUserRole(userRole.getUserId(), userRole.getRoleId(), userRole.getNewRoleId());
-            Success ok = new Success(200, ur, "修改用户角色信息成功");
+            JSONObject userrole = userRoleService.findAllUserroleByUserId(userId);
+            Success ok = new Success(200, userrole, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
-
-
-    @RequestMapping(value = "pageable", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity pageUserRoles(@RequestParam(value = "page", defaultValue = "1") int page,
-                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        try {
-            PageObject<UserRole> pageObject = userRoleService.findUserRoles(page, pageSize);
-            Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(ok, HttpStatus.OK);
-        } catch (CoreException e) {
-            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-
-
 }

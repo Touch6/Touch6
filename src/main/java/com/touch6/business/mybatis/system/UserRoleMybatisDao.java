@@ -23,15 +23,12 @@ import java.util.Map;
  */
 @MyBatisRepository
 public interface UserRoleMybatisDao {
-    int insertUserRole(UserRole userRole);
 
-    UserRole findByUserRole(UserRole userRole);
+    List<UserRole> findAllUserroleByUserId(Long userId);
 
-    int updateUserRole(Map params);
+    int deleteUserRoleByUserId(Long userId);
 
-    int deleteUserRole(UserRole userRole);
-
-    List<UserRole> findAll();
+    int insertUserRoleInBatch(Map params);
 
     int deleteUserRoleByRoleId(Long roleId);
 }

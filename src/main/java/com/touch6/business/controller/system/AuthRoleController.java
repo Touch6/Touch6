@@ -31,40 +31,25 @@ public class AuthRoleController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity assignRoleAuth(@RequestBody AuthRole authRole) {
+    public ResponseEntity assignMenuAuth(@RequestBody JSONObject authrole) {
         try {
-            logger.info("接收到角色权限配置:[{}]", JSONObject.toJSONString(authRole));
-            AuthRole ar = authRoleService.assignAuthRole(authRole.getAuthId(), authRole.getRoleId());
-            Success ok = new Success(200, ar, "配置角色权限成功");
+            logger.info("接收到角色权限配置:[{}]", authrole.toJSONString());
+            authRoleService.assignAuthRole(authrole);
+            Success ok = new Success(200, "配置成功", "配置角色权限成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity updateAuthRole(@RequestBody AuthRole authRole) {
-        try {
-            logger.info("接收到角色权限修改:[{}]", JSONObject.toJSONString(authRole));
-            AuthRole ar = authRoleService.updateAuthRole(authRole.getAuthId(), authRole.getRoleId(), authRole.getNewAuthId());
-            Success ok = new Success(200, ar, "修改角色权限信息成功");
-            return new ResponseEntity(ok, HttpStatus.OK);
-        } catch (CoreException e) {
-            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-        }
-    }
 
-    @RequestMapping(value = "pageable", method = RequestMethod.GET,
+    @RequestMapping(value = "list/{roleId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity pageAuthRoles(@RequestParam(value = "page", defaultValue = "1") int page,
-                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public ResponseEntity findAllAuthroleByRoleId(@PathVariable("roleId") Long roleId) {
         try {
-            PageObject<AuthRole> pageObject = authRoleService.findAuthRoles(page, pageSize);
-            Success ok = new Success(200, pageObject, "查询成功");
+            JSONObject authrole = authRoleService.findAllAuthroleByRoleId(roleId);
+            Success ok = new Success(200, authrole, "查询成功");
             return new ResponseEntity(ok, HttpStatus.OK);
         } catch (CoreException e) {
             return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);

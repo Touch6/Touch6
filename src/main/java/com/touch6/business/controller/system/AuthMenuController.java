@@ -44,35 +44,6 @@ public class AuthMenuController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity deleteAuthMenu(@RequestBody AuthMenu authMenu) {
-        try {
-            logger.info("删除菜单权限:[{}]", JSONObject.toJSONString(authMenu));
-            authMenuService.deleteAuthMenu(authMenu);
-            Success ok = new Success(200, "删除成功", "删除成功");
-            return new ResponseEntity(ok, HttpStatus.OK);
-        } catch (CoreException e) {
-            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @RequestMapping(value = "pageable", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity pageAuthMenus(@RequestParam(value = "page", defaultValue = "1") int page,
-                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        try {
-            PageObject<AuthMenu> pageObject = authMenuService.findAuthMenus(page, pageSize);
-            Success ok = new Success(200, pageObject, "查询成功");
-            return new ResponseEntity(ok, HttpStatus.OK);
-        } catch (CoreException e) {
-            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @RequestMapping(value = "list/{menuId}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

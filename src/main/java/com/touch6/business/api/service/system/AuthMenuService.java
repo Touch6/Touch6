@@ -14,11 +14,5 @@ import java.util.List;
 public interface AuthMenuService {
     void assignAuthMenu(JSONObject authmenu);
 
-    AuthMenu updateAuthMenu(Long authId, Long menuId, Long newAuthId);
-
-    void deleteAuthMenu(AuthMenu authMenu);
-
-    PageObject<AuthMenu> findAuthMenus(int page, int pageSize);
-
     JSONObject findAllAuthmenuByMenuId(Long menuId);
 }

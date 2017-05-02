@@ -83,62 +83,6 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         logger.info("新插入配置:[{}]",inserted);
     }
 
-
-    @Override
-    @Transactional
-    public AuthMenu updateAuthMenu(Long authId, Long menuId, Long newAuthId) {
-        Auth auth = authMybatisDao.findByAuthId(authId);
-        if (auth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        Auth newAuth = authMybatisDao.findByAuthId(newAuthId);
-        if (newAuth == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        Menu menu = menuMybatisDao.findByMenuId(menuId);
-        if (menu == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        AuthMenu authMenu = authMenuMybatisDao.findByAuthMenu(new AuthMenu(authId, menuId));
-        if (authMenu == null) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        Map params = new HashMap();
-        params.put("authId", authId);
-        params.put("menuId", menuId);
-        params.put("newAuthId", newAuthId);
-        int updated = authMenuMybatisDao.updateAuthMenu(params);
-        if (updated == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        return authMenu;
-    }
-
-
-    @Override
-    @Transactional
-    public void deleteAuthMenu(AuthMenu authMenu) {
-        int deleted = authMenuMybatisDao.deleteAuthMenu(authMenu);
-        if (deleted == 0) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-    }
-
-    @Override
-    public PageObject<AuthMenu> findAuthMenus(int page, int pageSize) {
-        logger.info("获取所有权限菜单page:[{}],pageSize:[{}]", page, pageSize);
-        PageHelper.startPage(page, pageSize, true);//查询出总数
-
-        List<AuthMenu> authMenus = authMenuMybatisDao.findAll();
-        //分页实现
-        //或者使用PageInfo类（下面的例子有介绍）
-        PageInfo<AuthMenu> pageInfo = new PageInfo<AuthMenu>(authMenus);
-
-        PageObject<AuthMenu> pageObject = BeanMapper.map(pageInfo, PageObject.class);
-        pageObject.setList(authMenus);
-        return pageObject;
-    }
-
     @Override
     public JSONObject findAllAuthmenuByMenuId(Long menuId) {
         Menu menu = menuMybatisDao.findByMenuId(menuId);
