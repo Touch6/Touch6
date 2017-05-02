@@ -1,5 +1,6 @@
 package com.touch6.business.api.service.impl.system;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -57,27 +58,29 @@ public class AuthMenuServiceImpl implements AuthMenuService {
 
     @Override
     @Transactional
-    public void assignAuthMenu(Long[] authIdArray, Long[] menuIdArray) {
-        List authIds = Arrays.asList(authIdArray);
-        List menuIds = Arrays.asList(menuIdArray);
-        int authCount = authMybatisDao.findCountByAuthIds(authIds);
-        if (authCount != authIds.size()) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        int menuCount = menuMybatisDao.findCountByMenuIds(menuIds);
-        if (menuCount != menuIds.size()) {
-            throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
-        }
-        for (int i = 0; i < authIds.size(); i++) {
-            Map params = new HashMap();
-            params.put("authId", authIds.get(i));
-            params.put("menuIds", menuIds);
-            int inserted = authMenuMybatisDao.insertAuthMenuInBatch(params);
-            if (inserted == 0) {
-                throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
+    public void assignAuthMenu(JSONObject authmenu) {
+        Long menuId = authmenu.getLong("menuId");
+        List<Long> authIds = Lists.newArrayList();
+        JSONArray authList = authmenu.getJSONArray("authList");
+        if (authList.size() > 0) {
+            for (int i = 0; i < authList.size(); i++) {
+                JSONObject obj = authList.getJSONObject(i);
+                boolean checked = obj.getBoolean("checked");
+                Long authId = obj.getLong("authId");
+                if (checked) {
+                    authIds.add(authId);
+                }
             }
-            logger.info("添加authId:[{}]配置:[{}]个", authIds.get(i), menuIds.size());
         }
+        //先删除原来的配置
+        int deleted = authMenuMybatisDao.deleteAuthMenuByMenuId(menuId);
+        logger.info("删除原配置:[{}]",deleted);
+        //然后插入新的配置
+        Map params = new HashMap();
+        params.put("menuId", menuId);
+        params.put("authIds", authIds);
+        int inserted = authMenuMybatisDao.insertAuthMenuInBatch(params);
+        logger.info("新插入配置:[{}]",inserted);
     }
 
 
@@ -138,9 +141,11 @@ public class AuthMenuServiceImpl implements AuthMenuService {
 
     @Override
     public JSONObject findAllAuthmenuByMenuId(Long menuId) {
+        Menu menu = menuMybatisDao.findByMenuId(menuId);
         List<AuthMenu> authMenuList = authMenuMybatisDao.findAllAuthmenuByMenuId(menuId);
-        JSONObject out=new JSONObject();
-        out.put("menuId",menuId);
+        JSONObject out = new JSONObject();
+        out.put("menuId", menuId);
+        out.put("menuName", menu.getName());
         List<JSONObject> list = Lists.newArrayList();
         if (authMenuList.size() > 0) {
             for (AuthMenu am : authMenuList) {
@@ -155,7 +160,7 @@ public class AuthMenuServiceImpl implements AuthMenuService {
                 list.add(obj);
             }
         }
-        out.put("authList",list);
+        out.put("authList", list);
         return out;
     }
 }

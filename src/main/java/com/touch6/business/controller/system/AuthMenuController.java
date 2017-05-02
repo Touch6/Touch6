@@ -29,35 +29,21 @@ public class AuthMenuController {
     @Autowired
     private AuthMenuService authMenuService;
 
-//    @RequestMapping(value = "", method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public ResponseEntity assignMenuAuth(@RequestBody AuthMenu authMenu) {
-//        try {
-//            logger.info("接收到菜单权限配置:[{}]", JSONObject.toJSONString(authMenu));
-//            authMenuService.assignAuthMenu(authMenu.getAuthIds(), authMenu.getMenuIds());
-//            Success ok = new Success(200, "添加成功", "配置菜单权限成功");
-//            return new ResponseEntity(ok, HttpStatus.OK);
-//        } catch (CoreException e) {
-//            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity assignMenuAuth(@RequestBody JSONObject authMenu) {
+        try {
+            logger.info("接收到菜单权限配置:[{}]", authMenu.toJSONString());
+            authMenuService.assignAuthMenu(authMenu);
+            Success ok = new Success(200, "配置成功", "配置菜单权限成功");
+            return new ResponseEntity(ok, HttpStatus.OK);
+        } catch (CoreException e) {
+            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-//    @RequestMapping(value = "", method = RequestMethod.PUT,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public ResponseEntity updateAuthMenu(@RequestBody AuthMenu authMenu) {
-//        try {
-//            logger.info("接收到菜单权限修改:[{}]", JSONObject.toJSONString(authMenu));
-//            AuthMenu am = authMenuService.updateAuthMenu(authMenu.getAuthId(), authMenu.getMenuId(), authMenu.getNewAuthId());
-//            Success ok = new Success(200, am, "修改菜单权限信息成功");
-//            return new ResponseEntity(ok, HttpStatus.OK);
-//        } catch (CoreException e) {
-//            return new ResponseEntity(e.getError(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
     @RequestMapping(value = "", method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
