@@ -1,5 +1,6 @@
 package com.touch6.business.api.service.system;
 
+import com.alibaba.fastjson.JSONObject;
 import com.touch6.business.dto.UserDto;
 import com.touch6.business.entity.system.*;
 import com.touch6.business.output.system.ModuleSelectList;
@@ -19,5 +20,5 @@ public interface AuthMenuService {
 
     PageObject<AuthMenu> findAuthMenus(int page, int pageSize);
 
-    List<AuthMenu> findAllAuthmenuByMenuId(Long menuId);
+    JSONObject findAllAuthmenuByMenuId(Long menuId);
 }

@@ -1,5 +1,6 @@
 package com.touch6.business.api.service.impl.system;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -57,8 +58,8 @@ public class AuthMenuServiceImpl implements AuthMenuService {
     @Override
     @Transactional
     public void assignAuthMenu(Long[] authIdArray, Long[] menuIdArray) {
-        List authIds= Arrays.asList(authIdArray);
-        List menuIds= Arrays.asList(menuIdArray);
+        List authIds = Arrays.asList(authIdArray);
+        List menuIds = Arrays.asList(menuIdArray);
         int authCount = authMybatisDao.findCountByAuthIds(authIds);
         if (authCount != authIds.size()) {
             throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_PARAMS_ERROR));
@@ -70,12 +71,12 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         for (int i = 0; i < authIds.size(); i++) {
             Map params = new HashMap();
             params.put("authId", authIds.get(i));
-            params.put("menuIds",menuIds);
+            params.put("menuIds", menuIds);
             int inserted = authMenuMybatisDao.insertAuthMenuInBatch(params);
             if (inserted == 0) {
                 throw new CoreException(ECodeUtil.getCommError(CommonErrorConstant.COMMON_OPER_REPEAT));
             }
-            logger.info("添加authId:[{}]配置:[{}]个",authIds.get(i),menuIds.size());
+            logger.info("添加authId:[{}]配置:[{}]个", authIds.get(i), menuIds.size());
         }
     }
 
@@ -136,7 +137,25 @@ public class AuthMenuServiceImpl implements AuthMenuService {
     }
 
     @Override
-    public List<AuthMenu> findAllAuthmenuByMenuId(Long menuId) {
-        return authMenuMybatisDao.findAllAuthmenuByMenuId(menuId);
+    public JSONObject findAllAuthmenuByMenuId(Long menuId) {
+        List<AuthMenu> authMenuList = authMenuMybatisDao.findAllAuthmenuByMenuId(menuId);
+        JSONObject out=new JSONObject();
+        out.put("menuId",menuId);
+        List<JSONObject> list = Lists.newArrayList();
+        if (authMenuList.size() > 0) {
+            for (AuthMenu am : authMenuList) {
+                JSONObject obj = new JSONObject();
+                obj.put("authId", am.getAuthId());
+                obj.put("authName", am.getAuthName());
+                if (am.getMenuId() == null) {
+                    obj.put("checked", false);
+                } else {
+                    obj.put("checked", true);
+                }
+                list.add(obj);
+            }
+        }
+        out.put("authList",list);
+        return out;
     }
 }

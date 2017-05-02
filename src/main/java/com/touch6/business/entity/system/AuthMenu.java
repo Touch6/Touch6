@@ -1,5 +1,8 @@
 package com.touch6.business.entity.system;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,17 +10,17 @@ import java.util.List;
  */
 public class AuthMenu {
     private Long authId;
-    private Long[] authIds;
-    private String authName;
     private Long menuId;
-    private Long[] menuIds;
+    private String authName;
     private String menuName;
-    private Long newAuthId;
+    private List<JSONObject> authList = new ArrayList<>();
 
-    public AuthMenu(){}
+    public AuthMenu() {
+    }
+
     public AuthMenu(Long authId, Long menuId) {
-        this.authId=authId;
-        this.menuId=menuId;
+        this.authId = authId;
+        this.menuId = menuId;
     }
 
     public Long getAuthId() {
@@ -36,14 +39,6 @@ public class AuthMenu {
         this.menuId = menuId;
     }
 
-    public Long getNewAuthId() {
-        return newAuthId;
-    }
-
-    public void setNewAuthId(Long newAuthId) {
-        this.newAuthId = newAuthId;
-    }
-
     public String getAuthName() {
         return authName;
     }
@@ -60,19 +55,11 @@ public class AuthMenu {
         this.menuName = menuName;
     }
 
-    public Long[] getAuthIds() {
-        return authIds;
+    public List<JSONObject> getAuthList() {
+        return authList;
     }
 
-    public void setAuthIds(Long[] authIds) {
-        this.authIds = authIds;
-    }
-
-    public Long[] getMenuIds() {
-        return menuIds;
-    }
-
-    public void setMenuIds(Long[] menuIds) {
-        this.menuIds = menuIds;
+    public void setAuthList(List<JSONObject> authList) {
+        this.authList = authList;
     }
 }

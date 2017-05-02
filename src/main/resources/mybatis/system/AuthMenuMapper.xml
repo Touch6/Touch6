@@ -33,13 +33,6 @@
             am.auth_id,a.name,
             am.menu_id,m.name
     </select>
-    <update id="updateAuthMenu" parameterType="hashMap">
-        update t_si_auth_menu
-        <set>
-            auth_id=#{newAuthId}
-        </set>
-        where auth_id=#{authId} and menu_id=#{menuId}
-    </update>
     <delete id="deleteAuthMenu" parameterType="com.touch6.business.entity.system.AuthMenu">
         delete from t_si_auth_menu where auth_id=#{authId} and menu_id=#{menuId}
     </delete>
